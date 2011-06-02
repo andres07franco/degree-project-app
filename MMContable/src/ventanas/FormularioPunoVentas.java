@@ -792,7 +792,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
-         int confirmado = JOptionPane.showConfirmDialog(this,"Se Borrara todo lo que ha hecho esta seguro de SALIR?","¿Reinicar?",JOptionPane.YES_NO_OPTION);
+         int confirmado = JOptionPane.showConfirmDialog(this,"Se borrara todo lo que ha hecho esta seguro de SALIR?","¿Reinicar?",JOptionPane.YES_NO_OPTION);
          if (JOptionPane.OK_OPTION == confirmado){
                 this.dispose();
                  pestana.remove(desktopPane);
