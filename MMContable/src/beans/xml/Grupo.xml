@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="GrupoMapper">
+
+    <resultMap id="resMapGrupo"     type="aliasGrupo">
+        <result property="id"           column="ID" />
+        <result property="codigo"       column="CODIGO" />
+        <result property="grupo"        column="GRUPO" />
+        <result property="estado.id"    column="ESTADO" />
+    </resultMap>
+
+    <select id="obtenerGrupos" parameterType="aliasGrupo" resultMap="resMapGrupo">
+        <![CDATA[
+            SELECT
+                id ID,
+                codigo CODIGO,
+                grupo GRUPO,
+                estado ESTADO
+            FROM
+                grupo
+            WHERE
+                codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
+            AND
+                grupo LIKE IFNULL(#{grupo, jdbcType=VARCHAR},'%')
+        ]]>
+    </select>
+
+    <select id="obtenerGruposActivos" parameterType="aliasGrupo" resultMap="resMapGrupo">
+        <![CDATA[
+            SELECT
+                id ID,
+                codigo CODIGO,
+                grupo GRUPO,
+                estado ESTADO
+            FROM
+                grupo
+            WHERE
+                codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
+            AND
+                grupo LIKE IFNULL(#{grupo, jdbcType=VARCHAR},'%')
+            AND
+                estado = 1
+        ]]>
+    </select>
+
+    <select id="existeGrupo" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(g.id)
+            FROM
+                grupo g
+            WHERE
+                g.grupo = #{grupo, jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <select id="existeGrupoPorCodigo" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(g.id)
+            FROM
+                grupo g
+            WHERE
+                g.codigo = #{codigo, jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <insert id="insertarGrupo" parameterType="aliasGrupo">
+        <![CDATA[
+            INSERT INTO
+                grupo
+                    (codigo,grupo,estado)
+            VALUES
+                    (#{codigo,jdbcType=VARCHAR},#{grupo,jdbcType=VARCHAR},#{estado.id,jdbcType=INTEGER})
+        ]]>
+    </insert>
+
+    <insert id="actualizarGrupo" parameterType="aliasGrupo">
+        <![CDATA[
+            UPDATE
+                grupo
+            SET
+                codigo = #{codigo,jdbcType=VARCHAR},
+                grupo = #{grupo,jdbcType=VARCHAR},
+                estado = #{estado.id,jdbcType=INTEGER}
+            WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </insert>
+</mapper>

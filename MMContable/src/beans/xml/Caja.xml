@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="CajaMapper">
+
+    <resultMap id="resMapCaja"           type="aliasCaja">
+        <result property="id"               column="ID" />
+        <result property="ventasefectivo"   column="VENTAS_EFECTIVO" />
+        <result property="ventascredito"    column="VENTAS_CREDITO" />
+        <result property="pagosdecliente"   column="PAGOS_DE_CLIENTE" />
+        <result property="anticipos"        column="ANTICIPOS" />
+        <result property="otrosingresos"    column="OTROS_INGRESOS" />
+        <result property="gastosvarios"     column="GASTOS_VARIOS" />
+        <result property="pagoaproveedor"   column="PAGO_A_PROVEEDOR" />
+        <result property="devolucionesv"    column="DEVOLUCIONESV" />
+        <result property="devolucionesa"    column="DEVOLUCIONESA" />
+        <result property="retirocaja"       column="RETIRO_CAJA" />
+        <result property="iniciodia"        column="INICIO_DIA" />
+        <result property="saldoactual"      column="SALDO_ACTUAL" />
+        <result property="ganancia"         column="GANANCIA" />
+        <result property="cajaprincipal"    column="CAJA_PRINCIPAL" />
+        <result property="fechaabre"        column="FECHA_ABRE" />
+        <result property="fechacierre"      column="FECHA_CIERRE" />
+        <result property="horaabre"         column="HORA_ABRE" />
+        <result property="horacierre"       column="HORA_CIERRE" />
+        <result property="estado"           column="ESTADO" />
+    </resultMap>
+
+    <select id="obtenerCajaDia" resultMap="resMapCaja">
+        <![CDATA[
+            SELECT
+                id ID,
+                ventasefectivo VENTAS_EFECTIVO,
+                ventascredito VENTAS_CREDITO,
+                pagosdecliente PAGOS_DE_CLIENTE,
+                anticipos ANTICIPOS,
+                otrosingresos OTROS_INGRESOS,
+                gastosvarios GASTOS_VARIOS,
+                pagoaproveedor PAGO_A_PROVEEDOR,
+                devolucionesv DEVOLUCIONESV,
+                devolucionesa DEVOLUCIONESA,
+                retirocaja RETIRO_CAJA,
+                iniciodia INICIO_DIA,
+                saldoactual SALDO_ACTUAL,
+                ganancia GANANCIA,
+                cajaprincipal CAJA_PRINCIPAL,
+                fechaabre FECHA_ABRE,
+                fechacierre FECHA_CIERRE,
+                horaabre HORA_ABRE,
+                horacierre HORA_CIERRE,
+                estado ESTADO
+            FROM
+                caja
+            WHERE
+                fechaabre = curdate()
+            AND
+                estado = 1
+        ]]>
+    </select>
+
+    <insert id="insertarCajaDia" parameterType="aliasCaja">
+        <![CDATA[
+            INSERT INTO
+                caja
+                    (saldoactual,iniciodia,fechaabre,horaabre,estado)
+            VALUES
+                    (#{saldoactual,jdbcType=NUMERIC},#{iniciodia,jdbcType=NUMERIC},#{fechaabre,jdbcType=DATE},#{horaabre,jdbcType=TIME},#{estado,jdbcType=INTEGER})
+        ]]>
+    </insert>
+
+    <update id="actualizarCajaDia" parameterType="aliasCaja">
+        <![CDATA[
+            UPDATE
+                caja
+            SET
+                ventasefectivo = #{ventasefectivo,jdbcType=NUMERIC},
+                ventascredito = #{ventascredito,jdbcType=NUMERIC},
+                pagosdecliente = #{pagosdecliente,jdbcType=NUMERIC},
+                anticipos = #{anticipos,jdbcType=NUMERIC},
+                otrosingresos = #{otrosingresos,jdbcType=NUMERIC},
+                gastosvarios = #{gastosvarios,jdbcType=NUMERIC},
+                pagoaproveedor = #{pagoaproveedor,jdbcType=NUMERIC},
+                devolucionesv = #{devolucionesv,jdbcType=NUMERIC},
+                devolucionesa = #{devolucionesa,jdbcType=NUMERIC},
+                retirocaja = #{retirocaja,jdbcType=NUMERIC},
+                iniciodia = #{iniciodia,jdbcType=NUMERIC},
+                saldoactual = #{saldoactual,jdbcType=NUMERIC},
+                ganancia = #{ganancia,jdbcType=NUMERIC},
+                cajaprincipal = #{cajaprincipal,jdbcType=NUMERIC},
+                fechaabre = #{fechaabre,jdbcType=DATE},
+                fechacierre = #{fechacierre,jdbcType=DATE},
+                horaabre = #{horaabre,jdbcType=TIME},
+                horacierre = #{horacierre,jdbcType=TIME}
+            WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </update>
+
+</mapper>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="DocumentoMapper">
+
+    <resultMap id="resMapDocumento"                   type="aliasDocumento">
+        <result property="id"                               column="ID" />
+        <result property="fecha"                            column="FECHA" />
+        <result property="tipo.id"                          column="ID_TIPO_DOCUMENTO" />
+        <result property="tercero.id"                       column="ID_TERCERO" />
+        <result property="tercero.nit"                      column="NIT_TERCERO" />
+        <result property="tercero.tipo"                     column="TIPO_TERCERO" />
+        <result property="tercero.nombre"                   column="NOMBRE_TERCERO" />
+        <result property="tercero.direccion"                column="DIRECCION_TERCERO" />
+        <result property="tercero.departamento"             column="DEPARTAMENTO_TERCERO" />
+        <result property="tercero.ciudad"                   column="CIUDAD_TERCERO" />
+        <result property="tercero.telefono"                 column="TELEFONO_TERCERO" />
+        <result property="tercero.contacto"                 column="CONTACTO_TERCERO" />
+        <result property="tercero.email"                    column="EMAIL_TERCERO" />
+        <result property="tercero.celular"                  column="CELULAR_TERCERO" />
+        <result property="tercero.empresa.id"               column="ID_EMPRESA" />
+        <result property="tercero.empresa.ciudad"           column="CIUDAD_EMPRESA" />
+        <result property="tercero.empresa,direccion"        column="DIRECCION_EMPRESA" />
+        <result property="tercero.empresa.email"            column="EMAIL_EMPRESA" />
+        <result property="tercero.empresa.licencia"         column="LICENCIA_EMPRESA" />
+        <result property="tercero.empresa.nit"              column="NIT_EMPRESA" />
+        <result property="tercero.empresa.nombre"           column="NOMBRE_EMPRESA" />
+        <result property="tercero.empresa.telefono"         column="TELEFONO_EMPRESA" />
+        <result property="tercero.empresa.propietario"      column="PROPIETARIO_EMPRESA" />
+        <result property="tercero.estado"                   column="ESTADO_TERCERO" />
+        <result property="numero"                           column="NUMERO" />
+        <result property="total"                            column="TOTAL" />
+        <result property="descuento"                        column="DESCUENTO" />
+        <result property="nota"                             column="NOTA3" />
+        <result property="estadoDocumento"                  column="NOT2A" />
+        <result property="tipopago.id"                      column="ID_TIPO_PAGO" />
+        <result property="fechavencimiento"                 column="FECHA_VENCIMIENTO" />
+        <result property="totalpagado"                      column="TOTAL_PAGADO" />
+        <result property="tipodescuento"                    column="ID_TIPO_DESCUENTO" />
+        <result property="subtotal"                         column="SUBTOTAL" />
+        <result property="documento.id"                     column="ID_DOCUMENTO" />
+        <result property="documento.numero"                     column="NUMERO_DOCUMENTO" />
+        <result property="estado"                     column="ESTADO" />
+    </resultMap>
+
+
+
+     <select id="obtenerSaldosIniciales"  resultType="aliasDocumento">
+        SELECT
+            d.id               ID,
+            d.fecha            FECHA,
+            d.tipo             ID_TIPO_DOCUMENTO,
+            d.tercero          ID_TERCERO,
+            t.nit              NIT_TERCERO,
+            t.nombre           NOMBRE_TERCERO,
+            d.numero           NUMERO,
+            d.total            TOTAL,
+            d.nota             NOTA,
+            d.tipopago         ID_TIPO_PAGO,
+            d.fechavencimiento FECHA_VENCIMIENTO,
+            d.totalpagado      TOTAL_PAGADO,
+            d.tipodescuento    ID_TIPO_DESCUENTO,
+            d.subtotal         SUBTOTAL,
+            d.descuento        DESCUENTO,
+            d.estado            ESTADO
+        FROM
+            documento d, tercero t
+        WHERE
+            d.tercero        = t.id
+            AND  d.id = 1
+            AND d.tipo = 1
+            LIMIT 1
+
+    </select>
+
+
+
+
+
+    <select id="existeDocumento" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(d.id)
+            FROM
+                documento d
+            WHERE
+                d.numero = #{numero, jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <select id="obtenerDocumentos" parameterType="aliasDocumento" resultMap="resMapDocumento">
+        SELECT
+            d.id               ID,
+            d.fecha            FECHA,
+            d.tipo             ID_TIPO_DOCUMENTO,
+            d.tercero          ID_TERCERO,
+            t.nit              NIT_TERCERO,
+            t.nombre           NOMBRE_TERCERO,
+            d.numero           NUMERO,
+            d.total            TOTAL,
+            d.nota             NOT2A,
+            d.tipopago         ID_TIPO_PAGO,
+            d.fechavencimiento FECHA_VENCIMIENTO,
+            d.totalpagado      TOTAL_PAGADO,
+            d.tipodescuento    ID_TIPO_DESCUENTO,
+            d.subtotal         SUBTOTAL,
+            d.descuento        DESCUENTO,
+            d.estado           ESTADO
+        FROM
+            documento d, tercero t
+        WHERE
+            d.numero LIKE IFNULL(#{numero,jdbcType=VARCHAR},'%')
+        <if test="fecha != null">
+            AND
+                d.fecha = #{fecha,jdbcType=DATE}
+        </if>
+        <if test="tercero != null">
+            AND  t.identificacion LIKE IFNULL(#{tercero.identificacion,jdbcType=INTEGER},'%')
+            OR   t.nombre LIKE IFNULL(#{tercero.nombre,jdbcType=VARCHAR},'%')
+                       
+        </if>
+    </select>
+
+  <select id="obtenerDocumentosCyV" parameterType="java.util.Map" resultMap="resMapDocumento">
+        SELECT
+            d.id               ID,
+            d.fecha            FECHA,
+            d.tipo             ID_TIPO_DOCUMENTO,
+            d.tercero          ID_TERCERO,
+            t.nit              NIT_TERCERO,
+            t.nombre           NOMBRE_TERCERO,
+            d.numero           NUMERO,
+            d.total            TOTAL,
+            d.nota             NOTA,
+            d.tipopago         ID_TIPO_PAGO,
+            d.fechavencimiento FECHA_VENCIMIENTO,
+            d.totalpagado      TOTAL_PAGADO,
+            d.tipodescuento    ID_TIPO_DESCUENTO,
+            d.subtotal         SUBTOTAL,
+            d.descuento        DESCUENTO,
+            d.estado           ESTADO
+        FROM
+            documento d, tercero t
+        WHERE
+           ( d.numero     LIKE  #{busqueda,jdbcType=VARCHAR}
+            OR  d.fecha  LIKE  #{busqueda,jdbcType=VARCHAR}
+            OR  t.nit    LIKE  #{busqueda,jdbcType=VARCHAR}
+            OR  t.nombre LIKE  #{busqueda,jdbcType=VARCHAR}
+            OR  d.total  LIKE  #{busqueda,jdbcType=VARCHAR}
+            )
+            AND
+           (    d.tercero = t.id
+            AND
+                 (  d.tipo = #{tipo,jdbcType=INTEGER}
+        <if test="tipo2 != null">
+            OR
+                d.tipo = #{tipo2,jdbcType=DATE}
+        </if>
+                )
+          ) ORDER BY d.fecha desc, d.numero desc
+    </select>
+
+      <select id="obtenerAbonos" parameterType="java.lang.Integer" resultMap="resMapDocumento">
+        SELECT
+            d.id               ID,
+            d.fecha            FECHA,
+            d.tipo             ID_TIPO_DOCUMENTO,
+            d.tercero          ID_TERCERO,
+            d.numero           NUMERO,
+            d.total            TOTAL,
+            d.nota             NOTA,
+            d.tipopago         ID_TIPO_PAGO,
+            d.fechavencimiento FECHA_VENCIMIENTO,
+            d.totalpagado      TOTAL_PAGADO,
+            d.tipodescuento    ID_TIPO_DESCUENTO,
+            d.subtotal         SUBTOTAL,
+            d.descuento        DESCUENTO,
+            d.estado           ESTADO
+        FROM
+            documento d
+        WHERE
+          d.documento_id =  #{id ,jdbcType=INTEGER}
+
+    </select>
+
+        <insert id="insertarDocumento" parameterType="aliasDocumento" useGeneratedKeys="true" keyProperty="id">
+        
+                INSERT INTO documento
+                      (
+               <if test="id != null">
+                   id,
+               </if>
+                      fecha,
+                       tipo,
+                       tercero,
+                       numero,
+                       total,                       
+                       nota,
+                       tipopago,
+                       fechavencimiento,
+                       totalpagado,
+                       tipodescuento,
+                       subtotal,                      
+                       descuento,
+                       documento_id,
+                       estado)
+                VALUES
+                        (
+             <if test="id != null">
+                        #{id         ,jdbcType=INTEGER},
+               </if>
+                        #{fecha            ,jdbcType=DATE},
+                        #{tipo.id          ,jdbcType=INTEGER},
+                        #{tercero.id       ,jdbcType=INTEGER},
+                        #{numero           ,jbcType=VARCHAR},
+                        #{total            ,jdbcType=NUMERIC},                      
+                        #{nota,            ,jdbcType=VARCHAR},
+                        #{tipopago.id      ,jdbcType=NUMERIC},
+                        #{fechavencimiento ,jdbcType=DATE},
+                        #{totalpagado      ,jdbcType=NUMERIC},
+                        #{tipodescuento.id ,jdbcType=INTEGER},
+                        #{subtotal         ,jdbcType=NUMERIC},
+                        #{descuento       ,jdbcType=NUMERIC},
+                        #{documento.id    ,jdbcType=INTEGER},
+                        #{estado    ,jdbcType=VARCHAR}
+                        )
+
+ </insert>
+
+    <insert id="actualizarDocumento" parameterType="aliasDocumento">
+        <![CDATA[
+            UPDATE
+                documento
+            SET
+              fecha =             #{fecha            ,jdbcType=DATE},
+              tipo  =              #{tipo.id          ,jdbcType=INTEGER},
+              tercero =           #{tercero.id       ,jdbcType=INTEGER},
+              numero =            #{numero           ,jbcType=VARCHAR},
+              TOTAL =             #{total            ,jdbcType=NUMERIC},            
+              nota =              #{nota,            ,jdbcType=VARCHAR},
+              tipopago =          #{tipopago.id      ,jdbcType=NUMERIC},
+              fechavencimiento =  #{fechavencimiento ,jdbcType=DATE},
+              totalpagado =       #{totalpagado      ,jdbcType=NUMERIC},
+              tipodescuento =     #{tipodescuento.id ,jdbcType=INTEGER},
+              subtotal =          #{subtotal         ,jdbcType=NUMERIC},
+              descuento =         #{descuento       ,jdbcType=NUMERIC},
+              estado =            #{estado    ,jdbcType=VARCHAR}
+           WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </insert>
+
+
+</mapper>

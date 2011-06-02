@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="EmpresaMapper">
+
+    <resultMap id="resMapEmpresa"       type="aliasEmpresa">
+        <result property="id"               column="ID" />
+        <result property="ciudad.id"        column="CIUDAD_ID" />
+        <result property="ciudad.nombre"    column="CIUDAD_NOMBRE" />
+        <result property="direccion"        column="DIRECCION" />
+        <result property="email"            column="EMAIL" />
+        <result property="licencia"         column="LICENCIA" />
+        <result property="nit"              column="NIT" />
+        <result property="nombre"           column="NOMBRE" />
+        <result property="telefono"         column="TELEFONO" />
+        <result property="propietario"      column="PROPIETARIO" />
+        <result property="estado"           column="ESTADO" />
+
+    </resultMap>
+
+    <select id="obtenerEmpresa" parameterType="java.lang.Integer" resultMap="resMapEmpresa">
+        <![CDATA[
+            SELECT
+                emp.id ID,
+                c.nombre CIUDAD_NOMBRE,
+                c.id CIUDAD_ID,
+                emp.direccion DIRECCION,
+                emp.email EMAIL,
+                emp.licencia LICENCIA,
+                emp.nit NIT,
+                emp.nombre NOMBRE,
+                emp.telefono TELEFONO,
+                emp.propietario PROPIETARIO
+            FROM
+                empresa emp,
+                ciudad c
+            WHERE
+                emp.id = #{id,jdbcType=INTEGER}
+            AND
+                c.id = emp.ciudad_id
+        ]]>
+    </select>
+
+    <select id="obtenerEmpresaActual"  resultMap="resMapEmpresa">
+        <![CDATA[
+            SELECT
+                emp.id ID,
+                c.nombre CIUDAD_NOMBRE,
+                c.id CIUDAD_ID,
+                emp.direccion DIRECCION,
+                emp.email EMAIL,
+                emp.licencia LICENCIA,
+                emp.nit NIT,
+                emp.nombre NOMBRE,
+                emp.telefono TELEFONO,
+                emp.propietario PROPIETARIO
+            FROM
+                empresa emp,
+                ciudad c
+            WHERE
+                emp.id = (SELECT max( e.id ) FROM empresa e )
+            AND
+                c.id = emp.ciudad_id
+        ]]>
+    </select>
+
+    <insert id="insertarEmpresa" parameterType="aliasEmpresa" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+            INSERT INTO
+                empresa
+                    (ciudad_id,direccion,email,licencia,nit,nombre,telefono,propietario,estado)
+            VALUES
+                    (#{ciudad.id,jdbcType=INTEGER},#{direccion,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{licencia,jdbcType=VARCHAR},#{nit,jdbcType=INTEGER}
+                    ,#{nombre,jdbcType=VARCHAR},#{telefono,jdbcType=VARCHAR},#{propietario,jdbcType=VARCHAR},
+                    #{estado,jdbcType=INTEGER})
+        ]]>
+    </insert>
+
+    <select id="existeEmpresaRegistrada"  resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(emp.id)
+            FROM
+                empresa emp
+        ]]>
+    </select>
+
+    <insert id="actualizarEmpresa" parameterType="aliasEmpresa">
+        <![CDATA[
+            UPDATE
+                empresa
+            SET
+                ciudad_id = #{ciudad.id,jdbcType=INTEGER},
+                direccion = #{direccion,jdbcType=VARCHAR},
+                email = #{email,jdbcType=VARCHAR},
+                licencia = #{licencia,jdbcType=VARCHAR},
+                nit = #{nit,jdbcType=INTEGER},
+                nombre = #{nombre,jdbcType=VARCHAR},
+                telefono = #{telefono,jdbcType=VARCHAR},
+                propietario = #{propietario,jdbcType=VARCHAR},
+                estado = #{estado,jdbcType=INTEGER}
+            WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </insert>
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="TipoPagoMapper">
+
+    <resultMap id="resMapTipoPago"     type="aliasTipoPago">
+        <result property="id"           column="ID" />
+        <result property="descripcion"       column="DESCRIPCION" />
+    </resultMap>
+
+    <select id="obtenerTipoPagos" parameterType="aliasTipoPago" resultMap="resMapTipoPago">
+        <![CDATA[
+            SELECT
+                id ID,
+                descripcion DESCRIPCION
+            FROM
+                tipo_pago
+            WHERE
+                descripcion LIKE IFNULL(#{descripcion, jdbcType=VARCHAR},'%')
+        ]]>
+    </select>
+
+
+    <select id="obtenerTipoPago" parameterType="java.lang.Integer" resultMap="resMapTipoPago">
+        <![CDATA[
+            SELECT
+                m.id ID,
+                m.descripcion DESCRIPCION
+            FROM
+                tipo_pago m
+            WHERE
+                m.id = #{id, jdbcType=INTEGER}
+        ]]>
+    </select>
+
+     <select id="existeTipoPago" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(m.id)
+            FROM
+                tipo_pago m
+            WHERE
+                m.id = #{id, jdbcType=INTEGER}
+        ]]>
+    </select>
+
+    <insert id="insertarTipoPago" parameterType="aliasTipoPago">
+        <![CDATA[
+            INSERT INTO
+                tipo_pago
+                    (descripcion)
+            VALUES
+                    (#{descripcion,jdbcType=VARCHAR}})
+        ]]>
+    </insert>
+
+    <insert id="actualizarTipoPago" parameterType="aliasTipoPago">
+        <![CDATA[
+            UPDATE
+                tipo_pago
+            SET
+                descripcion = #{descripcion,jdbcType=VARCHAR}
+            WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </insert>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="MarcaMapper">
+
+    <resultMap id="resMapMarca"     type="aliasMarca">
+        <result property="id"           column="ID" />
+        <result property="codigo"       column="CODIGO" />
+        <result property="marca"        column="MARCA" />
+        <result property="estado.id"    column="ESTADO" />
+    </resultMap>
+
+    <select id="obtenerMarcas" parameterType="aliasMarca" resultMap="resMapMarca">
+        <![CDATA[
+            SELECT
+                id ID,
+                codigo CODIGO,
+                marca MARCA,
+                estado ESTADO
+            FROM
+                marca
+            WHERE
+                codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
+            AND
+                marca LIKE IFNULL(#{marca, jdbcType=VARCHAR},'%')
+        ]]>
+    </select>
+
+    <select id="obtenerMarcasActivas" parameterType="aliasMarca" resultMap="resMapMarca">
+        <![CDATA[
+            SELECT
+                id ID,
+                codigo CODIGO,
+                marca MARCA,
+                estado ESTADO
+            FROM
+                marca
+            WHERE
+                codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
+            AND
+                marca LIKE IFNULL(#{marca, jdbcType=VARCHAR},'%')
+            AND
+                estado = 1
+        ]]>
+    </select>
+
+    <select id="existeMarca" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(m.id)
+            FROM
+                marca m
+            WHERE
+                m.marca = #{marca, jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <select id="existeMarcaPorCodigo" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(m.id)
+            FROM
+                marca m
+            WHERE
+                m.codigo = #{codigo, jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <insert id="insertarMarca" parameterType="aliasMarca">
+        <![CDATA[
+            INSERT INTO
+                marca
+                    (codigo,marca,estado)
+            VALUES
+                    (#{codigo,jdbcType=VARCHAR},#{marca,jdbcType=VARCHAR},#{estado.id,jdbcType=INTEGER})
+        ]]>
+    </insert>
+
+    <insert id="actualizarMarca" parameterType="aliasMarca">
+        <![CDATA[
+            UPDATE
+                marca
+            SET
+                codigo = #{codigo,jdbcType=VARCHAR},
+                marca = #{marca,jdbcType=VARCHAR},
+                estado = #{estado.id,jdbcType=INTEGER}
+            WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </insert>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="CiudadMapper">
+
+    <resultMap id="resMapCiudad"     type="aliasCiudad">
+        <result property="id"               column="ID" />
+        <result property="departamento.id"  column="DEPARTAMENTO" />
+        <result property="nombre"           column="NOMBRE" />
+    </resultMap>
+
+
+    <select id="obtenerCiudades" parameterType="java.lang.String" resultMap="resMapCiudad">
+        <![CDATA[
+            SELECT
+                id ID,
+                nombre NOMBRE,
+                departamento DEPARTAMENTO
+            FROM
+                ciudad
+            WHERE
+                nombre LIKE IFNULL(#{nombre, jdbcType=VARCHAR},'%')
+        ]]>
+    </select>
+
+    <select id="obtenerCiudadesDepartamento" parameterType="java.lang.Integer" resultMap="resMapCiudad">
+        <![CDATA[
+            SELECT
+                id ID,
+                nombre NOMBRE,
+                departamento DEPARTAMENTO
+            FROM
+                ciudad
+            WHERE
+                departamento = #{id,jdbcType=INTEGER}
+           ]]>
+    </select>
+
+</mapper>

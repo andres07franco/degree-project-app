@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="FacturaEmpresaMapper">
+
+    <resultMap id="resMapFacturaEmpresa"            type="aliasFacturaEmpresa">
+        <result property="id"                       column="ID" />
+        <result property="encabezado1"              column="ENCABEZADO1" />
+        <result property="encabezado2"              column="ENCABEZADO2" />
+        <result property="encabezado3"              column="ENCABEZADO3" />
+        <result property="encabezado4"              column="ENCABEZADO4" />
+        <result property="encabezado5"              column="ENCABEZADO5" />
+        <result property="numeroActual"             column="NUMERO_ACTUAL" />
+        <result property="pie1"                     column="PIE1" />
+        <result property="pie2"                     column="PIE2" />
+        <result property="cotizaciones"             column="COTIZACIONES" />
+        <result property="prefacturas"              column="PREFACTURAS" />
+        <result property="ingresos"                 column="INGRESOS" />
+        <result property="egresos"                  column="EGRESOS" />
+        <result property="papel.id"                 column="PAPEL_ID" />
+        <result property="papel.descripcion"        column="PAPEL_DESCRIPCION" />
+        <result property="empresa.id"               column="ID_EMPRESA" />
+        <result property="empresa.nombre"           column="NOMBRE_EMPRESA" />
+
+    </resultMap>
+
+    <select id="obtenerFacturaEmpresa" parameterType="java.lang.Long" resultType="aliasFacturaEmpresa">
+        <![CDATA[
+            SELECT
+                f.id ID,
+                f.encabezado1 ENCABEZADO1,
+                f.encabezado2 ENCABEZADO2,
+                f.encabezado3 ENCABEZADO3,
+                f.encabezado4 ENCABEZADO4,
+                f.encabezado5 ENCABEZADO5,
+                f.numeroactual NUMERO_ACTUAL,
+                f.pie1 PIE1,
+                f.pie2 PIE2,
+                f.cotizaciones COTIZACIONES,
+                f.prefacturas PREFACTURAS,
+                f.ingresos INGRESOS,
+                f.egresos EGRESOS,
+                papel.id PAPEL_ID,
+                papel.descripcion PAPEL_DESCRIPCION
+            FROM
+                facturaempresa f,
+                papelimpresion papel,
+                empresa emp
+            WHERE
+                f.id = #{id,jdbcType=INTEGER}
+            AND
+                f.papelImpresion = papel.id
+
+        ]]>
+    </select>
+
+    <select id="obtenerFacturaEmpresaActual"  resultMap="resMapFacturaEmpresa">
+        <![CDATA[
+            SELECT
+                f.id ID,
+                f.encabezado1 ENCABEZADO1,
+                f.encabezado2 ENCABEZADO2,
+                f.encabezado3 ENCABEZADO3,
+                f.encabezado4 ENCABEZADO4,
+                f.encabezado5 ENCABEZADO5,
+                f.numeroactual NUMERO_ACTUAL,
+                f.pie1 PIE1,
+                f.pie2 PIE2,
+                f.cotizaciones COTIZACIONES,
+                f.prefacturas PREFACTURAS,
+                f.ingresos INGRESOS,
+                f.egresos EGRESOS,
+                papel.id PAPEL_ID,
+                papel.descripcion PAPEL_DESCRIPCION,
+                emp.id ID_EMPRESA,
+                emp.nombre NOMBRE_EMPRESA
+            FROM
+                facturaempresa f,
+                papelimpresion papel,
+                empresa emp
+            WHERE
+                f.id = (SELECT max( fa.id ) FROM facturaempresa fa )
+            AND
+                f.papelImpresion = papel.id
+            AND
+                f.empresa = emp.id
+        ]]>
+    </select>
+
+    <insert id="insertarFacturaEmpresa" parameterType="aliasFacturaEmpresa" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+            INSERT INTO
+                facturaempresa
+                    (encabezado1,encabezado2,encabezado3,encabezado4,
+                     encabezado5,numeroactual,papelImpresion,pie1,pie2,
+                     cotizaciones,prefacturas,ingresos,egresos,empresa)
+            VALUES
+                   (#{encabezado1,jdbcType=VARCHAR},#{encabezado2,jdbcType=VARCHAR},
+                    #{encabezado3,jdbcType=VARCHAR},#{encabezado4,jdbcType=VARCHAR},
+                    #{encabezado5,jdbcType=VARCHAR},#{numeroActual,jdbcType=INTEGER},
+                    #{papel.id,jdbcType=INTEGER},#{pie1,jdbcType=VARCHAR},
+                    #{pie2,jdbcType=VARCHAR},#{cotizaciones,jdbcType=INTEGER},
+                    #{prefacturas,jdbcType=INTEGER},#{ingresos,jdbcType=INTEGER},
+                    #{egresos,jdbcType=INTEGER},#{empresa.id,jdbcType=INTEGER})
+
+        ]]>
+    </insert>
+
+    <insert id="actualizarFacturaEmpresa" parameterType="aliasFacturaEmpresa">
+        <![CDATA[
+            UPDATE
+                facturaempresa
+            SET
+                    encabezado1 = #{encabezado1,jdbcType=VARCHAR},
+                    encabezado2 = #{encabezado2,jdbcType=VARCHAR},
+                    encabezado3 = #{encabezado3,jdbcType=VARCHAR},
+                    encabezado4 = #{encabezado4,jdbcType=VARCHAR},
+                    encabezado5 = #{encabezado5,jdbcType=VARCHAR},
+                    numeroactual = #{numeroActual,jdbcType=INTEGER},
+                    papelImpresion = #{papel.id,jdbcType=INTEGER},
+                    pie1 = #{pie1,jdbcType=VARCHAR},
+                    pie2 = #{pie2,jdbcType=VARCHAR},
+                    cotizaciones = #{cotizaciones,jdbcType=INTEGER},
+                    prefacturas = #{prefacturas,jdbcType=INTEGER},
+                    ingresos = #{ingresos,jdbcType=INTEGER},
+                    egresos = #{egresos,jdbcType=INTEGER},
+                    empresa = #{empresa.id,jdbcType=INTEGER}
+            WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </insert>
+</mapper>

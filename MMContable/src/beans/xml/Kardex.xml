@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="KardexMapper">
+
+    <resultMap id="resMapKardex"       type="aliasKardex">
+        <result property="id"                            column="ID" />
+        <result property="documento.id"                  column="DOCUMENTO_ID" />
+        <result property="documento.numero"              column="DOCUMENTO_NUMERO" />
+        <result property="articulo.id"                   column="ARTICULO_ID" />
+        <result property="articulo.descripcioncomercial" column="ARTICULO_DESCRIPCION" />
+        <result property="entradas"                   column="ENTRADAS" />
+        <result property="salidas"                           column="SALIDAS" />
+        <result property="vlrunitario"                   column="VLR_UNITARIO" />
+        <result property="vlrtotal"                           column="VLR_TOTAL" />
+        <result property="fecha"                    column="FECHA" />
+        <result property="hora"                      column="HORA" />
+        <result property="existencia"                      column="EXISTENCIA" />
+    </resultMap>
+
+
+    <insert id="insertarKardex" parameterType="aliasKardex" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+                INSERT INTO
+                    Kardex
+                   (articulo,
+                    documento,
+                    entradas,
+                    salidas,
+                    vlrunitario,
+                    vlrtotal,
+                    fecha,
+                    hora,
+                    existencia)
+                VALUES
+                        (#{articulo.id,     jbcType=INTEGER},
+                         #{documento.id,    jdbcType=INTEGER},
+                         #{entradas,        jbcType=NUMERIC},
+                         #{salidas,         jbcType=NUMERIC},
+                         #{vlrunitario,     jbcType=NUMERIC},
+                         #{vlrtotal,        jbcType=NUMERIC},
+                         #{fecha,           jbcType=DATE},
+                         #{hora,            jbcType=TIME},
+                         #{existencia,      jbcType=NUMERIC})
+
+        ]]>
+    </insert>
+
+    <delete id="borrarKardex" parameterType="java.lang.Integer">
+        <![CDATA[
+            DELETE FROM
+                Kardex
+            WHERE
+                documento = #{id,jdbcType=INTEGER}
+        ]]>
+    </delete>
+
+
+</mapper>

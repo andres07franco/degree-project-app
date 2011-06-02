@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="EstadoMapper">
+
+    <resultMap id="resMapEstado"       type="aliasEstado">
+        <result property="id"               column="ID" />
+        <result property="descripcion"           column="DESCRIPCION" />
+    </resultMap>
+
+    <select id="obtenerEstados" resultMap="resMapEstado">
+        <![CDATA[
+            SELECT
+               e.id ID,
+               e.descripcion DESCRIPCION
+            FROM
+                estado e
+            ORDER BY
+                descripcion
+        ]]>
+    </select>
+
+    <select id="obtenerEstadosPorId" parameterType="java.lang.Integer" resultMap="resMapEstado">
+        <![CDATA[
+            SELECT
+                e.id ID,
+                e.descripcion DESCRIPCION
+            FROM
+                estado e
+            WHERE
+                e.id = #{id,jdbcType=INTEGER}
+
+        ]]>
+    </select>
+
+</mapper>

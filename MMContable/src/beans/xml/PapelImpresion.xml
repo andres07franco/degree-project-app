@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="PapelImpresionMapper">
+
+    <resultMap id="resMapPapelImpresion"       type="aliasPapelImpresion">
+        <result property="id"                    column="ID" />
+        <result property="descripcion"           column="DESCRIPCION" />
+    </resultMap>
+
+    <select id="obtenerPapelesImpresiones" resultMap="resMapPapelImpresion">
+        <![CDATA[
+            SELECT
+               pi.id ID,
+               pi.descripcion DESCRIPCION
+            FROM
+                papelimpresion pi
+
+        ]]>
+    </select>
+
+    <select id="obtenerPapelImpresionPorId" parameterType="java.lang.Integer" resultMap="resMapPapelImpresion">
+        <![CDATA[
+            SELECT
+                pi.id ID,
+                pi.descripcion DESCRIPCION
+            FROM
+                papelimpresion pi
+            WHERE
+                pi.id = #{id,jdbcType=INTEGER}
+
+        ]]>
+    </select>
+
+</mapper>

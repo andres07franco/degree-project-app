@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="UsuarioMapper">
+
+    <resultMap id="resMapUsuario"       type="aliasUsuario">
+        <result property="id"                   column="ID" />
+        <result property="usuario"              column="USUARIO" />
+        <result property="password"             column="PASSWORD" />
+        <result property="estado"               column="ESTADO" />
+        <result property="empresa.id"           column="EMPRESA_ID" />
+        <result property="empresa.nombre"       column="EMPRESA_NOMBRE" />
+        <result property="estado.id"            column="ESTADO_ID" />
+        <result property="estado.descripcion"   column="ESTADO_DESCRIPCION" />
+        <result property="tipo.id"              column="TIPO_ID" />
+        <result property="tipo.descripcion"     column="TIPO_DESCRIPCION" />
+    </resultMap>
+
+
+    <insert id="insertarUsuario" parameterType="aliasUsuario" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+            INSERT INTO
+                usuario
+                    (usuario,password,tipo,estado,empresa_id)
+            VALUES
+                    (#{usuario,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{tipo.id,jdbcType=INTEGER},
+                    #{estado.id,jdbcType=INTEGER},#{empresa.id,jdbcType=INTEGER})
+        ]]>
+    </insert>
+
+    <insert id="insertarFuncionesDeUsuario" parameterType="java.util.Map">
+        <![CDATA[
+            INSERT INTO
+                funcion_usuario
+                    (usuario_id,funcion_id)
+            VALUES
+                    (#{usuario,jdbcType=INTEGER},#{funcion,jdbcType=INTEGER})
+        ]]>
+    </insert>
+
+    <select id="obtenerUsuarios" resultMap="resMapUsuario">
+        <![CDATA[
+            SELECT
+                id ID,
+                usuario USUARIO
+            FROM
+                usuario
+        ]]>
+    </select>
+
+    <select id="obtenerUsuariosPorNombre" parameterType="java.lang.String" resultMap="resMapUsuario">
+        <![CDATA[
+            SELECT
+                id ID,
+                usuario USUARIO
+            FROM
+                usuario
+            WHERE
+                usuario like #{usuario,jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <select id="obtenerUsuario" parameterType="aliasUsuario" resultMap="resMapUsuario" >
+        <![CDATA[
+            SELECT
+                us.id ID,
+                us.usuario USUARIO,
+                tipo.id TIPO_ID,
+                tipo.descripcion TIPO_DESCRIPCION,
+                estado.id ESTADO_ID,
+                estado.descripcion ESTADO_DESCRIPCION,
+                emp.id EMPRESA_ID,
+                emp.nombre EMPRESA_NOMBRE
+            FROM
+                usuario us,
+                estado estado,
+                tipo_usuario tipo,
+                empresa emp
+            WHERE
+                usuario = #{usuario,jdbcType=VARCHAR}
+            AND
+                password = #{password,jdbcType=VARCHAR}
+            AND
+                us.tipo=tipo.id
+            AND
+                us.estado=estado.id
+            AND
+                us.empresa_id=emp.id
+
+        ]]>
+    </select>
+
+
+
+    <select id="obtenerUsuarioPorId" parameterType="java.lang.Integer" resultMap="resMapUsuario" >
+        <![CDATA[
+            SELECT
+                us.id ID,
+                us.usuario USUARIO,
+                us.password PASSWORD,
+                tipo.id TIPO_ID,
+                tipo.descripcion TIPO_DESCRIPCION,
+                estado.id ESTADO_ID,
+                estado.descripcion ESTADO_DESCRIPCION
+            FROM
+                usuario us,
+                estado estado,
+                tipo_usuario tipo
+
+            WHERE
+                us.id = #{id,jdbcType=INTEGER}
+            AND
+                us.tipo=tipo.id
+            AND
+                us.estado=estado.id
+        ]]>
+    </select>
+
+    <select id="existeUsuario" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(us.id)
+            FROM
+                usuario us
+            WHERE
+                us.usuario = #{usuario, jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <insert id="actualizarUsuario" parameterType="aliasUsuario">
+        <![CDATA[
+            UPDATE
+                usuario
+            SET
+                usuario = #{usuario,jdbcType=VARCHAR},
+                password = #{password,jdbcType=VARCHAR},
+                tipo = #{tipo.id,jdbcType=INTEGER},
+                estado = #{estado.id,jdbcType=INTEGER},
+                empresa_id = #{empresa.id,jdbcType=INTEGER}
+           WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </insert>
+
+    <delete id="borrarFuncionesUsuario" parameterType="java.lang.Integer">
+        <![CDATA[
+            DELETE FROM
+                funcion_usuario
+            WHERE 
+                usuario_id = #{id,jdbcType=INTEGER}
+        ]]>
+    </delete>
+
+</mapper>

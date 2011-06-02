@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration   PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+
+<configuration>
+
+<!-- mapeamos el properties donde quedarán las configuraciones -->
+    <properties resource="mmcontable.properties"/>
+
+    <settings>
+        <setting name="cacheEnabled"                value="true"/>
+        <setting name="lazyLoadingEnabled"          value="true"/>
+        <setting name="multipleResultSetsEnabled"   value="true"/>
+        <setting name="useColumnLabel"              value="true"/>
+        <setting name="useGeneratedKeys"            value="false"/>
+<!--		<setting name="enhancementEnabled"  value="true"/>-->
+        <setting name="defaultExecutorType"         value="SIMPLE"/>
+        <setting name="defaultStatementTimeout"     value="25000"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="aliasUsuario"                 type="beans.Usuario"/>
+        <typeAlias alias="aliasEmpresa"                 type="beans.Empresa"/>
+        <typeAlias alias="aliasCaja"                    type="beans.Caja"/>
+        <typeAlias alias="aliasTercero"                 type="beans.Tercero"/>
+        <typeAlias alias="aliasDocumento"               type="beans.Documento"/>
+        <typeAlias alias="aliasGrupo"                   type="beans.Grupo"/>
+        <typeAlias alias="aliasMarca"                   type="beans.Marca"/>
+        <typeAlias alias="aliasFacturaEmpresa"          type="beans.FacturaEmpresa"/>
+        <typeAlias alias="aliasCiudad"                  type="beans.Ciudad"/>
+        <typeAlias alias="aliasArticulo"                type="beans.Articulo"/>
+        <typeAlias alias="aliasTipoArticulo"            type="beans.TipoArticulo"/>
+        <typeAlias alias="aliasFuncion"                 type="beans.Funcion"/>
+        <typeAlias alias="aliasTipoUsuario"             type="beans.TipoUsuario"/>
+        <typeAlias alias="aliasEstado"                  type="beans.Estado"/>
+        <typeAlias alias="aliasPapelImpresion"          type="beans.PapelImpresion"/>
+        <typeAlias alias="aliasArticuloCombo"           type="beans.ArticuloCombo"/>
+        <typeAlias alias="aliasDepartamento"            type="beans.Departamento"/>
+        <typeAlias alias="aliasTipoTercero"             type="beans.TipoTercero"/>
+        <typeAlias alias="aliasTipoDocumento"           type="beans.TipoDocumento"/>
+        <typeAlias alias="aliasTipoPago"                type="beans.TipoPago"/>
+        <typeAlias alias="aliasArticulosDocumento"      type="beans.ArticulosDocumento"/>
+        <typeAlias alias="aliasKardex"                  type="beans.Kardex"/>
+
+
+
+    </typeAliases>
+
+    <environments default="desarrollo">
+        <environment id="desarrollo">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver"			 	value="${driver}" />
+                <property name="url"             		value="${url}" />
+                <property name="username"        		value="${username}" />
+                <property name="password"        		value="${password}" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="beans/xml/Usuario.xml"/>
+        <mapper resource="beans/xml/Empresa.xml"/>
+        <mapper resource="beans/xml/Caja.xml"/>
+        <mapper resource="beans/xml/Tercero.xml"/>
+        <mapper resource="beans/xml/Documento.xml"/>
+        <mapper resource="beans/xml/Grupo.xml"/>
+        <mapper resource="beans/xml/Marca.xml"/>
+        <mapper resource="beans/xml/FacturaEmpresa.xml"/>
+        <mapper resource="beans/xml/Ciudad.xml"/>
+        <mapper resource="beans/xml/Articulo.xml"/>
+        <mapper resource="beans/xml/funcion.xml"/>
+        <mapper resource="beans/xml/TipoUsuario.xml"/>
+        <mapper resource="beans/xml/Estado.xml"/>
+        <mapper resource="beans/xml/PapelImpresion.xml"/>
+        <mapper resource="beans/xml/Departamento.xml"/>
+        <mapper resource="beans/xml/TipoTercero.xml"/>
+        <mapper resource="beans/xml/TipoDocumento.xml"/>
+        <mapper resource="beans/xml/TipoPago.xml"/>
+        <mapper resource="beans/xml/ArticulosDocumento.xml"/>
+        <mapper resource="beans/xml/Kardex.xml"/>
+        <mapper resource="beans/xml/InsertIniciales.xml"/>
+
+
+    </mappers>
+</configuration>
