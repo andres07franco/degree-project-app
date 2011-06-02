@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="TerceroMapper">
+
+    <resultMap id="resMapTercero" type="aliasTercero" >
+        <result property="id"                       column="ID" />
+        <result property="nit"                      column="NIT" />
+        <result property="tipo.id"                  column="TIPO" />
+        <result property="tipo.descripcion"         column="DESCRIPCION_TIPO" />
+        <result property="nombre"                   column="NOMBRE" />
+        <result property="direccion"                column="DIRECCION" />
+        <result property="departamento.id"          column="DEPARTAMENTO" />
+        <result property="ciudad.id"                column="CIUDAD" />
+        <result property="telefono"                 column="TELEFONO" />
+        <result property="contacto"                 column="CONTACTO" />
+        <result property="email"                    column="EMAIL" />
+        <result property="celular"                  column="CELULAR" />
+        <result property="estado.id"                column="ESTADO" />
+    </resultMap>
+
+    <select id="obtenerListaTerceros" parameterType="aliasTercero" resultMap="resMapTercero">
+        <![CDATA[
+            SELECT
+                t.id ID,
+                t.nit NIT,
+                t.nombre NOMBRE,
+                t.tipo TIPO,
+                tt.descripcion DESCRIPCION_TIPO,
+                t.direccion DIRECCION,
+                t.departamento DEPARTAMENTO,
+                t.ciudad CIUDAD,
+                t.telefono TELEFONO,
+                t.contacto CONTACTO,
+                t.email EMAIL,
+                t.celular CELULAR,
+                t.estado ESTADO
+            FROM
+                tercero t,
+                tipo_tercero tt
+            WHERE
+                t.nit LIKE IFNULL(#{nit,jdbcType=BIGINT},'%')
+            AND
+                t.nombre LIKE IFNULL(#{nombre,jdbcType=VARCHAR},'%')
+            AND
+                tt.id = t.tipo
+        ]]>
+    </select>
+    
+    <select id="obtenerClientePorMostrador" parameterType="java.lang.Long" resultType="aliasTercero">
+        <![CDATA[
+            SELECT
+                id ID,
+                nit NIT,
+                nombre NOMBRE
+            FROM
+                tercero
+            WHERE
+                nit = 1
+        ]]>
+    </select>
+
+    <select id="obtenerTerceroPorId" parameterType="java.lang.Integer" resultType="aliasTercero">
+        <![CDATA[
+            SELECT
+                id ID,
+                nit NIT,
+                nombre NOMBRE
+            FROM
+                tercero
+            WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </select>
+
+    <select id="existeTercero" parameterType="java.lang.Long" resultType="aliasTercero">
+        <![CDATA[
+            SELECT
+                id ID
+            FROM
+                tercero
+            WHERE
+                nit = #{nit,jdbcType=BIGINT}
+        ]]>
+    </select>
+
+    <insert id="insertarTercero" parameterType="aliasTercero" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+            INSERT INTO
+                tercero
+                    (nit, tipo, nombre, direccion, departamento, ciudad,
+                    telefono, contacto, email, celular, estado)
+            VALUES
+                (#{nit,jdbcType=BIGINT}, #{tipo.id,jdbcType=INTEGER},
+                #{nombre,jdbcType=VARCHAR}, #{direccion,jdbcType=VARCHAR},
+                #{departamento.id,jdbcType=INTEGER}, #{ciudad.id,jdbcType=INTEGER},
+                #{telefono,jdbcType=VARCHAR}, #{contacto,jdbcType=VARCHAR},
+                #{email,jdbcType=VARCHAR}, #{celular,jdbcType=VARCHAR},
+                #{estado.id,jdbcType=INTEGER})
+        ]]>
+    </insert>
+
+    <update id="actualizarTercero" parameterType="aliasTercero">
+        <![CDATA[
+            UPDATE
+                tercero
+            SET
+                nit = #{nit,jdbcType=BIGINT},
+                ciudad = #{ciudad.id,jdbcType=INTEGER},
+                departamento = #{departamento.id,jdbcType=INTEGER},
+                tipo = #{tipo.id,jdbcType=INTEGER},
+                nombre = #{nombre,jdbcType=VARCHAR},
+                direccion = #{direccion,jdbcType=VARCHAR},
+                contacto = #{contacto,jdbcType=VARCHAR},
+                email = #{email,jdbcType=VARCHAR},
+                celular = #{celular,jdbcType=VARCHAR},
+                estado = #{estado.id,jdbcType=INTEGER},
+                telefono = #{telefono,jdbcType=VARCHAR}
+            WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </update>
+</mapper>

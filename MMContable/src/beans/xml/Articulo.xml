@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="ArticuloMapper">
+
+    <resultMap id="resMapArticulo"     type="aliasArticulo">
+        <result property="id"                       column="ID" />
+        <result property="codigobarras"             column="CODIGO_BARRAS" />
+        <result property="descripcioncomercial"     column="DESCRIPCION_COMERCIAL" />
+        <result property="tipo.id"                  column="TIPO_ID" />
+        <result property="tipo.descripcion"         column="TIPO_DESCRIPCION" />
+        <result property="imagen"                   column="IMAGEN" />
+        <result property="vlrcosto"                 column="VLR_COSTO" />
+        <result property="vlrpromedio"              column="VLR_PROMEDIO" />
+        <result property="porcentajeminimo"         column="PORCENTAJE_MINIMO" />
+        <result property="porcentajesugerido"       column="PORCENTAJE_SUGERIDO" />
+        <result property="existencia"               column="EXISTENCIA" />
+        <result property="cantidadminima"           column="CANTIDAD_MINIMA" />
+        <result property="fechaucompra"             column="FECHA_U_COMPRA" />
+        <result property="fechauventa"              column="FECHA_U_VENTA" />
+        <result property="observaciones"            column="OBSERVACIONES" />
+        <result property="valormin"                 column="VALOR_MIN" />
+        <result property="valorsug"                 column="VALOR_SUG" />
+        <result property="vlrpromediov"             column="VLR_PROMEDIO_V" />
+        <result property="saldocosto"               column="SALDO_COSTO" />
+        <result property="saldoventa"               column="SALDO_VENTA" />
+        <result property="grupo.id"                 column="ID_GRUPO" />
+        <result property="grupo.grupo"              column="GRUPO" />
+        <result property="marca.id"                 column="ID_MARCA" />
+        <result property="marca.marca"              column="MARCA" />
+        <result property="estado.id"                column="ESTADO" />
+    </resultMap>
+
+    <resultMap id="resMapTipoArticulo"     type="aliasTipoArticulo">
+        <result property="id"                       column="ID" />
+        <result property="descripcion"              column="DESCRIPCION" />
+    </resultMap>
+
+    <resultMap id="resMapArticuloCombo"     type="aliasArticuloCombo">
+        <result property="articuloPadre.id"     column="ID_PADRE" />
+        <result property="articuloHijo.id"      column="ID_HIJO" />
+        <result property="cantidad"             column="CANTIDAD" />
+        <result property="precioEnCombo"        column="PRECIO_EN_COMBO" />
+    </resultMap>
+
+    <select id="obtenerArticulosCombo" parameterType="java.lang.Integer" resultMap="resMapArticuloCombo">
+        SELECT
+            articulo_padre ID_PADRE,
+            articulo_hijo ID_HIJO,
+            cantidad CANTIDAD,
+            precio_en_combo PRECIO_EN_COMBO
+        FROM
+            articulos_combo
+        WHERE
+            articulo_padre = #{ARTICULO_PADRE, jdbcType=INTEGER}
+    </select>
+
+    <select id="obtenerArticulosPorCriterio" parameterType="java.util.Map" resultMap="resMapArticulo">
+        SELECT
+            a.id ID,
+            a.codigobarras CODIGO_BARRAS,
+            a.descripcioncomercial DESCRIPCION_COMERCIAL,
+            a.tipo TIPO_ID,
+            tipo.descripcion TIPO_DESCRIPCION,
+            a.imagen IMAGEN,
+            a.vlrcosto VLR_COSTO,
+            a.vlrpromedio VLR_PROMEDIO,
+            a.porcentajeminimo PORCENTAJE_MINIMO,
+            a.porcentajesugerido PORCENTAJE_SUGERIDO,
+            a.existencia EXISTENCIA,
+            a.cantidadminima CANTIDAD_MINIMA,
+            a.fechaucompra FECHA_U_COMPRA,
+            a.fechauventa FECHA_U_VENTA,
+            a.observaciones OBSERVACIONES,
+            a.vlrmin VALOR_MIN,
+            a.vlrsug VALOR_SUG,
+            a.vlrpromediov VLR_PROMEDIO_V,
+            a.saldocosto SALDO_COSTO,
+            a.saldoventa SALDO_VENTA,
+            a.grupo ID_GRUPO,
+            gru.grupo GRUPO,
+            a.marca ID_MARCA,
+            mar.marca MARCA,
+            a.estado ESTADO
+        FROM
+            articulo a,
+            tipo_articulo tipo,
+            grupo gru,
+            marca mar
+        WHERE
+            tipo.id = a.tipo
+        AND
+            gru.id = a.grupo
+        AND
+            mar.id = a.marca
+        <if test="criterio == 0">
+            AND
+                a.codigobarras LIKE #{valor, jdbcType=VARCHAR}
+        </if>
+        <if test="criterio == 1">
+            AND
+                a.descripcioncomercial LIKE #{valor, jdbcType=VARCHAR}
+        </if>
+        <if test="criterio == 3">
+            AND
+                a.grupo IN (SELECT g.id FROM grupo g WHERE g.grupo LIKE #{valor, jdbcType=VARCHAR})
+        </if>
+        <if test="criterio == 2">
+            AND
+                a.marca IN (SELECT m.id FROM marca m WHERE m.marca LIKE #{valor, jdbcType=VARCHAR})
+        </if>
+        <if test="padre != null">
+            AND
+                a.id != #{padre.id, jdbcType=BIGINT}
+        </if>
+    </select>
+
+    <select id="obtenerArticulosActivosPorCriterio" parameterType="java.util.Map" resultMap="resMapArticulo">
+        SELECT
+            a.id ID,
+            a.codigobarras CODIGO_BARRAS,
+            a.descripcioncomercial DESCRIPCION_COMERCIAL,
+            a.tipo TIPO_ID,
+            tipo.descripcion TIPO_DESCRIPCION,
+            a.imagen IMAGEN,
+            a.vlrcosto VLR_COSTO,
+            a.vlrpromedio VLR_PROMEDIO,
+            a.porcentajeminimo PORCENTAJE_MINIMO,
+            a.porcentajesugerido PORCENTAJE_SUGERIDO,
+            a.existencia EXISTENCIA,
+            a.cantidadminima CANTIDAD_MINIMA,
+            a.fechaucompra FECHA_U_COMPRA,
+            a.fechauventa FECHA_U_VENTA,
+            a.observaciones OBSERVACIONES,
+            a.vlrmin VALOR_MIN,
+            a.vlrsug VALOR_SUG,
+            a.vlrpromediov VLR_PROMEDIO_V,
+            a.saldocosto SALDO_COSTO,
+            a.saldoventa SALDO_VENTA,
+            a.grupo ID_GRUPO,
+            gru.grupo GRUPO,
+            a.marca ID_MARCA,
+            mar.marca MARCA,
+            a.estado ESTADO
+        FROM
+            articulo a,
+            tipo_articulo tipo,
+            grupo gru,
+            marca mar
+        WHERE
+            tipo.id = a.tipo
+        AND
+            gru.id = a.grupo
+        AND
+            mar.id = a.marca
+        <if test="criterio == 0">
+            AND
+                a.codigobarras LIKE #{valor, jdbcType=VARCHAR}
+        </if>
+        <if test="criterio == 1">
+            AND
+                a.descripcioncomercial LIKE #{valor, jdbcType=VARCHAR}
+        </if>
+        <if test="criterio == 3">
+            AND
+                a.grupo IN (SELECT g.id FROM grupo g WHERE g.grupo LIKE #{valor, jdbcType=VARCHAR})
+        </if>
+        <if test="criterio == 2">
+            AND
+                a.marca IN (SELECT m.id FROM marca m WHERE m.marca LIKE #{valor, jdbcType=VARCHAR})
+        </if>
+        <if test="padre != null">
+            AND
+                a.id != #{padre.id, jdbcType=BIGINT}
+        </if>
+        AND a.estado = 1
+    </select>
+
+    <select id="obtenerArticuloPorId" parameterType="java.lang.Integer" resultMap="resMapArticulo">
+        SELECT
+            a.id ID,
+            a.codigobarras CODIGO_BARRAS,
+            a.descripcioncomercial DESCRIPCION_COMERCIAL,
+            a.tipo TIPO_ID,
+            a.imagen IMAGEN,
+            a.vlrcosto VLR_COSTO,
+            a.vlrpromedio VLR_PROMEDIO,
+            a.porcentajeminimo PORCENTAJE_MINIMO,
+            a.porcentajesugerido PORCENTAJE_SUGERIDO,
+            a.existencia EXISTENCIA,
+            a.cantidadminima CANTIDAD_MINIMA,
+            a.fechaucompra FECHA_U_COMPRA,
+            a.fechauventa FECHA_U_VENTA,
+            a.observaciones OBSERVACIONES,
+            a.vlrmin VALOR_MIN,
+            a.vlrsug VALOR_SUG,
+            a.vlrpromediov VLR_PROMEDIO_V,
+            a.saldocosto SALDO_COSTO,
+            a.saldoventa SALDO_VENTA,
+            a.grupo ID_GRUPO,
+            a.marca ID_MARCA,
+            a.estado ESTADO
+        FROM
+            articulo a
+        WHERE
+            a.id = #{valor, jdbcType=INTEGER}
+    </select>
+
+       
+
+    <select id="obtenerArticuloPorCodigo" parameterType="java.lang.String" resultMap="resMapArticulo">
+        SELECT
+            a.id ID,
+            a.codigobarras CODIGO_BARRAS,
+            a.descripcioncomercial DESCRIPCION_COMERCIAL,
+            a.tipo TIPO_ID,
+            tipo.descripcion TIPO_DESCRIPCION,
+            a.imagen IMAGEN,
+            a.vlrcosto VLR_COSTO,
+            a.vlrpromedio VLR_PROMEDIO,
+            a.porcentajeminimo PORCENTAJE_MINIMO,
+            a.porcentajesugerido PORCENTAJE_SUGERIDO,
+            a.existencia EXISTENCIA,
+            a.cantidadminima CANTIDAD_MINIMA,
+            a.fechaucompra FECHA_U_COMPRA,
+            a.fechauventa FECHA_U_VENTA,
+            a.observaciones OBSERVACIONES,
+            a.vlrmin VALOR_MIN,
+            a.vlrsug VALOR_SUG,
+            a.vlrpromediov VLR_PROMEDIO_V,
+            a.saldocosto SALDO_COSTO,
+            a.saldoventa SALDO_VENTA,
+            a.grupo ID_GRUPO,
+            gru.grupo GRUPO,
+            a.marca ID_MARCA,
+            mar.marca MARCA,
+            a.estado ESTADO
+        FROM
+            articulo a,
+            tipo_articulo tipo,
+            grupo gru,
+            marca mar
+        WHERE
+            tipo.id = a.tipo
+        AND
+            gru.id = a.grupo
+        AND
+            mar.id = a.marca
+        AND
+            a.codigobarras LIKE #{valor, jdbcType=VARCHAR}
+    </select>
+
+    <select id="obtenerTiposArticulos" resultMap="resMapTipoArticulo">
+        <![CDATA[
+            SELECT
+                id ID,
+                descripcion DESCRIPCION
+            FROM
+                tipo_articulo
+            ORDER BY 1
+        ]]>
+    </select>
+
+    <select id="obtenerTipoArticulo" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                id
+            FROM
+                tipo_articulo
+            WHERE
+                descripcion = #{descripcion, jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <select id="existeArticulo" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(a.id)
+            FROM
+                articulo a
+            WHERE
+                a.descripcioncomercial = #{descripcioncomercial, jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <select id="existeArticuloPorCodigo" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(a.id)
+            FROM
+                articulo a
+            WHERE
+                a.codigobarras = #{codigobarras, jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <insert id="insertarArticulo" parameterType="aliasArticulo" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+            INSERT INTO
+                articulo
+                    (codigobarras, descripcioncomercial, tipo, imagen,
+                    vlrcosto, vlrpromedio, porcentajeminimo, porcentajesugerido,
+                    existencia, cantidadminima, fechaucompra, fechauventa,
+                    observaciones, vlrmin, vlrsug, vlrpromediov, saldocosto,
+                    saldoventa, grupo, marca, estado)
+            VALUES
+                    (#{codigobarras,jdbcType=VARCHAR}, #{descripcioncomercial,jdbcType=VARCHAR},
+                    #{tipo.id,jdbcType=INTEGER}, #{imagen,jdbcType=BLOB}, #{vlrcosto,jdbcType=DOUBLE},
+                    #{vlrpromedio,jdbcType=DOUBLE}, #{porcentajeminimo,jdbcType=DOUBLE},
+                    #{porcentajesugerido,jdbcType=DOUBLE}, #{existencia,jdbcType=DOUBLE},
+                    #{cantidadminima,jdbcType=DOUBLE}, #{fechaucompra,jdbcType=DATE},
+                    #{fechauventa,jdbcType=DATE}, #{observaciones,jdbcType=VARCHAR},
+                    #{valormin,jdbcType=DOUBLE}, #{valorsug,jdbcType=DOUBLE},
+                    #{vlrpromediov,jdbcType=DOUBLE}, #{saldocosto,jdbcType=DOUBLE},
+                    #{saldoventa,jdbcType=DOUBLE}, #{grupo.id,jdbcType=INTEGER},
+                    #{marca.id,jdbcType=INTEGER}, #{estado.id,jdbcType=INTEGER})
+        ]]>
+    </insert>
+
+    <insert id="actualizarArticulo" parameterType="aliasArticulo">
+        UPDATE
+            articulo
+        SET
+            codigobarras            = #{codigobarras,jdbcType=VARCHAR},
+            descripcioncomercial    = #{descripcioncomercial,jdbcType=VARCHAR},
+            tipo                    = #{tipo.id,jdbcType=INTEGER},
+            imagen                  = #{imagen,jdbcType=BLOB},
+            vlrcosto                = #{vlrcosto,jdbcType=DOUBLE},
+            vlrpromedio             = #{vlrpromedio,jdbcType=DOUBLE},
+            porcentajeminimo        = #{porcentajeminimo,jdbcType=DOUBLE},
+            porcentajesugerido      = #{porcentajesugerido,jdbcType=DOUBLE},
+            existencia              = #{existencia,jdbcType=DOUBLE},
+            cantidadminima          = #{cantidadminima,jdbcType=DOUBLE},
+            fechaucompra            = #{fechaucompra,jdbcType=DATE},
+            fechauventa             = #{fechauventa,jdbcType=DATE},
+            observaciones           = #{observaciones,jdbcType=VARCHAR},
+            vlrmin                  = #{valormin,jdbcType=DOUBLE},
+            vlrsug                  = #{valorsug,jdbcType=DOUBLE},
+            vlrpromediov            = #{vlrpromediov,jdbcType=DOUBLE},
+            saldocosto              = #{saldocosto,jdbcType=DOUBLE},
+            saldoventa              = #{saldoventa,jdbcType=DOUBLE},
+            grupo                   = #{grupo.id,jdbcType=INTEGER},
+            marca                   = #{marca.id,jdbcType=INTEGER},
+            estado                  = #{estado.id,jdbcType=INTEGER}
+        WHERE
+            id = #{id,jdbcType=INTEGER};
+    </insert>
+
+
+
+        <insert id="actualizarArticuloExistencia" parameterType="aliasArticulo">
+        UPDATE
+            articulo
+        SET
+            existencia              = #{existencia,jdbcType=DOUBLE}
+        WHERE
+            id = #{id,jdbcType=INTEGER};
+    </insert>
+
+    <delete parameterType="java.lang.Integer" id="borrarArticulosCombo">
+         DELETE FROM
+            articulos_combo
+         WHERE
+            articulo_padre = #{id,jdbcType=INTEGER};
+    </delete>
+
+    <insert id="insertarArticulosCombo" parameterType="java.util.Map">
+        <foreach index="index" item="item" collection="listaArticulos">
+            INSERT INTO
+                articulos_combo
+                    (articulo_padre, articulo_hijo, cantidad, precio_en_combo)
+            VALUES
+                (#{padre.id,jdbcType=INTEGER}, #{item.articuloHijo.id,jdbcType=INTEGER},
+                #{item.cantidad,jdbcType=INTEGER}, #{item.precioEnCombo,jdbcType=DOUBLE});
+        </foreach>
+    </insert>
+</mapper>

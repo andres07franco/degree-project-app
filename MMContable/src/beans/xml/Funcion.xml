@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="FuncionMapper">
+
+    <resultMap id="resMapFuncion"       type="aliasFuncion">
+        <result property="id"               column="ID" />
+        <result property="nombre"           column="NOMBRE" />
+        <result property="indice"           column="INDICE" />
+    </resultMap>
+
+    <select id="obtenerFuncionesDeUsuarios" parameterType="java.lang.Integer" resultMap="resMapFuncion">
+        <![CDATA[
+            SELECT
+                fun.id ID,
+                fun.nombre NOMBRE,
+                fun.indice INDICE
+            FROM
+                funcion fun,
+                usuario_funcion usfun,
+                usuario us
+            WHERE
+                us.id = #{id,jdbcType=INTEGER}
+            AND
+                us.id = usfun.usuario_id
+            AND
+                fun.id = usfun.funcion_id
+        ]]>
+    </select>
+
+    <select id="obtenerFunciones" resultMap="resMapFuncion">
+        <![CDATA[
+            SELECT
+                fun.id ID,
+                fun.nombre NOMBRE,
+                fun.indice INDICE
+            FROM
+                funcion fun
+            ORDER BY
+                fun.indice ASC
+
+        ]]>
+    </select>
+
+
+   <select id="obtenerFuncionesUsuario" parameterType="aliasUsuario" resultMap="resMapFuncion" >
+        <![CDATA[
+            SELECT
+                f.id ID,
+                f.nombre NOMBRE,
+                f.indice INDICE
+            FROM
+                funcion_usuario fus,
+                funcion f,
+                usuario u
+            WHERE
+                u.id = fus.usuario_id
+            AND
+                f.id = fus.funcion_id
+            AND
+                u.id = #{id,jdbcType=INTEGER}
+
+        ]]>
+    </select>
+
+</mapper>

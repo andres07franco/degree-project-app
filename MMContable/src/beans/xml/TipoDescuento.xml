@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="TipoDescuentoMapper">
+
+    <resultMap id="resMapTipoDescuento"     type="aliasTipoDescuento">
+        <result property="id"           column="ID" />
+        <result property="descripcion"       column="DESCRIPCION" />
+        <result property="tipo"       column="TIPO" />
+        <result property="valor"       column="VALOR" />
+    </resultMap>
+
+    <select id="obtenerTipoDescuentos" parameterType="aliasTipoDescuento" resultMap="resMapTipoDescuento">
+        <![CDATA[
+            SELECT
+                id ID,
+                descripcion DESCRIPCION
+            FROM
+                tipo_descuento
+            WHERE
+                descripcion LIKE IFNULL(#{descripcion, jdbcType=VARCHAR},'%')
+        ]]>
+    </select>
+
+
+    <select id="obtenerTipoDescuento" parameterType="java.lang.Integer" resultMap="resMapTipoDescuento">
+        <![CDATA[
+            SELECT
+                m.id ID,
+                m.descripcion DESCRIPCION
+            FROM
+                tipo_descuento m
+            WHERE
+                m.id = #{id, jdbcType=INTEGER}
+        ]]>
+    </select>
+
+     <select id="existeTipoDescuento" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(m.id)
+            FROM
+                tipo_descuento m
+            WHERE
+                m.id = #{id, jdbcType=INTEGER}
+        ]]>
+    </select>
+
+    <insert id="insertarTipoDescuento" parameterType="aliasTipoDescuento">
+        <![CDATA[
+            INSERT INTO
+                tipo_descuento
+                    (descripcion)
+            VALUES
+                    (#{descripcion,jdbcType=VARCHAR}})
+        ]]>
+    </insert>
+
+    <insert id="actualizarTipoDescuento" parameterType="aliasTipoDescuento">
+        <![CDATA[
+            UPDATE
+                tipo_descuento
+            SET
+                descripcion = #{descripcion,jdbcType=VARCHAR}
+            WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </insert>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="ArticulosDocumentoMapper">
+
+    <resultMap id="resMapArticulosDocumento"       type="aliasArticulosDocumento">
+        <result property="id"                            column="ID" />
+        <result property="documento.id"                  column="DOCUMENTO_ID" />
+        <result property="documento.numero"              column="DOCUMENTO_NUMERO" />
+        <result property="articulo.id"                   column="ARTICULO_ID" />
+        <result property="articulo.codigobarras"                   column="ARTICULO_CODIGO" />
+        <result property="articulo.descripcioncomercial" column="ARTICULO_DESCRIPCION" />
+        <result property="vlrunitario"                   column="VLR_UNITARIO" />
+        <result property="iva"                           column="IVA" />
+        <result property="vlrparcial"                    column="VLR_PARCIAL" />
+        <result property="cantidad"                      column="CANTIDAD" />
+    </resultMap>
+
+
+    <insert id="insertarArticulosDocumento" parameterType="aliasArticulosDocumento" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+                INSERT INTO
+                    articulosdocumento
+                   (documento,
+                    articulo,
+                    vlrunitario,
+                    iva,
+                    vlrparcial,
+                    cantidad)
+                VALUES
+                        (#{documento.id,   jbcType=INTEGER},
+                         #{articulo.id,    jdbcType=INTEGER},
+                         #{vlrunitario, jbcType=NUMERIC},
+                         #{iva,         jdbcType=NUMERIC},
+                         #{vlrparcial,  jdbcType=NUMERIC},
+                         #{cantidad,    jdbcType=INTEGER})
+
+        ]]>
+    </insert>
+
+    <delete id="borrarArticulosDocumento" parameterType="java.lang.Integer">
+        <![CDATA[
+            DELETE FROM
+                articulosdocumento
+            WHERE
+                documento = #{id,jdbcType=INTEGER}
+        ]]>
+    </delete>
+
+     <select id="obtenerArticulosDocumento" parameterType="java.lang.Integer" resultMap="resMapArticulosDocumento">
+        SELECT
+                    ad.id                    ID,
+                    d.id                     DOCUMENTO_ID,
+                    d.numero                 DOCUMENTO_NUMERO,
+                    a.id                     ARTICULO_ID,
+                    a.descripcioncomercial   ARTICULO_DESCRIPCION ,
+                    a.codigobarras   ARTICULO_CODIGO ,
+                    ad.vlrunitario           VLR_UNITARIO,
+                    ad.iva                   IVA,
+                    ad.vlrparcial            VLR_PARCIAL,
+                    ad.cantidad              CANTIDAD
+        FROM
+            articulosdocumento ad, articulo a, documento d
+        WHERE
+            ad.documento = d.id
+        AND
+            ad.articulo  = a.id
+        AND
+            ad.documento = #{documento,jdbcType=INTEGER}
+
+    </select>
+
+</mapper>

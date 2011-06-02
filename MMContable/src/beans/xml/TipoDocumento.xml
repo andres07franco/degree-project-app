@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="TipoDocumentoMapper">
+
+    <resultMap id="resMapTipoDocumento"     type="aliasTipoDocumento">
+        <result property="id"           column="ID" />
+        <result property="descripcion"       column="DESCRIPCION" />
+    </resultMap>
+
+    <select id="obtenerTipoDocumentos" parameterType="aliasTipoDocumento" resultMap="resMapTipoDocumento">
+        <![CDATA[
+            SELECT
+                id ID,
+                descripcion DESCRIPCION
+            FROM
+                tipo_documento
+            WHERE
+                descripcion LIKE IFNULL(#{descripcion, jdbcType=VARCHAR},'%')
+        ]]>
+    </select>
+
+
+    <select id="obtenerTipoDocumento" parameterType="java.lang.Integer" resultMap="resMapTipoDocumento">
+        <![CDATA[
+            SELECT
+                m.id ID,
+                m.descripcion DESCRIPCION
+            FROM
+                tipo_documento m
+            WHERE
+                m.id = #{id, jdbcType=INTEGER}
+        ]]>
+    </select>
+
+     <select id="existeTipoDocumento" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                count(m.id)
+            FROM
+                tipo_documento m
+            WHERE
+                m.id = #{id, jdbcType=INTEGER}
+        ]]>
+    </select>
+
+    <insert id="insertarTipoDocumento" parameterType="aliasTipoDocumento">
+        <![CDATA[
+            INSERT INTO
+                tipo_documento
+                    (descripcion)
+            VALUES
+                    (#{descripcion,jdbcType=VARCHAR}})
+        ]]>
+    </insert>
+
+    <insert id="actualizarTipoDocumento" parameterType="aliasTipoDocumento">
+        <![CDATA[
+            UPDATE
+                tipo_documento
+            SET
+                descripcion = #{descripcion,jdbcType=VARCHAR}
+            WHERE
+                id = #{id,jdbcType=INTEGER}
+        ]]>
+    </insert>
+</mapper>
