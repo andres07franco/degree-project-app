@@ -1375,9 +1375,7 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
             evt.consume();
         } else if (Character.isLetter(evt.getKeyChar())) {
             String letra = ("" + evt.getKeyChar()).toUpperCase();
-
             evt.consume();
-
             descripcionComercial.setText(descripcionComercial.getText().concat(letra));
         }
     }//GEN-LAST:event_descripcionComercialKeyTyped
