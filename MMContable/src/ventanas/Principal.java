@@ -62,8 +62,9 @@ public class Principal extends JFrame implements Buscadores {
         arbol.addTreeSelectionListener(new TreeSelectionListener() {
 
             public void valueChanged(TreeSelectionEvent evt) {
-                seleccionarOpcion(evt.getPath().getLastPathComponent() + "");
-
+             //   seleccionarOpcion(evt.getPath().getLastPathComponent() + "");
+     
+                //System.out.println(   arbol.getSelectionPath().getLastPathComponent());
                 // arbol.setSelectionPath(null);
             }
         });
@@ -258,6 +259,11 @@ public class Principal extends JFrame implements Buscadores {
         treeNode1.add(treeNode2);
         arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         arbol.setEnabled(false);
+        arbol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                arbolMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(arbol);
 
         jPanel1.add(jScrollPane2);
@@ -1137,6 +1143,14 @@ public class Principal extends JFrame implements Buscadores {
     private void selActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_selActionPerformed
+
+    private void arbolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arbolMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() % 2 == 0) {
+         seleccionarOpcion( arbol.getSelectionPath().getLastPathComponent() + "");
+        }
+
+    }//GEN-LAST:event_arbolMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alquiler;
