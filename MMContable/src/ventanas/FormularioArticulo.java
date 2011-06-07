@@ -1165,14 +1165,31 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
                         String z = utilidades.FormatoNumeros.formatear("" + (x.multiply(y)));
                         tabla.setValueAt(x, i, 2);
                         tabla.setValueAt(z, i, 4);
-
-                        total.setText(z);
                     }
                 }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione un Artículo");
         }
+
+        calcularTotal();
+    }
+
+    public void calcularTotal() {
+        BigDecimal x = null;
+
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            if (x == null) {
+                x = new BigDecimal(tabla.getValueAt(i, 4).toString().replaceAll(",", ""));
+            } else {
+                BigDecimal y = new BigDecimal(tabla.getValueAt(i, 4).toString().replaceAll(",", ""));
+                x.add(y);
+            }
+        }
+
+        String z = utilidades.FormatoNumeros.formatear(x.toString());
+
+        total.setText(z);
     }
 
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed

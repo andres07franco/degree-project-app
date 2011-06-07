@@ -201,7 +201,7 @@ public class FormularioTercero extends JDialog {
         jLabel2.setText("Identificación:");
 
         salir.setBackground(new java.awt.Color(0, 153, 255));
-        salir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        salir.setFont(new java.awt.Font("Tahoma", 1, 11));
         salir.setForeground(new java.awt.Color(0, 51, 153));
         salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bulletCritical.png"))); // NOI18N
         salir.setText("Salir");
@@ -212,7 +212,7 @@ public class FormularioTercero extends JDialog {
         });
 
         jLabel1.setBackground(new java.awt.Color(0, 153, 255));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabel1.setForeground(new java.awt.Color(0, 51, 153));
 
         jLabel3.setText("DV:");
@@ -251,6 +251,12 @@ public class FormularioTercero extends JDialog {
         departamento.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 departamentoItemStateChanged(evt);
+            }
+        });
+
+        telefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefonoKeyTyped(evt);
             }
         });
 
@@ -361,7 +367,7 @@ public class FormularioTercero extends JDialog {
         jTabbedPane1.addTab("Datos Básicos", jPanel1);
 
         guardar.setBackground(new java.awt.Color(0, 153, 255));
-        guardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        guardar.setFont(new java.awt.Font("Tahoma", 1, 11));
         guardar.setForeground(new java.awt.Color(0, 51, 153));
         guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
         guardar.setText("Guardar");
@@ -459,6 +465,8 @@ public class FormularioTercero extends JDialog {
 
     private void nitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nitKeyTyped
         if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        } else if (nit.getText().length() == 15) {
             evt.consume();
         }
 }//GEN-LAST:event_nitKeyTyped
@@ -560,17 +568,23 @@ public class FormularioTercero extends JDialog {
     }//GEN-LAST:event_departamentoItemStateChanged
 
     private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
-        if (Character.isLetter(evt.getKeyChar())) {
-            String letra = ("" + evt.getKeyChar()).toUpperCase();
+        if (Character.isLetterOrDigit(evt.getKeyChar())) {
+            if (nombre.getText().length() == 200) {
+                evt.consume();
+            } else {
+                String letra = ("" + evt.getKeyChar()).toUpperCase();
 
-            evt.consume();
+                evt.consume();
 
-            nombre.setText(nombre.getText().concat(letra));
+                nombre.setText(nombre.getText().concat(letra));
+            }
         }
     }//GEN-LAST:event_nombreKeyTyped
 
     private void direccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionKeyTyped
-        if (Character.isLetter(evt.getKeyChar())) {
+        if (direccion.getText().length() == 200) {
+            evt.consume();
+        } else {
             String letra = ("" + evt.getKeyChar()).toUpperCase();
 
             evt.consume();
@@ -578,6 +592,14 @@ public class FormularioTercero extends JDialog {
             direccion.setText(direccion.getText().concat(letra));
         }
     }//GEN-LAST:event_direccionKeyTyped
+
+    private void telefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyTyped
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        } else if (telefono.getText().length() == 12) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_telefonoKeyTyped
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cel;
     private javax.swing.JComboBox ciudad;
@@ -591,22 +613,7 @@ public class FormularioTercero extends JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
@@ -619,35 +626,11 @@ public class FormularioTercero extends JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField nit;
     private javax.swing.JTextField nombre;
-    private javax.swing.JTextField porcentajeMinimo;
-    private javax.swing.JTextField porcentajeMinimo1;
-    private javax.swing.JTextField porcentajeMinimo2;
-    private javax.swing.JTextField porcentajeSugerido;
-    private javax.swing.JTextField porcentajeSugerido1;
-    private javax.swing.JTextField porcentajeSugerido2;
     private javax.swing.JButton salir;
     private javax.swing.JTextField telefono;
     private javax.swing.JComboBox tipo;
-    private javax.swing.JTextField valorganancia;
-    private javax.swing.JTextField valorganancia1;
-    private javax.swing.JTextField valorganancia2;
-    private javax.swing.JTextField valorsugerido;
-    private javax.swing.JTextField valorsugerido1;
-    private javax.swing.JTextField valorsugerido2;
-    private javax.swing.JTextField vlrCosto;
-    private javax.swing.JTextField vlrCosto1;
-    private javax.swing.JTextField vlrCosto2;
-    private javax.swing.JTextField vlrPromedio;
-    private javax.swing.JTextField vlrPromedio1;
-    private javax.swing.JTextField vlrPromedio2;
     // End of variables declaration//GEN-END:variables
 }
