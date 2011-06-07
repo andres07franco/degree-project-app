@@ -623,7 +623,6 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
         adicionar.setForeground(new java.awt.Color(0, 0, 204));
         adicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar.png"))); // NOI18N
         adicionar.setText("Adicionar");
-        adicionar.setEnabled(false);
         adicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adicionarActionPerformed(evt);
@@ -654,6 +653,9 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
             }
         });
         canti.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cantiKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 cantiKeyTyped(evt);
             }
@@ -1098,8 +1100,27 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
             cbarras.setText("" + articuloParaCombo.getCodigobarras());
             dcomercial.setText(articuloParaCombo.getDescripcioncomercial());
             vcosto.setText("" + articuloParaCombo.getVlrcosto());
+            canti.setText("1");
+            calcularValorParcial();
         }
     }//GEN-LAST:event_buscaraActionPerformed
+
+    public void calcularValorParcial() {
+        BigDecimal cantidad = BigDecimal.ONE;
+        BigDecimal costo = BigDecimal.ZERO;
+
+        if (!canti.getText().trim().isEmpty()) {
+            cantidad = new BigDecimal(canti.getText());
+        }
+
+        if (!vcosto.getText().trim().isEmpty()) {
+            costo = new BigDecimal(vcosto.getText());
+        }
+
+        BigDecimal valorParcial = cantidad.multiply(costo);
+
+        vparcial.setText(valorParcial.toString());
+    }
 
     public boolean existeFila(Object a) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
@@ -1111,17 +1132,19 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
     }
 
     public void adicionarArticuloAlCombo(int tipoAdicion) {
-        int cantidades = 1;
+        BigDecimal cantidades = BigDecimal.ONE;
 
         if (tipoAdicion == Constantes.ADICIONAR_CON_BOTON) {
-            cantidades += Integer.parseInt(canti.getText());
+            if (!canti.getText().trim().isEmpty()) {
+                cantidades = new BigDecimal(canti.getText());
+            }
         }
 
         if (articuloParaCombo != null) {
             if (!existeFila(articuloParaCombo)) {
-                modeloTabla.addRow(new Object[]{articuloParaCombo, articuloParaCombo.getDescripcioncomercial(), canti.getText(), utilidades.FormatoNumeros.formatear(articuloParaCombo.getVlrcosto() + ""), (utilidades.FormatoNumeros.formatear((articuloParaCombo.getVlrcosto().multiply(new BigDecimal(cantidades))) + ""))});
+                modeloTabla.addRow(new Object[]{articuloParaCombo, articuloParaCombo.getDescripcioncomercial(), canti.getText(), utilidades.FormatoNumeros.formatear(articuloParaCombo.getVlrcosto() + ""), (utilidades.FormatoNumeros.formatear((articuloParaCombo.getVlrcosto().multiply(cantidades)) + ""))});
                 BigDecimal totales = new BigDecimal(total.getText().replaceAll(",", ""));
-                totales.add(articuloParaCombo.getVlrcosto().multiply(new BigDecimal(cantidades)));
+                totales.add(articuloParaCombo.getVlrcosto().multiply(cantidades));
                 total.setText(utilidades.FormatoNumeros.formatear(totales + ""));
                 this.vcosto.setText("");
                 this.vlrPromedio.setText(utilidades.FormatoNumeros.formatear(totales + ""));
@@ -1131,16 +1154,15 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
                 cbarras.setText("");
                 dcomercial.setText("");
                 cbarras.requestFocus();
-                adicionar.setEnabled(false);
             } else {
                 for (int i = 0; i < tabla.getRowCount(); i++) {
                     if (tabla.getValueAt(i, 0).equals(articuloParaCombo)) {
-                        int x = Integer.parseInt(tabla.getValueAt(i, 2).toString());
-                        double y = Double.parseDouble(tabla.getValueAt(i, 3).toString().replaceAll(",", ""));
+                        BigDecimal x = new BigDecimal(tabla.getValueAt(i, 2).toString());
+                        BigDecimal y = new BigDecimal(tabla.getValueAt(i, 3).toString().replaceAll(",", ""));
 
-                        x += cantidades;
+                        x.add(cantidades);
 
-                        String z = utilidades.FormatoNumeros.formatear("" + (x * y));
+                        String z = utilidades.FormatoNumeros.formatear("" + (x.multiply(y)));
                         tabla.setValueAt(x, i, 2);
                         tabla.setValueAt(z, i, 4);
 
@@ -1262,36 +1284,28 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
     }//GEN-LAST:event_porcentajeMinimoKeyReleased
 
     private void calcularMinimoVenta() {
-        BigDecimal por = null;
-        BigDecimal pr2 = null;
+        BigDecimal por = BigDecimal.ZERO;
+        BigDecimal pr2 = pr2 = BigDecimal.ZERO;
         if (!porcentajeMinimo.getText().trim().equals("")) {
             pr2 = new BigDecimal(porcentajeMinimo.getText()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
-        } else {
-            pr2 = BigDecimal.ZERO;
         }
 
         if (!vlrCosto.getText().trim().equals("")) {
             por = new BigDecimal(vlrCosto.getText().replaceAll(",", ""));
-        } else {
-            por = BigDecimal.ZERO;
         }
 
         valorganancia.setText(utilidades.FormatoNumeros.formatear((por.multiply(pr2)).add(por).toString()));
     }
 
     private void calcularPorcentajeSugerido() {
-        BigDecimal por = null;
-        BigDecimal pr2 = null;
+        BigDecimal por = BigDecimal.ZERO;
+        BigDecimal pr2 = BigDecimal.ZERO;
         if (!porcentajeSugerido.getText().trim().equals("")) {
             pr2 = new BigDecimal(porcentajeSugerido.getText()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
-        } else {
-            pr2 = BigDecimal.ZERO;
         }
 
         if (!vlrCosto.getText().trim().equals("")) {
             por = new BigDecimal(vlrCosto.getText().replaceAll(",", ""));
-        } else {
-            por = BigDecimal.ZERO;
         }
 
         valorsugerido.setText(utilidades.FormatoNumeros.formatear((por.multiply(pr2)).add(por).toString()));
@@ -1387,6 +1401,10 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
             evt.consume();
         }
     }//GEN-LAST:event_cantidadMinimaKeyTyped
+
+    private void cantiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantiKeyReleased
+        calcularValorParcial();
+    }//GEN-LAST:event_cantiKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar;
     private javax.swing.JButton adicionarg;
