@@ -1182,8 +1182,7 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
             if (x == null) {
                 x = new BigDecimal(tabla.getValueAt(i, 4).toString().replaceAll(",", ""));
             } else {
-                BigDecimal y = new BigDecimal(tabla.getValueAt(i, 4).toString().replaceAll(",", ""));
-                x.add(y);
+                x = x.add(new BigDecimal(tabla.getValueAt(i, 4).toString().replaceAll(",", "")));
             }
         }
 
