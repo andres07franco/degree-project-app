@@ -1490,6 +1490,8 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
     private void cantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyTyped
         // TODO add your handling code here:
+        if(!Character.isDigit(evt.getKeyChar()))
+            evt.consume();
     }//GEN-LAST:event_cantidadKeyTyped
 
     private void articuloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_articuloKeyTyped
