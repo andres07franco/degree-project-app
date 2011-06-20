@@ -153,16 +153,19 @@
             <Component class="javax.swing.JTextField" name="usuario">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usuarioActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="usuarioKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="clave">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="claveActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="claveKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="clave2">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clave2ActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="clave2KeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">

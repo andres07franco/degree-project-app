@@ -234,16 +234,31 @@ public class Formulario_Usuarios extends javax.swing.JDialog {
                 usuarioActionPerformed(evt);
             }
         });
+        usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                usuarioKeyTyped(evt);
+            }
+        });
 
         clave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 claveActionPerformed(evt);
             }
         });
+        clave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                claveKeyTyped(evt);
+            }
+        });
 
         clave2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clave2ActionPerformed(evt);
+            }
+        });
+        clave2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                clave2KeyTyped(evt);
             }
         });
 
@@ -461,21 +476,27 @@ public class Formulario_Usuarios extends javax.swing.JDialog {
             try {
                 cantidad = ((Integer) m.obtenerRegistro("existeUsuario", usuario.getText())).intValue();
             } catch (Exception ex) {
-                Logger.getLogger(Formulario_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
                 return;
             }
 
             if (funcion == interfaces.Constantes.ESTADO_EDICION) {
                 if (u.getUsuario().equals(usuario.getText())) {
+                   
                     guardar();
                 } else if (cantidad > 0) {
                     JOptionPane.showMessageDialog(null, "El Usuario ya Existe");
                     usuario.requestFocus();
+                }else {
+                    guardar();
                 }
+
+
             } else if (cantidad > 0) {
                 JOptionPane.showMessageDialog(null, "El Usuario ya Existe");
                 usuario.requestFocus();
             } else {
+
                 guardar();
             }
         }
@@ -504,6 +525,27 @@ public class Formulario_Usuarios extends javax.swing.JDialog {
             tabla.setValueAt(new Boolean(false), i, 2);
         }
     }//GEN-LAST:event_btndeseleccionartActionPerformed
+
+    private void usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioKeyTyped
+        // TODO add your handling code here:
+        if ( usuario.getText().length() >= 40) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_usuarioKeyTyped
+
+    private void claveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_claveKeyTyped
+        // TODO add your handling code here:
+                if ( clave.getText().length() >= 40) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_claveKeyTyped
+
+    private void clave2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_clave2KeyTyped
+        // TODO add your handling code here:
+                if ( clave2.getText().length() >= 40) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_clave2KeyTyped
 
     public void guardar() {
 
