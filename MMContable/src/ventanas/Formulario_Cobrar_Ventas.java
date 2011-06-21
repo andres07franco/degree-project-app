@@ -66,7 +66,7 @@ public class Formulario_Cobrar_Ventas extends javax.swing.JDialog {
                 
                 if (Double.parseDouble(vabonar.getText().replaceAll(",", "")) >= d.getTotal().doubleValue()) {
                     
-                   int confirmado = JOptionPane.showConfirmDialog(this,"La cantidad Abonada es cubre  el TOTAL de la Venta, Desea cambiar a DE CONTADO y pagar el valor digitado?","¿Cambiar a DE CONTADO?",JOptionPane.YES_NO_OPTION);
+                   int confirmado = JOptionPane.showConfirmDialog(this,"La cantidad Abonada  cubre  el TOTAL de la Venta, Desea cambiar a DE CONTADO y pagar el valor digitado?","¿Cambiar a DE CONTADO?",JOptionPane.YES_NO_OPTION);
 
                     if (JOptionPane.OK_OPTION == confirmado){
                        tab.remove(0);
@@ -149,7 +149,7 @@ public class Formulario_Cobrar_Ventas extends javax.swing.JDialog {
 
         credito.setBackground(new java.awt.Color(212, 233, 255));
         buttonGroup1.add(credito);
-        credito.setText("Credito");
+        credito.setText("Crédito");
         credito.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 creditoMouseClicked(evt);
@@ -197,10 +197,10 @@ public class Formulario_Cobrar_Ventas extends javax.swing.JDialog {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("TOTAL A PAGAR");
 
-        total.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        total.setFont(new java.awt.Font("Tahoma", 1, 24));
         total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         total.setText("$");
 
@@ -226,7 +226,7 @@ public class Formulario_Cobrar_Ventas extends javax.swing.JDialog {
         etiquetaCambio.setText("Cambio");
 
         devuelve.setEditable(false);
-        devuelve.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        devuelve.setFont(new java.awt.Font("Tahoma", 1, 24));
         devuelve.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         devuelve.setText("0.00");
 
@@ -244,7 +244,7 @@ public class Formulario_Cobrar_Ventas extends javax.swing.JDialog {
                     .addGroup(panelefectivoLayout.createSequentialGroup()
                         .addComponent(etiquetaCambio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(devuelve, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
+                        .addComponent(devuelve, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
                 .addGap(131, 131, 131))
         );
         panelefectivoLayout.setVerticalGroup(
@@ -341,10 +341,10 @@ public class Formulario_Cobrar_Ventas extends javax.swing.JDialog {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        tab.addTab("Credito", panelca);
+        tab.addTab("Crédito", panelca);
 
         salir.setBackground(new java.awt.Color(0, 153, 255));
-        salir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        salir.setFont(new java.awt.Font("Tahoma", 1, 11));
         salir.setForeground(new java.awt.Color(0, 51, 153));
         salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bulletCritical.png"))); // NOI18N
         salir.setText("Salir");
@@ -355,7 +355,7 @@ public class Formulario_Cobrar_Ventas extends javax.swing.JDialog {
         });
 
         guardar.setBackground(new java.awt.Color(0, 153, 255));
-        guardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        guardar.setFont(new java.awt.Font("Tahoma", 1, 11));
         guardar.setForeground(new java.awt.Color(0, 51, 153));
         guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
         guardar.setText("Guardar");

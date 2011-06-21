@@ -148,7 +148,7 @@
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="buttonGroup1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Credito"/>
+                <Property name="text" type="java.lang.String" value="Cr&#xe9;dito"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="creditoMouseClicked"/>
@@ -295,8 +295,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Credito">
-                    <Property name="tabTitle" type="java.lang.String" value="Credito"/>
+                  <JTabbedPaneConstraints tabName="Cr&#xe9;dito">
+                    <Property name="tabTitle" type="java.lang.String" value="Cr&#xe9;dito"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>

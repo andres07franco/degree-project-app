@@ -53,7 +53,7 @@ public class ListaMarcas extends javax.swing.JPanel implements Buscadores {
         jScrollPane1.setFont(new java.awt.Font("Arial", 1, 11));
 
         tabla.setAutoCreateRowSorter(true);
-        tabla.setFont(new java.awt.Font("Arial", 1, 11));
+        tabla.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -75,7 +75,7 @@ public class ListaMarcas extends javax.swing.JPanel implements Buscadores {
                 {null, null}
             },
             new String [] {
-                "Codigoi", "Marca"
+                "Código", "Marca"
             }
         ));
         tabla.setGridColor(new java.awt.Color(153, 204, 255));
@@ -120,7 +120,7 @@ public class ListaMarcas extends javax.swing.JPanel implements Buscadores {
         });
 
         por.setBackground(new java.awt.Color(121, 188, 252));
-        por.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        por.setFont(new java.awt.Font("Arial", 1, 11));
         por.setForeground(new java.awt.Color(0, 0, 102));
         por.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Código", "Marca" }));
 

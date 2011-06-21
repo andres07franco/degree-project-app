@@ -58,9 +58,9 @@
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="tipod" min="-2" pref="115" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="numero" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="1">
@@ -162,7 +162,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Numero"/>
+            <Property name="text" type="java.lang.String" value="N&#xfa;mero"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="salir">
@@ -350,8 +350,8 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="5" rowCount="0">
-                            <Column editable="true" title="Codigo" type="java.lang.Object"/>
-                            <Column editable="true" title="Descripcion" type="java.lang.Object"/>
+                            <Column editable="true" title="C&#xf3;digo " type="java.lang.Object"/>
+                            <Column editable="true" title="Descripci&#xf3;n" type="java.lang.Object"/>
                             <Column editable="true" title="Cantidad" type="java.lang.Object"/>
                             <Column editable="true" title="Vlr Unit" type="java.lang.Object"/>
                             <Column editable="true" title="Vlr Par" type="java.lang.Object"/>
@@ -376,7 +376,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Codigo"/>
+                    <Property name="text" type="java.lang.String" value="C&#xf3;digo "/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="cantidad">
@@ -479,7 +479,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Descripcion Comercial"/>
+                    <Property name="text" type="java.lang.String" value="Descripci&#xf3;n Comercial"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="subtotal">

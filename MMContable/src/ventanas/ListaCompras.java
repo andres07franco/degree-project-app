@@ -58,7 +58,7 @@ public class ListaCompras extends javax.swing.JPanel implements Buscadores {
         jScrollPane1.setFont(new java.awt.Font("Arial", 1, 11));
 
         tabla.setAutoCreateRowSorter(true);
-        tabla.setFont(new java.awt.Font("Arial", 1, 11));
+        tabla.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -121,9 +121,9 @@ public class ListaCompras extends javax.swing.JPanel implements Buscadores {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jLabel2.setText("(Numero,Fecha,Nit)");
+        jLabel2.setText("(Número,Fecha,Nit)");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Buscar");
         jLabel1.setToolTipText("");
 

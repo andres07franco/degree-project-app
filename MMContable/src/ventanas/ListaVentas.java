@@ -78,7 +78,7 @@ public class ListaVentas extends javax.swing.JPanel implements Buscadores {
 
             },
             new String [] {
-                "Numero", "Fecha", "Tercero", "Total"
+                "Número", "Fecha", "Tercero", "Total"
             }
         ));
         tabla.setGridColor(new java.awt.Color(153, 204, 255));
@@ -114,7 +114,7 @@ public class ListaVentas extends javax.swing.JPanel implements Buscadores {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Buscar");
         jLabel1.setToolTipText("");
 
@@ -148,7 +148,7 @@ public class ListaVentas extends javax.swing.JPanel implements Buscadores {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 2, 11));
         jLabel2.setText("(Numero,Fecha,Cliente)");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

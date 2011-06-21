@@ -278,7 +278,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             }
         });
 
-        jLabel2.setText("Numero");
+        jLabel2.setText("Número");
 
         salir.setBackground(new java.awt.Color(0, 153, 255));
         salir.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -792,7 +792,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
-         int confirmado = JOptionPane.showConfirmDialog(this,"Se borrara todo lo que ha hecho esta seguro de SALIR?","¿Reinicar?",JOptionPane.YES_NO_OPTION);
+         int confirmado = JOptionPane.showConfirmDialog(this,"¿Se borrara todo lo que ha hecho, está seguro de salir?","¿Salir?",JOptionPane.YES_NO_OPTION);
          if (JOptionPane.OK_OPTION == confirmado){
                 this.dispose();
                  pestana.remove(desktopPane);
@@ -805,7 +805,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
           try {
             if (validar()) {
                 if(guardar()){
-                    JOptionPane.showMessageDialog(null,(this.tipod.getSelectedIndex()==0?"FACTURA":"COTIZACION") + " Guardada Con Exito");
+                    JOptionPane.showMessageDialog(null,(this.tipod.getSelectedIndex()==0?"FACTURA":"COTIZACION") + " Guardada con Éxito");
                     b.buscar();
                     this.dispose();
                      pestana.remove(desktopPane);
@@ -820,24 +820,24 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
 
   public boolean validar() throws Exception {
         if (tabla.getRowCount() <= 0) {
-            JOptionPane.showMessageDialog(null, "Adicione al menos un ARTICULO a la Venta");
+            JOptionPane.showMessageDialog(null, "Agregue al menos un ARTÍCULO a la Venta");
             articulo.requestFocus();
             return false;
         } else if (tercero.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el CLIENTE porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el CLIENTE por favor");
             tercero.requestFocus();
             return false;
         }else if ( t==null) {
-            JOptionPane.showMessageDialog(null, "Digite el CLIENTE porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el CLIENTE por favor");
             tercero.requestFocus();
             return false;
         }else if(t.getId()!=Constantes.TERCERO_POR_DEFECTO && (!(t.getNit()+"").equals(tercero.getText()))){
-                JOptionPane.showMessageDialog(null, "Digite un CLIENTE valido porfavor");
+                JOptionPane.showMessageDialog(null, "Digite un CLIENTE valido por favor");
                 tercero.requestFocus();
                  return false;
 
         }if(t.getId()==Constantes.TERCERO_POR_DEFECTO && (!(t.getNombre()+"").equals(tercero.getText()))){
-                JOptionPane.showMessageDialog(null, "Digite el CLIENTE valido porfavor");
+                JOptionPane.showMessageDialog(null, "Digite un CLIENTE valido por favor");
                 tercero.requestFocus();
                  return false;
         
@@ -847,7 +847,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             return false;
         }else if (this.tipod.getSelectedIndex() == 0) {
                 if (!this.comprovarExitencia()) {
-                    JOptionPane.showMessageDialog(null, "Los Articulos en rojo tienen una CANTIDAD  mayor a la EXISTENCIA, Inconveniente");
+                    JOptionPane.showMessageDialog(null, "Los ARTÍCULOS en rojo tienen una CANTIDAD  mayor a la EXISTENCIA", "Inconveniente", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
 

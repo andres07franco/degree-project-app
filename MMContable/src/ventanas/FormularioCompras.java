@@ -1046,7 +1046,7 @@ public class FormularioCompras extends javax.swing.JDialog {
             numero.requestFocus();
             return false;
         } else if (fecha.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite la FECHA porfavor");
+            JOptionPane.showMessageDialog(null, "Digite la FECHA por favor");
             fecha.requestFocus();
             return false;
         } else if (tercero.getText().trim().equals("")) {
@@ -1054,15 +1054,15 @@ public class FormularioCompras extends javax.swing.JDialog {
             tercero.requestFocus();
             return false;
         } else if (tabla.getRowCount() <= 0) {
-            JOptionPane.showMessageDialog(null, "Adicione al menos un Artículo a la Venta");
+            JOptionPane.showMessageDialog(null, "Agregue  al menos un Artículo a la Compra");
             articulo.requestFocus();
             return false;
         }else if(t==null){
-                JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR valido porfavor");
+                JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR valido por favor");
                 tercero.requestFocus();
                 return false;
         }else if ((!(t.getNit()+"").equals(tercero.getText()))){
-                JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR valido porfavor");
+                JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR valido por favor");
                 tercero.requestFocus();
                 return false;
         }

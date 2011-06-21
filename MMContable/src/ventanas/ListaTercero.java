@@ -59,7 +59,7 @@ public class ListaTercero extends JPanel implements Buscadores {
 
             },
             new String [] {
-                "Nit", "Nombre", "Tipo", "Telefono"
+                "Nit", "Nombre", "Tipo", "Teléfono "
             }
         ));
         tabla.setGridColor(new java.awt.Color(153, 204, 255));
@@ -107,7 +107,7 @@ public class ListaTercero extends JPanel implements Buscadores {
         });
 
         por.setBackground(new java.awt.Color(121, 188, 252));
-        por.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        por.setFont(new java.awt.Font("Arial", 1, 11));
         por.setForeground(new java.awt.Color(0, 0, 102));
         por.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre", "Nit" }));
         por.addActionListener(new java.awt.event.ActionListener() {
