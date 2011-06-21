@@ -179,9 +179,9 @@ public class Principal extends JFrame implements Buscadores {
         sel.setBounds(10, 10, 180, 30);
 
         configuracion.setBackground(new java.awt.Color(121, 187, 252));
-        configuracion.setFont(new java.awt.Font("Arial", 1, 11));
+        configuracion.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         configuracion.setForeground(new java.awt.Color(0, 0, 102));
-        configuracion.setText("Configuracion");
+        configuracion.setText("Configuración");
         configuracion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         configuracion.setContentAreaFilled(false);
         configuracion.setSelected(true);
