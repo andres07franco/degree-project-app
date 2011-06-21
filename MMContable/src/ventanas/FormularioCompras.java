@@ -188,7 +188,7 @@ public class FormularioCompras extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Codigo", "Descripcion", "Cantidad", "Vlr Unit", "Vlr Par"
+                "Código", "Descripción", "Cantidad", "Vlr Unit", "Vlr Par"
             }
         ) {
             boolean[] canEdit = new boolean [] {

@@ -298,7 +298,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
 
             },
             new String [] {
-                "Codigo", "Descripcion", "Cantidad", "Vlr Unit", "Vlr Par"
+                "Código", "Descripción", "Cantidad", "Vlr Unit", "Vlr Par"
             }
         ));
         tabla.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -325,7 +325,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             }
         });
 
-        jLabel3.setText("Codigo");
+        jLabel3.setText("Código");
 
         cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -395,7 +395,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
 
         descripcion.setEditable(false);
 
-        jLabel9.setText("Descripcion Comercial");
+        jLabel9.setText("Descripción Comercial");
 
         subtotal.setEditable(false);
         subtotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -766,7 +766,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                     .addComponent(restaurar)
                     .addComponent(salir)
                     .addComponent(imprimir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
