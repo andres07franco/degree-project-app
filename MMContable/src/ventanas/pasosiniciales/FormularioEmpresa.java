@@ -95,7 +95,7 @@ public class FormularioEmpresa extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Ingrese el E-MAL de la EMPRESA", "Se ha producido un inconveniente", JOptionPane.ERROR_MESSAGE);
             txtemail.requestFocus();
             return false;
-        }  else if (Validaciones.esEmail(txtemail.getText())) {
+        }  else if (!Validaciones.esEmail(txtemail.getText())) {
             JOptionPane.showMessageDialog(null, "Digite un E-MAIL valido porfavor");
             txtemail.requestFocus();
             return false;

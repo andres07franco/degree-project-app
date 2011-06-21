@@ -82,35 +82,35 @@ public class Formulario_Empresa extends javax.swing.JInternalFrame {
 
     public boolean validar() {
         if (nit.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el NIT porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el NIT por favor");
             nit.requestFocus();
             return false;
         } else if (nombre.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el NOMBRE porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el NOMBRE por favor");
             nombre.requestFocus();
             return false;
         } else if (direccion.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite la DIRECCION porfavor");
+            JOptionPane.showMessageDialog(null, "Digite la DIRECCIÓN por favor");
             direccion.requestFocus();
             return false;
         } else if (telefono.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite la TELEFONO porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el TELÉFONO por favor");
             telefono.requestFocus();
             return false;
         } else if (mail.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite la E-MAIL porfavor");
+            JOptionPane.showMessageDialog(null, "Digite la E-MAIL por favor");
             mail.requestFocus();
             return false;
-        } else if (Validaciones.esEmail(mail.getText())) {
-            JOptionPane.showMessageDialog(null, "Digite un E-MAIL valido porfavor");
+        } else if (!Validaciones.esEmail(mail.getText())) {
+            JOptionPane.showMessageDialog(null, "Digite un E-MAIL valido por favor");
             mail.requestFocus();
             return false;
         } else if (licencia.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite la LICENCIA porfavor");
+            JOptionPane.showMessageDialog(null, "Digite  la LICENCIA por favor");
             licencia.requestFocus();
             return false;
         } else if (propietario.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el PROPIETARIO porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el PROPIETARIO por favor");
             propietario.requestFocus();
             return false;
         }
@@ -173,7 +173,7 @@ public class Formulario_Empresa extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nit/CC");
 
-        jLabel4.setText("Direccion");
+        jLabel4.setText("Dirección");
 
         direccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +186,7 @@ public class Formulario_Empresa extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel5.setText("Telefono");
+        jLabel5.setText("Teléfono");
 
         telefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -338,7 +338,7 @@ public class Formulario_Empresa extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7)
                     .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,7 +398,7 @@ public class Formulario_Empresa extends javax.swing.JInternalFrame {
             this.dispose();
             tab.remove(dp);
             buscador.buscar();
-            JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+            JOptionPane.showMessageDialog(null, "Datos guardados con éxito");
         }
     }//GEN-LAST:event_guardarActionPerformed
 

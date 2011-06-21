@@ -14,17 +14,30 @@ import java.util.regex.Pattern;
  */
 public class Validaciones {
 
-       public static boolean esEmail(String correo) {
-        Pattern pat = null;
-        Matcher mat = null;
-        pat = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
-        mat = pat.matcher(correo);
-        if (mat.find()) 
-           
-            return true;
-      
-            return false;
-        
-    }
 
+ public static  boolean esEmail(String email) {
+
+       Pattern p = Pattern.compile("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*@[a-z0-9][\\w\\.-]*[a-z0-9]\\.[a-z][a-z\\.]*[a-z]$");//me gusta esta
+
+       Matcher m = p.matcher(email);
+       return m.matches();
+   }
+
+   public boolean validateLeftEmail(String emailLeft) {
+       Pattern p = Pattern.compile("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*");
+       Matcher m = p.matcher(emailLeft);
+       return m.matches();
+   }
+
+   public boolean validateRightEmail(String emailRight) {
+       Pattern p = Pattern.compile("[a-z0-9][\\w\\.-]*[a-z0-9]\\.[a-z][a-z\\.]*[a-z]$");
+       Matcher m = p.matcher(emailRight);
+       return m.matches();
+
+   }
+
+
+public static void main(String ar[]){
+    System.out.println(Validaciones.esEmail("werwsdfsffsdfom"));
+}
 }
