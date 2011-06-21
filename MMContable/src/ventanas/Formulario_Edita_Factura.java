@@ -70,35 +70,35 @@ public class Formulario_Edita_Factura extends javax.swing.JInternalFrame {
 
     public boolean validar() {
         if (encabezado1.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el Encabeado1 porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el Encabezado 1 por favor");
             encabezado1.requestFocus();
             return false;
         } else if (encabezado2.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el Encabeado 2 porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el Encabezado 2 por favor");
             encabezado2.requestFocus();
             return false;
         } else if (encabezado3.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el Encabeado 3 porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el Encabezado 3 por favor");
             encabezado3.requestFocus();
             return false;
         } else if (encabezado4.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el Encabeado 4 porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el Encabezado 4 por favor");
             encabezado4.requestFocus();
             return false;
         } else if (encabezado5.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el Encabeado 5 porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el Encabezado 5 por favor");
             encabezado5.requestFocus();
             return false;
         } else if (pie1.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el Pie de pagina 1 porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el Pie de Pie de página 1 por favor");
             pie1.requestFocus();
             return false;
         } else if (pie2.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el Pie de pagina 2 porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el Pie de página 2 por favor");
             pie2.requestFocus();
             return false;
         } else if (numero.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el Numero Actual porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el NÚMERO actual por favor");
             numero.requestFocus();
             return false;
         }
@@ -139,7 +139,7 @@ public class Formulario_Edita_Factura extends javax.swing.JInternalFrame {
         area.setText("\n07 dic 2009\n02:35 pm    No.00001\nCant Articulos Valor\n10   Sillas    3000\n 2   mesas     1000\n\nNo Articulos:12\ntotal          4000\nefectivo       5000\ncambio         1000");
         jScrollPane1.setViewportView(area);
 
-        pie1.setText("Gracias por si compra");
+        pie1.setText("Gracias por su compra");
         pie1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pie1ActionPerformed(evt);
@@ -217,7 +217,7 @@ public class Formulario_Edita_Factura extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setText("Actual Numero de Factura:");
+        jLabel2.setText("Actual número de factura");
 
         encabezado5.setText("Tel: 6510405");
         encabezado5.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -261,12 +261,12 @@ public class Formulario_Edita_Factura extends javax.swing.JInternalFrame {
                         .addComponent(guardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(encabezado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,7 +353,7 @@ public class Formulario_Edita_Factura extends javax.swing.JInternalFrame {
 
             this.dispose();
             tab.remove(dp);
-            JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+            JOptionPane.showMessageDialog(null, "Datos guardados con éxito");
         }
     }//GEN-LAST:event_guardarActionPerformed
 
