@@ -272,7 +272,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Numero");
+        jLabel2.setText("Número");
 
         salir.setBackground(new java.awt.Color(0, 153, 255));
         salir.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -292,7 +292,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Codigo", "Descripcion", "Cantidad", "Vlr Unit", "Vlr Par"
+                "Código ", "Descripción", "Cantidad", "Vlr Unit", "Vlr Par"
             }
         ));
         tabla.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -319,7 +319,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setText("Codigo");
+        jLabel3.setText("Código ");
 
         cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -380,7 +380,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             }
         });
 
-        total.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        total.setFont(new java.awt.Font("Tahoma", 1, 24));
         total.setForeground(new java.awt.Color(204, 51, 0));
         total.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         total.setText("0.00");
@@ -389,7 +389,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
         descripcion.setEditable(false);
 
-        jLabel9.setText("Descripcion Comercial");
+        jLabel9.setText("Descripción Comercial");
 
         subtotal.setEditable(false);
         subtotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -605,7 +605,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         tab.addTab("Abonos", panelabonos);
 
         guardar.setBackground(new java.awt.Color(0, 153, 255));
-        guardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        guardar.setFont(new java.awt.Font("Tahoma", 1, 11));
         guardar.setForeground(new java.awt.Color(0, 51, 153));
         guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
         guardar.setText("Vender");
@@ -699,9 +699,9 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
                         .addComponent(tipod, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addGap(24, 24, 24)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10)

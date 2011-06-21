@@ -98,13 +98,13 @@ public class BuscaTerceros extends javax.swing.JDialog {
         jScrollPane1.setFont(new java.awt.Font("Arial", 1, 11));
 
         tabla.setAutoCreateRowSorter(true);
-        tabla.setFont(new java.awt.Font("Arial", 1, 11));
+        tabla.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Codigo", "Descripcion", "Existencia"
+                "Id", "Codigo", "Descripción", "Existencia"
             }
         ));
         tabla.setGridColor(new java.awt.Color(153, 204, 255));
@@ -165,7 +165,7 @@ public class BuscaTerceros extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(por, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(busqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addComponent(busqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(salir)
                 .addContainerGap())

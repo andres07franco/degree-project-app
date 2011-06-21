@@ -172,9 +172,9 @@ public class InicioSesion extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel5.setForeground(new java.awt.Color(51, 153, 255));
-        jLabel5.setText("para  iniciar al sistema");
+        jLabel5.setText("para  ingresar al sistema");
         panelin.add(jLabel5);
-        jLabel5.setBounds(70, 10, 130, 20);
+        jLabel5.setBounds(50, 10, 160, 20);
 
         panel.add(panelin);
         panelin.setBounds(620, 140, 240, 130);

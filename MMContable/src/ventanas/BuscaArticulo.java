@@ -94,13 +94,13 @@ public class BuscaArticulo extends javax.swing.JDialog {
         jScrollPane1.setFont(new java.awt.Font("Arial", 1, 11));
 
         tabla.setAutoCreateRowSorter(true);
-        tabla.setFont(new java.awt.Font("Arial", 1, 11));
+        tabla.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Codigo", "Descripcion", "Existencia"
+                "Id", "Número", "Descripción", "Existencia"
             }
         ));
         tabla.setGridColor(new java.awt.Color(153, 204, 255));
@@ -126,7 +126,7 @@ public class BuscaArticulo extends javax.swing.JDialog {
         });
 
         por.setBackground(new java.awt.Color(121, 188, 252));
-        por.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        por.setFont(new java.awt.Font("Arial", 1, 11));
         por.setForeground(new java.awt.Color(0, 0, 102));
         por.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Código", "Descripción", "Marca", "Grupo" }));
 

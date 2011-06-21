@@ -31,7 +31,7 @@ public class FormularioInicioCaja extends JDialog {
 
         if (cajaDia == null) {
             funcion = Constantes.NO_SE_INICIO_CAJA;
-            et.setText("¿con qué cantidad Desea Iniciar?");
+            et.setText("¿Con qué cantidad desea iniciar?");
         } else {
             saldo.setText(FormatoNumeros.formatear(cajaDia.getSaldoactual() + ""));
             saldo.setEditable(false);
@@ -184,7 +184,7 @@ public class FormularioInicioCaja extends JDialog {
                     ex.printStackTrace();
                 }
                 
-                JOptionPane.showMessageDialog(null, "Caja Inciada");
+                JOptionPane.showMessageDialog(null, "Caja Iniciada");
                 this.dispose();
             }
         } else {
