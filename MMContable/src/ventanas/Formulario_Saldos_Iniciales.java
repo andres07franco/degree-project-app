@@ -179,7 +179,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Codigo", "Descripcion", "Cantidad", "Vlr Unit", "Vlr Par"
+                "Código", "Descripción", "Cantidad", "Vlr Unit", "Vlr Par"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -208,7 +208,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setText("Codigo");
+        jLabel3.setText("Código");
 
         cantidad.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -291,7 +291,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
         descripcion.setEditable(false);
         descripcion.setEnabled(false);
 
-        jLabel9.setText("Descripcion Comercial");
+        jLabel9.setText("Descripción Comercial");
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
