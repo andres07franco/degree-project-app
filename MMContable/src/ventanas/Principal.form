@@ -555,7 +555,7 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/img/flour-32x32.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Articulos"/>
+                        <Property name="text" type="java.lang.String" value="Art&#xed;culos"/>
                         <Property name="focusable" type="boolean" value="false"/>
                         <Property name="horizontalTextPosition" type="int" value="0"/>
                         <Property name="opaque" type="boolean" value="false"/>
@@ -593,21 +593,6 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cajaActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="preguntaron">
-                      <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/img/Money-Calculator-32x32.png"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Preguntaron?"/>
-                        <Property name="focusable" type="boolean" value="false"/>
-                        <Property name="horizontalTextPosition" type="int" value="0"/>
-                        <Property name="opaque" type="boolean" value="false"/>
-                        <Property name="verticalTextPosition" type="int" value="3"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="preguntaronActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="alquiler">
