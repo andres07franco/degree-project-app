@@ -88,7 +88,7 @@ public class Principal extends JFrame implements Buscadores {
             nempresa.setText("Empresa: no hay Empresa registrada");
         }
 
-        preguntaron.setVisible(false);
+       
         alquiler.setVisible(false);
 
         this.setLocationRelativeTo(null);
@@ -139,7 +139,6 @@ public class Principal extends JFrame implements Buscadores {
         elemento = new javax.swing.JButton();
         tercero = new javax.swing.JButton();
         caja = new javax.swing.JButton();
-        preguntaron = new javax.swing.JButton();
         alquiler = new javax.swing.JButton();
         diario = new javax.swing.JButton();
         mes = new javax.swing.JLabel();
@@ -404,7 +403,7 @@ public class Principal extends JFrame implements Buscadores {
         jToolBar1.add(entrada);
 
         elemento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/flour-32x32.png"))); // NOI18N
-        elemento.setText("Articulos");
+        elemento.setText("Artículos");
         elemento.setFocusable(false);
         elemento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         elemento.setOpaque(false);
@@ -441,19 +440,6 @@ public class Principal extends JFrame implements Buscadores {
             }
         });
         jToolBar1.add(caja);
-
-        preguntaron.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Money-Calculator-32x32.png"))); // NOI18N
-        preguntaron.setText("Preguntaron?");
-        preguntaron.setFocusable(false);
-        preguntaron.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        preguntaron.setOpaque(false);
-        preguntaron.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        preguntaron.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                preguntaronActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(preguntaron);
 
         alquiler.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/My-Documents-32x32 (1).png"))); // NOI18N
         alquiler.setText("Alquiler");
@@ -1012,10 +998,6 @@ public class Principal extends JFrame implements Buscadores {
         }
     }//GEN-LAST:event_terceroActionPerformed
 
-    private void preguntaronActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preguntaronActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_preguntaronActionPerformed
-
     private void diarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diarioActionPerformed
         // TODO add your handling code here:
         int confirmado = JOptionPane.showConfirmDialog(this,"Esta seguro que desea cerrar la SESION?","¿Salir?",JOptionPane.YES_NO_OPTION);
@@ -1049,11 +1031,11 @@ public class Principal extends JFrame implements Buscadores {
         seleccionar(informes);
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
 
-        treeNode1.add(new DefaultMutableTreeNode("Imprime Factura"));
+        treeNode1.add(new DefaultMutableTreeNode("Imprimir Factura"));
         treeNode1.add(new DefaultMutableTreeNode("Listar Articulos"));
         treeNode1.add(new DefaultMutableTreeNode("Inventario Fisico"));
         treeNode1.add(new DefaultMutableTreeNode("Kardex"));
-        treeNode1.add(new DefaultMutableTreeNode("Articulos en Minimo"));
+        treeNode1.add(new DefaultMutableTreeNode("Artículo en Mínimo"));
       //  treeNode1.add(new DefaultMutableTreeNode("Articulos Costo-Venta"));
         treeNode1.add(new DefaultMutableTreeNode("Diario de Ventas (Arqueos)"));
         treeNode1.add(new DefaultMutableTreeNode("Listado de Terceros"));
@@ -1177,7 +1159,6 @@ public class Principal extends JFrame implements Buscadores {
     private javax.swing.JLabel logo1;
     private javax.swing.JLabel mes;
     private javax.swing.JLabel nempresa;
-    private javax.swing.JButton preguntaron;
     private javax.swing.JButton sel;
     private javax.swing.JTabbedPane tab;
     private javax.swing.JButton tercero;
