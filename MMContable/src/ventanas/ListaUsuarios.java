@@ -282,7 +282,9 @@ public class ListaUsuarios extends javax.swing.JPanel implements Buscadores {
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
         // TODO add your handling code here:
         if (tabla.getSelectedRow() > -1) {
-            new Formulario_Usuarios(parent, true, l.get(tabla.getSelectedRow()), this);
+             Usuario us = (Usuario) tabla.getValueAt(tabla.getSelectedRow(), 1);
+                new Formulario_Usuarios(parent, true, us, this);
+                this.buscar();
         } else {
             JOptionPane.showMessageDialog(null, "Selecciones una fila primero");
         }
