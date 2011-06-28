@@ -15,8 +15,8 @@ import utilidades.Validaciones;
 
 public class Formulario_Empresa extends javax.swing.JInternalFrame {
 
-    JTabbedPane tab;
-    JDesktopPane dp;
+    JTabbedPane  tab;
+    JDesktopPane  dp;
     Empresa em;
     int funcion = interfaces.Constantes.ESTADO_CREACION;
     Buscadores buscador;
