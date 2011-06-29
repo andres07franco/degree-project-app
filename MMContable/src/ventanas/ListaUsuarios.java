@@ -242,7 +242,7 @@ public class ListaUsuarios extends javax.swing.JPanel implements Buscadores {
         dtm.addColumn("Usuario");
 
         try {
-            List<Usuario> listaUsuarios = (List<Usuario>) m.obtenerListado("obtenerUsuariosPorNombre", busqueda.getText()+"%");
+            List<Usuario> listaUsuarios = (List<Usuario>) m.obtenerListado("obtenerUsuariosPorNombre", "%"+busqueda.getText()+"%");
 
             for (Usuario obj : listaUsuarios) {
                 Object fila[] = new Object[3];
