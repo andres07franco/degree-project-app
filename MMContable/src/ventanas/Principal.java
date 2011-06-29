@@ -149,6 +149,14 @@ public class Principal extends JFrame implements Buscadores {
         setBackground(new java.awt.Color(231, 242, 252));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(new java.awt.Color(224, 240, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         addWindowStateListener(new java.awt.event.WindowStateListener() {
             public void windowStateChanged(java.awt.event.WindowEvent evt) {
                 formWindowStateChanged(evt);
@@ -178,7 +186,7 @@ public class Principal extends JFrame implements Buscadores {
         sel.setBounds(10, 10, 180, 30);
 
         configuracion.setBackground(new java.awt.Color(121, 187, 252));
-        configuracion.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        configuracion.setFont(new java.awt.Font("Arial", 1, 11));
         configuracion.setForeground(new java.awt.Color(0, 0, 102));
         configuracion.setText("Configuración");
         configuracion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -1133,6 +1141,20 @@ public class Principal extends JFrame implements Buscadores {
         }
 
     }//GEN-LAST:event_arbolMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+       
+
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+         int confirmado = JOptionPane.showConfirmDialog(this,"Está seguro de salir de M&MContable ?","¿Salir?",JOptionPane.YES_NO_OPTION);
+
+                    if (JOptionPane.OK_OPTION == confirmado)
+                        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alquiler;
