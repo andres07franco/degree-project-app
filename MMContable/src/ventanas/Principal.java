@@ -145,7 +145,7 @@ public class Principal extends JFrame implements Buscadores {
         fechaac = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(231, 242, 252));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(new java.awt.Color(224, 240, 255));
@@ -1154,6 +1154,7 @@ public class Principal extends JFrame implements Buscadores {
 
                     if (JOptionPane.OK_OPTION == confirmado)
                         this.dispose();
+                   
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
