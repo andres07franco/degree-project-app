@@ -161,7 +161,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                 tercero.setText(t.getNombre());
                 ntercero.setText(t.getNombre());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "no se ha establecido un cliente por mostrador, no puede hacer esta transaccion");
+                JOptionPane.showMessageDialog(null, "No se ha establecido un Cliente por mostrador, no puedra hacer esta transacción");
                 guardar.setEnabled(false);
                 imprimir.setEnabled(false);
             }
@@ -190,7 +190,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             }
             numero.setText(consecutivo + "");
         } else {
-            JOptionPane.showMessageDialog(null, "no se ha Configuarado las propiedades de la factura,  no puede hacer esta transaccion");
+            JOptionPane.showMessageDialog(null, "No se han configuarado las propiedades de la Factura,  no podra hacer esta transacción");
             guardar.setEnabled(false);
         }
     }
