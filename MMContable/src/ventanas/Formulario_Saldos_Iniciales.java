@@ -851,7 +851,10 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
           if(c[i] instanceof JTextField)
               ((JTextField) c[i] ).setText("");
       }
-       
+      for(int i = 0; i<tabla.getRowCount(); i++)
+      this.mt.removeRow(0);
+      this.total.setText("0.0");
+      nota.setText("");
     }
 
 
