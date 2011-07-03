@@ -26,8 +26,10 @@ import javax.swing.table.DefaultTableModel;
 import db.Model;
 import interfaces.Constantes;
 import java.awt.Component;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import utilidades.ModeloTabla;
+import utilidades.Validaciones;
 
 public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
 
@@ -99,9 +101,16 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
         tabla.setModel(mt);
 
         /*asignando mascaras a los textfield*/
-        utilidades.FormatoNumeros fn = new utilidades.FormatoNumeros(vunit);
-        vunit.addKeyListener(fn);
-        vunit.addFocusListener(fn);
+       utilidades.FormatoNumeros fn = new utilidades.FormatoNumeros(vunit);
+         /*vunit.addKeyListener(fn);
+        vunit.addFocusListener(fn);*/
+
+        vunit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                if(Validaciones.esEntero(vunit.getText()))
+                    evt.consume();
+            }
+        });
 
         fn = new utilidades.FormatoNumeros(vparcial);
         vparcial.addKeyListener(fn);
