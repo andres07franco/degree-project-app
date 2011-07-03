@@ -19,6 +19,8 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.*;
 import java.util.*;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 /**
  *
@@ -28,12 +30,16 @@ public class Reporte {
 
     Model m;
     int funcion = 0;
-    JDialog d;
+    javax.swing.JFrame d;
     private transient Connection con;
     private String jdbcDriver;
     private String databaseURL;
     private String user;
     private String password;
+
+    public Reporte() {
+        
+    }
 
     public Connection getConexion() {
         try {
@@ -43,11 +49,12 @@ public class Reporte {
             databaseURL = ("jdbc:mysql://localhost:3306/m_mcontable");
             password = ("");
             connect();
-            if (!isConnect()) {
+            if (isConnect()) {
+                System.out.println("Conectado");
                 return con;
 
             } else {
-                System.out.println("Conectado");
+                
             }
         } catch (Exception er) {
             return null;
@@ -87,10 +94,27 @@ public class Reporte {
         this.m = m;
     }
 
-    public Reporte(Model m, JDialog d) {
-        this.m = m;
+
+
+    public Reporte( JFrame d) {
         this.d = d;
         funcion = 1;
+    }
+
+
+    public static void main(String ar[]){
+        try {
+
+
+                 Map parametro=new HashMap();
+                   parametro.put("fecha","2011-06-01");
+                   parametro.put("fecha2","2011-06-01");
+
+                   new utilidades.Reporte().runReporte("Reporte de Caja.jasper", parametro);
+
+            } catch (Exception ex) {
+               ex.printStackTrace();
+            }
     }
 
     public void runReporte(String archivo, Map parametro) {
@@ -100,30 +124,24 @@ public class Reporte {
         try {
 
             String master = System.getProperty("user.dir")
-                    + "/" + archivo;
+                    + "\\" + archivo;
 
 
             if (master == null) {
                 System.out.println("No encuentro el archivo del reporte maestro.");
-                System.exit(2);
+               // System.exit(2);
             }
-
+            System.out.println(master);
             JasperReport masterReport = null;
             try {
                 masterReport = (JasperReport) JRLoader.loadObject(master);
-                //masterReport  = JasperCompileManager.compileReport(System.getProperty("user.dir")+"/contactos.jrxml");
+                //masterReport  = JasperCompileManager.compileReport(master);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error cargando el reporte maestro: " + e.getMessage());
-                System.exit(3);
+              //  System.exit(3);
             }
 
-            //este es el parÃ¡metro, se pueden agregar mÃ¡s parÃ¡metros
-            //basta con poner mas parametro.put
-
-            //parametro.put("id",id_contact);
-
-            //Reporte diseÃ±ado y compilado con iReport
             JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, parametro, this.getConexion());
 
             //Se lanza el Viewer de Jasper, no termina aplicaciÃ³n al salir
@@ -163,7 +181,7 @@ public class Reporte {
                     }
                 });
             }
-            jviewer.setTitle("COAL");
+            jviewer.setTitle("Reporte");
             jviewer.setVisible(true);
         } catch (Exception j) {
             j.printStackTrace();

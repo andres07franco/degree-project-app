@@ -1,5 +1,6 @@
 package ventanas;
 
+import beans.Caja;
 import beans.Documento;
 import beans.Empresa;
 import beans.Usuario;
@@ -810,10 +811,24 @@ public class Principal extends JFrame implements Buscadores {
         } else if (sele.equals("Muestra Física")) {
         } else if (sele.equals("E.D Dia Especifico")) {
 //
-        } else if (sele.equals("Lista de Transacciones")) {
-//
-        } else if (sele.equals("E.D. Mes Actual")) {
-        }
+        } else if (sele.equals("Resumen de Caja")) {
+            new VentanaReporteCaja(this, true).setVisible(true);
+
+        } else if (sele.equals("Informe de Caja Actual")) {
+            try {
+                Caja cajaDia = (Caja) modelo.obtenerRegistro("obtenerCajaDia");
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+
+                 Map parametro=new HashMap();
+                   parametro.put("fecha",formato.format(cajaDia.getFechaabre()));
+                   parametro.put("fecha2",formato.format(cajaDia.getFechaabre()));
+                   this.dispose();
+                   new utilidades.Reporte(this).runReporte("Reporte de Caja.jasper", parametro);
+
+            } catch (Exception ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                  }
 
     }
     //Tarjeta Kardex
@@ -1075,8 +1090,9 @@ public class Principal extends JFrame implements Buscadores {
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Caja y Bancos");
 
      //   treeNode1.add(new DefaultMutableTreeNode("Cortes de Caja"));
+        treeNode1.add(new DefaultMutableTreeNode("Informe de Caja Actual"));
+        treeNode1.add(new DefaultMutableTreeNode("Resumen de Caja"));
         treeNode1.add(new DefaultMutableTreeNode("Ingresos/Egresos"));
-        treeNode1.add(new DefaultMutableTreeNode("Movimientos Caja"));
         //   treeNode1.add(new DefaultMutableTreeNode("Manejo Bancos"));
 
         arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));

@@ -13,6 +13,8 @@ package ventanas.pasosiniciales;
 import beans.Empresa;
 import beans.Usuario;
 import db.Model;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import ventanas.InicioSesion;
 
@@ -28,11 +30,13 @@ public class VistaPasosIniciales extends javax.swing.JFrame {
     private int paso;
 
     public VistaPasosIniciales() {
+        correrInsertsIniciales();
         initComponents();
         paso = interfaces.Constantes.PASO_BIENVENIDO;
         btnanterior.setVisible(false);
         this.setSize(810, 480);
         this.setLocationRelativeTo(null);
+
     }
 
     /** This method is called from within the constructor to
@@ -150,6 +154,23 @@ public class VistaPasosIniciales extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+   private void correrInsertsIniciales() {
+        Model m = Model.getInstance();
+        try {
+            m.insertarRegistro("insertar_tipo_usuario", null);
+            m.insertarRegistro("insertar_tipo_tercero", null);
+            m.insertarRegistro("insertar_tipo_pago", null);
+            m.insertarRegistro("insertar_tipo_documento", null);
+            m.insertarRegistro("insertar_tipo_articulo", null);
+            m.insertarRegistro("insertar_tercero_defecto", null);
+            m.insertarRegistro("insertar_estado", null);
+            m.insertarRegistro("insertar_departamento", null);
+
+        } catch (Exception ex) {
+            Logger.getLogger(VistaPasosIniciales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void btnsiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsiguienteActionPerformed
         // TODO add your handling code here:
@@ -302,4 +323,6 @@ public class VistaPasosIniciales extends javax.swing.JFrame {
     private javax.swing.JLabel lblcontenido;
     private javax.swing.JLabel lbltitulo;
     // End of variables declaration//GEN-END:variables
+
+
 }

@@ -23,6 +23,14 @@ public class Validaciones {
        return m.matches();
    }
 
+  public static  boolean esEntero(String email) {
+
+       Pattern p = Pattern.compile("^(?:\\+|-)?[1-9]+\\d*$");//me gusta esta
+
+       Matcher m = p.matcher(email);
+       return m.matches();
+   }
+
    public boolean validateLeftEmail(String emailLeft) {
        Pattern p = Pattern.compile("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*");
        Matcher m = p.matcher(emailLeft);
@@ -38,6 +46,6 @@ public class Validaciones {
 
 
 public static void main(String ar[]){
-    System.out.println(Validaciones.esEmail("werwsdfsffsdfom"));
+    System.out.println(Validaciones.esEntero("10"));
 }
 }

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte de Caja" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+
+     SUM(caja.`ventasefectivo`) AS caja_ventasefectivo,
+     SUM(caja.`ventascredito`) AS caja_ventascredito,
+     SUM(caja.`otrosingresos`) AS caja_otrosingresos,
+     SUM(caja.`gastosvarios`) AS caja_gastosvarios,
+
+     (select  c1.`iniciodia` from `caja` c1 where
+          (c1.`fechaabre` >= $P{fecha}
+          AND  c1.`fechaabre` <= $P{fecha2}  )
+          order by c1.`fechaabre` asc limit 1
+      ) AS caja_iniciodia,
+
+     (select  c1.`iniciodia` from `caja` c1 where
+          (c1.`fechaabre` >= $P{fecha}
+          AND  c1.`fechaabre` <= $P{fecha2}  )
+          order by c1.`fechaabre` desc  limit 1
+      ) AS caja_saldoactual,
+
+     SUM(caja.`cajaprincipal`) AS caja_cajaprincipal,
+     SUM(caja.`comprascredito`) AS caja_comprascredito,
+     SUM(caja.`comprasefectivo`) AS caja_comprasefectivo,
+     SUM(caja.`abonoventas`) AS caja_abonoventas,
+     SUM(caja.`abonocompras`) AS caja_abonocompras
+FROM
+     `caja` caja
+WHERE
+     caja.`fechaabre` >= $P{fecha}
+AND  caja.`fechaabre` <= $P{fecha2}]]>
+	</queryString>
+	<field name="caja_ventasefectivo" class="java.math.BigDecimal"/>
+	<field name="caja_ventascredito" class="java.math.BigDecimal"/>
+	<field name="caja_otrosingresos" class="java.math.BigDecimal"/>
+	<field name="caja_gastosvarios" class="java.math.BigDecimal"/>
+	<field name="caja_iniciodia" class="java.math.BigDecimal"/>
+	<field name="caja_saldoactual" class="java.math.BigDecimal"/>
+	<field name="caja_cajaprincipal" class="java.math.BigDecimal"/>
+	<field name="caja_comprascredito" class="java.math.BigDecimal"/>
+	<field name="caja_comprasefectivo" class="java.math.BigDecimal"/>
+	<field name="caja_abonoventas" class="java.math.BigDecimal"/>
+	<field name="caja_abonocompras" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="90" y="28" width="394" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[INFORME DE CAJA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="13" y="10" width="77" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Inicial:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="95" y="12" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="10" width="78" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Final:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="333" y="12" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fecha2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="298" splitType="Stretch">
+			<staticText>
+				<reportElement x="44" y="112" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Ventas en Efectivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="135" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Ventas a Credito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="157" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Abono a Facturas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="179" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Otros Ingresos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="179" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Otros Egresos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="135" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Compras a Credito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="157" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Abono a Facturas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="112" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Compras en Efectivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="12" width="122" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[SALDO ANTERIOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="83" width="122" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[INGRESOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="83" width="122" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[EGRESOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="227" width="122" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[SALDO ACTUAL]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="13" y="38" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{caja_iniciodia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="146" y="112" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{caja_ventasefectivo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="146" y="135" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{caja_ventascredito}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="13" y="250" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{caja_saldoactual}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="179" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{caja_gastosvarios}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="146" y="177" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{caja_otrosingresos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="157" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{caja_abonocompras}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="112" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{caja_comprasefectivo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="135" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{caja_comprascredito}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="146" y="156" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{caja_abonoventas}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="30" width="572" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="9" width="572" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="100" width="572" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="79" width="572" height="1"/>
+			</line>
+			<line>
+				<reportElement x="1" y="244" width="572" height="1"/>
+			</line>
+			<line>
+				<reportElement x="1" y="223" width="572" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="68" splitType="Stretch">
+			<textField>
+				<reportElement x="235" y="18" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pagina  "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="315" y="18" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

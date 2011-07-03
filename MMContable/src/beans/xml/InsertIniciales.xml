@@ -8,9 +8,9 @@
     </insert>
 
     <insert id="insertar_tipo_tercero" parameterType="aliasArticulo">
-        INSERT INTO `tipo_tercero` VALUES (1,'Tercero');
-        INSERT INTO `tipo_tercero` VALUES (2,'Cliente');
-        INSERT INTO `tipo_tercero` VALUES (3,'Proveedor');
+        INSERT INTO `tipo_tercero` VALUES (1,'Tercero')
+        INSERT INTO `tipo_tercero` VALUES (2,'Cliente')
+        INSERT INTO `tipo_tercero` VALUES (3,'Proveedor')
     </insert>
 
     <insert id="insertar_tipo_pago" parameterType="aliasArticulo">
