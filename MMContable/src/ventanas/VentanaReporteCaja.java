@@ -22,6 +22,7 @@ public class VentanaReporteCaja extends javax.swing.JDialog {
         this.parent = parent;
 
         initComponents();
+        setTitle("Reporte de Caja");
         this.setLocationRelativeTo(null);
     }
 

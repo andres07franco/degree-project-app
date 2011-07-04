@@ -807,15 +807,15 @@ public class Principal extends JFrame implements Buscadores {
                 tab.setSelectedIndex(esta("Reintegro"));
             }
 
-        } else if (sele.equals("Inventario")) {
-
+        } else if (sele.equals("Inventario")) {            
+                  new VentanaInventario(this, true).setVisible(true);
         } else if (sele.equals("Artículo en Mínimo")) {
                  Map parametro=new HashMap();                 
-                   new utilidades.Reporte(this).runReporte("reportes/Articulos en Minimo.jasper", parametro);
+                 new utilidades.Reporte().runReporte("reportes/Articulos en Minimo.jasper", parametro);
         } else if (sele.equals("Diario de Ventas (Arqueos)")) {
-           new VentanaReporteCaja(this, true).setVisible(true);
+                 new VentanaReporteCaja(this, true).setVisible(true);
         } else if (sele.equals("Resumen de Caja")) {
-            new VentanaReporteCaja(this, true).setVisible(true);
+                 new VentanaReporteCaja(this, true).setVisible(true);
 
         } else if (sele.equals("Informe de Caja Actual")) {
             try {
