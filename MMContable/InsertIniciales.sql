@@ -20,7 +20,7 @@
 
         INSERT INTO `tipo_articulo` VALUES (1,'Articulo');
         INSERT INTO `tipo_articulo` VALUES (2,'Servicio');
-        INSERT INTO `tipo_articulo` VALUES (3,'Combo');
+        INSERT INTO `tipo_articulo` VALUES (3,'Combo-Kit');
 
         INSERT INTO `estado` VALUES (1,'Inactivo');
         INSERT INTO `estado` VALUES (2,'Activo');
