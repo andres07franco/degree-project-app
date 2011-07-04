@@ -52,6 +52,7 @@ public class VentanaKardex extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Artículos ");
 
         jPanel1.setBackground(new java.awt.Color(212, 233, 255));
 
