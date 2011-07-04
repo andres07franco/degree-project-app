@@ -807,10 +807,13 @@ public class Principal extends JFrame implements Buscadores {
                 tab.setSelectedIndex(esta("Reintegro"));
             }
 
-        } else if (sele.equals("Existencia actual")) {
-        } else if (sele.equals("Muestra Física")) {
-        } else if (sele.equals("E.D Dia Especifico")) {
-//
+        } else if (sele.equals("Inventario")) {
+
+        } else if (sele.equals("Artículo en Mínimo")) {
+                 Map parametro=new HashMap();                 
+                   new utilidades.Reporte(this).runReporte("reportes/Articulos en Minimo.jasper", parametro);
+        } else if (sele.equals("Diario de Ventas (Arqueos)")) {
+           new VentanaReporteCaja(this, true).setVisible(true);
         } else if (sele.equals("Resumen de Caja")) {
             new VentanaReporteCaja(this, true).setVisible(true);
 
@@ -822,8 +825,8 @@ public class Principal extends JFrame implements Buscadores {
                  Map parametro=new HashMap();
                    parametro.put("fecha",formato.format(cajaDia.getFechaabre()));
                    parametro.put("fecha2",formato.format(cajaDia.getFechaabre()));
-                   this.dispose();
-                   new utilidades.Reporte(this).runReporte("Reporte de Caja.jasper", parametro);
+                  
+                   new utilidades.Reporte(this).runReporte("reportes/Reporte de Caja.jasper", parametro);
 
             } catch (Exception ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -936,7 +939,19 @@ public class Principal extends JFrame implements Buscadores {
 
     private void cajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaActionPerformed
         // TODO add your handling code here:
-//        Formulario_Cierre_Corte_Caja fcc = new Formulario_Cierre_Corte_Caja(this, true, m, this);
+            try {
+                Caja cajaDia = (Caja) modelo.obtenerRegistro("obtenerCajaDia");
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+
+                 Map parametro=new HashMap();
+                   parametro.put("fecha",formato.format(cajaDia.getFechaabre()));
+                   parametro.put("fecha2",formato.format(cajaDia.getFechaabre()));
+                   this.dispose();
+                   new utilidades.Reporte(this).runReporte("reportes/Reporte de Caja.jasper", parametro);
+
+            } catch (Exception ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }//GEN-LAST:event_cajaActionPerformed
 
     private void elementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elementoActionPerformed
@@ -1023,7 +1038,7 @@ public class Principal extends JFrame implements Buscadores {
 
     private void diarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diarioActionPerformed
         // TODO add your handling code here:
-        int confirmado = JOptionPane.showConfirmDialog(this,"Esta seguro que desea cerrar la SESION?","¿Salir?",JOptionPane.YES_NO_OPTION);
+        int confirmado = JOptionPane.showConfirmDialog(this,"Esta seguro que desea cerrar la Sesión?","¿Salir?",JOptionPane.YES_NO_OPTION);
 
         if (JOptionPane.OK_OPTION == confirmado){
             this.dispose();
@@ -1055,17 +1070,11 @@ public class Principal extends JFrame implements Buscadores {
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
 
         treeNode1.add(new DefaultMutableTreeNode("Imprimir Factura"));
-        treeNode1.add(new DefaultMutableTreeNode("Listar Articulos"));
-        treeNode1.add(new DefaultMutableTreeNode("Inventario Fisico"));
-        treeNode1.add(new DefaultMutableTreeNode("Kardex"));
+        treeNode1.add(new DefaultMutableTreeNode("Inventario"));
         treeNode1.add(new DefaultMutableTreeNode("Artículo en Mínimo"));
-      //  treeNode1.add(new DefaultMutableTreeNode("Articulos Costo-Venta"));
         treeNode1.add(new DefaultMutableTreeNode("Diario de Ventas (Arqueos)"));
-        treeNode1.add(new DefaultMutableTreeNode("Listado de Terceros"));
-      //  treeNode1.add(new DefaultMutableTreeNode("Preguntaron por..."));
-     //   treeNode1.add(new DefaultMutableTreeNode("Alquiler Disponible"));
-     //   treeNode1.add(new DefaultMutableTreeNode("Alquiler En Uso"));
-     //   treeNode1.add(new DefaultMutableTreeNode("Alquiler  Separado"));
+        treeNode1.add(new DefaultMutableTreeNode("Cuentas X Pagar"));
+        treeNode1.add(new DefaultMutableTreeNode("Cuentas X Cobrar"));
 
         arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
 }//GEN-LAST:event_informesActionPerformed

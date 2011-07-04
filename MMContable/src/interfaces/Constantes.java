@@ -6,8 +6,8 @@ public interface Constantes {
     public static final int NO_SE_INICIO_CAJA = 1;
 
     /*Estados de los objetos */    
-    public static final int ESTADO_INACTIVO = 0;
-    public static final int ESTADO_ACTIVO = 1;
+    public static final int ESTADO_INACTIVO = 1;
+    public static final int ESTADO_ACTIVO = 2;
     public static final int ESTADO_GUARDADO = 2; /* Indica que el documento(Saldos inicales) solo esta alamcenado*/
     public static final int ESTADO_INICIADO = 3; /*indica que el documneto(saldos iniciales) se han inicado*/
 

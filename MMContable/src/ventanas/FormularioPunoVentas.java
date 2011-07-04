@@ -190,7 +190,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             }
             numero.setText(consecutivo + "");
         } else {
-            JOptionPane.showMessageDialog(null, "No se han configuarado las propiedades de la Factura,  no podra hacer esta transacción");
+            JOptionPane.showMessageDialog(null, "No se han configurado las propiedades de la Factura,  no podrá  vender. \nDiríjase al Modulo de configuración y a continuación haga click en Personalizar Factura");
             guardar.setEnabled(false);
         }
     }

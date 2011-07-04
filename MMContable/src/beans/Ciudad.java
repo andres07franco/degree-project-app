@@ -51,6 +51,7 @@ public class Ciudad {
         }
 
         final Ciudad other = (Ciudad) obj;
+
         if (this.id != other.id) {
             return false;
         }
@@ -61,7 +62,7 @@ public class Ciudad {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 11 * hash + this.id;
+        hash =  this.id;
         
         return hash;
     }
