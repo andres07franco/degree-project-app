@@ -245,7 +245,7 @@ public class VentanaKardex extends javax.swing.JDialog {
                         parametro.put("fecha1", fecha.getText());
                         parametro.put("fecha2", fecha1.getText());
                         parametro.put("codigo", "" + a.getCodigobarras());
-
+                        this.dispose();
                         new utilidades.Reporte().runReporte("reportes/Kardex.jasper", parametro);
                     } else {
                         JOptionPane.showMessageDialog(null, "Seleccione una Fecha 2");

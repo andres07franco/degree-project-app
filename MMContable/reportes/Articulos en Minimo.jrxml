@@ -16,7 +16,7 @@
 FROM
      `articulo` articulo
 WHERE
-     articulo.`existencia` <= articulo.`cantidadminima` ]]>
+     articulo.`existencia` <= articulo.`cantidadminima`]]>
 	</queryString>
 	<field name="articulo_codigobarras" class="java.lang.String"/>
 	<field name="articulo_descripcioncomercial" class="java.lang.String"/>
@@ -124,7 +124,7 @@ WHERE
 			</textField>
 			<textField>
 				<reportElement x="513" y="6" width="49" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{articulo_cantidadminima}]]></textFieldExpression>
 			</textField>
 		</band>
