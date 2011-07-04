@@ -35,8 +35,6 @@ public class Principal extends JFrame implements Buscadores {
     private int me = 0;
     private int di = 0;
     private JFrame ini;
-  
-
 
     public Principal(JFrame ini) {
 
@@ -63,8 +61,7 @@ public class Principal extends JFrame implements Buscadores {
         arbol.addTreeSelectionListener(new TreeSelectionListener() {
 
             public void valueChanged(TreeSelectionEvent evt) {
-             //   seleccionarOpcion(evt.getPath().getLastPathComponent() + "");
-     
+                //   seleccionarOpcion(evt.getPath().getLastPathComponent() + "");
                 //System.out.println(   arbol.getSelectionPath().getLastPathComponent());
                 // arbol.setSelectionPath(null);
             }
@@ -89,7 +86,7 @@ public class Principal extends JFrame implements Buscadores {
             nempresa.setText("Empresa: no hay Empresa registrada");
         }
 
-       
+
         alquiler.setVisible(false);
 
         this.setLocationRelativeTo(null);
@@ -102,7 +99,7 @@ public class Principal extends JFrame implements Buscadores {
         JDesktopPane dp = new JDesktopPane();
 
         dp.setBackground(Color.WHITE);
-         FormularioPunoVentas fpv = new FormularioPunoVentas(tab, dp, this);
+        FormularioPunoVentas fpv = new FormularioPunoVentas(tab, dp, this);
         dp.add(fpv);
         tab.addTab("Punto de Venta", dp);
         tab.setSelectedComponent(dp);
@@ -580,19 +577,20 @@ public class Principal extends JFrame implements Buscadores {
     }// </editor-fold>//GEN-END:initComponents
     JButton sele = new JButton();
 
-    public boolean verificarSaldosIniciale(){
-                 Documento d = null;
+    public boolean verificarSaldosIniciale() {
+        Documento d = null;
         try {
             d = (Documento) Model.getInstance().obtenerRegistro("obtenerSaldosIniciales");
         } catch (Exception ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-         if (d != null){
+        if (d != null) {
 
-             if(d.getEstado().equals(Constantes.ESTADO_DOCUMENTO_INICIADO ))
+            if (d.getEstado().equals(Constantes.ESTADO_DOCUMENTO_INICIADO)) {
                 return true;
+            }
         }
-                 return false;
+        return false;
     }
 
     public void seleccionar(JButton b) {
@@ -614,7 +612,7 @@ public class Principal extends JFrame implements Buscadores {
 
         treeNode1.add(new DefaultMutableTreeNode("Registrar Compra"));
         treeNode1.add(new DefaultMutableTreeNode("Devoluciones"));
-     //   treeNode1.add(new DefaultMutableTreeNode("Movimientos Compras"));
+        //   treeNode1.add(new DefaultMutableTreeNode("Movimientos Compras"));
         treeNode1.add(new DefaultMutableTreeNode("Cuentas X Pagar"));
 
         arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -622,7 +620,7 @@ public class Principal extends JFrame implements Buscadores {
 
     private void ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventasActionPerformed
         // TODO add your handling code here:
-        if(verificarSaldosIniciale()){
+        if (verificarSaldosIniciale()) {
             arbol.setEnabled(true);
             sel.setText("Ventas");
             seleccionar(ventas);
@@ -630,12 +628,13 @@ public class Principal extends JFrame implements Buscadores {
 
             treeNode1.add(new DefaultMutableTreeNode("Registrar Venta"));
             treeNode1.add(new DefaultMutableTreeNode("Devoluciones"));
-          /*  treeNode1.add(new DefaultMutableTreeNode("Movimientos Ventas"));*/
+            /*  treeNode1.add(new DefaultMutableTreeNode("Movimientos Ventas"));*/
             treeNode1.add(new DefaultMutableTreeNode("Cuentas X Cobrar"));
 
             arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        }else
-            JOptionPane.showMessageDialog(null,"Debe inicializar Saldos Iniciales para poder acceder a este Modulo","Informacion", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe inicializar Saldos Iniciales para poder acceder a este Modulo", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
 
 
 }//GEN-LAST:event_ventasActionPerformed
@@ -765,7 +764,7 @@ public class Principal extends JFrame implements Buscadores {
                 ListaVentas lu = new ListaVentas(tab, dp, this);
                 dp.add(lu);
                 tab.addTab("Ventas", lu);
-                 tab.setSelectedComponent(lu);
+                tab.setSelectedComponent(lu);
             } else {
                 tab.setSelectedIndex(esta("Ventas"));
             }
@@ -778,21 +777,20 @@ public class Principal extends JFrame implements Buscadores {
         } else if (sele.equals("Ingresos/Egresos")) {//||Lista_Ingresos_Egresos
             if (esta("Ingresos/Egresos") == -1) {
                 JDesktopPane dp = new JDesktopPane();
-
                 dp.setBackground(Color.WHITE);
-                //Lista_Ingresos_Egresos lu = new Lista_Ingresos_Egresos(tab, dp, m, this);
-                // dp.add(lu);
-                // tab.addTab("Ingresos/Egresos", lu);
-                //tab.setSelectedComponent(lu);
+                ListaEgresosIngresos lu = new ListaEgresosIngresos(tab, dp, this);
+                dp.add(lu);
+                tab.addTab("Ventas", lu);
+                tab.setSelectedComponent(lu);
             } else {
                 tab.setSelectedIndex(esta("Ingresos/Egresos"));
             }
         } else if (sele.equals("Cortes de Caja")) {//sele.equals("Elemento")||
 //            new Formulario_Cierre_Corte_Caja(this, true, m, this);
         } else if (sele.equals("Saldos Iniciales")) {
-          
-                new Formulario_Saldos_Iniciales(this, true, this);
-          
+
+            new Formulario_Saldos_Iniciales(this, true, this);
+
 
         } else if (sele.equals("Reintegro")) {
             if (esta("Reintegro") == -1) {
@@ -807,31 +805,31 @@ public class Principal extends JFrame implements Buscadores {
                 tab.setSelectedIndex(esta("Reintegro"));
             }
 
-        } else if (sele.equals("Inventario")) {            
-                  new VentanaInventario(this, true).setVisible(true);
+        } else if (sele.equals("Inventario")) {
+            new VentanaInventario(this, true).setVisible(true);
         } else if (sele.equals("Artículo en Mínimo")) {
-                 Map parametro=new HashMap();                 
-                 new utilidades.Reporte().runReporte("reportes/Articulos en Minimo.jasper", parametro);
+            Map parametro = new HashMap();
+            new utilidades.Reporte().runReporte("reportes/Articulos en Minimo.jasper", parametro);
         } else if (sele.equals("Diario de Ventas (Arqueos)")) {
-                 new VentanaReporteCaja(this, true).setVisible(true);
+            new VentanaReporteCaja(this, true).setVisible(true);
         } else if (sele.equals("Resumen de Caja")) {
-                 new VentanaReporteCaja(this, true).setVisible(true);
+            new VentanaReporteCaja(this, true).setVisible(true);
 
         } else if (sele.equals("Informe de Caja Actual")) {
             try {
                 Caja cajaDia = (Caja) modelo.obtenerRegistro("obtenerCajaDia");
                 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
-                 Map parametro=new HashMap();
-                   parametro.put("fecha",formato.format(cajaDia.getFechaabre()));
-                   parametro.put("fecha2",formato.format(cajaDia.getFechaabre()));
-                  
-                   new utilidades.Reporte(this).runReporte("reportes/Reporte de Caja.jasper", parametro);
+                Map parametro = new HashMap();
+                parametro.put("fecha", formato.format(cajaDia.getFechaabre()));
+                parametro.put("fecha2", formato.format(cajaDia.getFechaabre()));
+
+                new utilidades.Reporte(this).runReporte("reportes/Reporte de Caja.jasper", parametro);
 
             } catch (Exception ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
-                  }
+        }
 
     }
     //Tarjeta Kardex
@@ -928,45 +926,45 @@ public class Principal extends JFrame implements Buscadores {
 
             treeNode1.add(new DefaultMutableTreeNode("Articulos"));
             treeNode1.add(new DefaultMutableTreeNode("Kardex"));
-        //    treeNode1.add(new DefaultMutableTreeNode("Ajustes"));
+            //    treeNode1.add(new DefaultMutableTreeNode("Ajustes"));
             treeNode1.add(new DefaultMutableTreeNode("Grupos"));
             treeNode1.add(new DefaultMutableTreeNode("Marcas"));
-       //     treeNode1.add(new DefaultMutableTreeNode("Alquiler"));
-       //     treeNode1.add(new DefaultMutableTreeNode("Reintegro"));
+            //     treeNode1.add(new DefaultMutableTreeNode("Alquiler"));
+            //     treeNode1.add(new DefaultMutableTreeNode("Reintegro"));
             arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
 
 }//GEN-LAST:event_inventarioActionPerformed
 
     private void cajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaActionPerformed
         // TODO add your handling code here:
-            try {
-                Caja cajaDia = (Caja) modelo.obtenerRegistro("obtenerCajaDia");
-                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Caja cajaDia = (Caja) modelo.obtenerRegistro("obtenerCajaDia");
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
-                 Map parametro=new HashMap();
-                   parametro.put("fecha",formato.format(cajaDia.getFechaabre()));
-                   parametro.put("fecha2",formato.format(cajaDia.getFechaabre()));
-                   this.dispose();
-                   new utilidades.Reporte(this).runReporte("reportes/Reporte de Caja.jasper", parametro);
+            Map parametro = new HashMap();
+            parametro.put("fecha", formato.format(cajaDia.getFechaabre()));
+            parametro.put("fecha2", formato.format(cajaDia.getFechaabre()));
+            this.dispose();
+            new utilidades.Reporte(this).runReporte("reportes/Reporte de Caja.jasper", parametro);
 
-            } catch (Exception ex) {
-                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (Exception ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_cajaActionPerformed
 
     private void elementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elementoActionPerformed
         // TODO add your handling code here:
-    //Elementos bajo Stock
-            if (esta("Articulos") == -1) {
-                JDesktopPane dp = new JDesktopPane();
-                dp.setBackground(Color.WHITE);
-                ListaArticulos lu = new ListaArticulos(tab, this);
-                dp.add(lu);
-                tab.addTab("Articulos", lu);
-                tab.setSelectedComponent(lu);
-            } else {
-                tab.setSelectedIndex(esta("Articulos"));
-            }
+        //Elementos bajo Stock
+        if (esta("Articulos") == -1) {
+            JDesktopPane dp = new JDesktopPane();
+            dp.setBackground(Color.WHITE);
+            ListaArticulos lu = new ListaArticulos(tab, this);
+            dp.add(lu);
+            tab.addTab("Articulos", lu);
+            tab.setSelectedComponent(lu);
+        } else {
+            tab.setSelectedIndex(esta("Articulos"));
+        }
 
 }//GEN-LAST:event_elementoActionPerformed
 
@@ -1010,13 +1008,13 @@ public class Principal extends JFrame implements Buscadores {
         // TODO add your handling code here:ç
         JDesktopPane dp = new JDesktopPane();
         if (esta("Punto de Ventas") == -1) {
-               dp.setBackground(Color.WHITE);
-               FormularioPunoVentas fpv = new FormularioPunoVentas(tab, dp, this);
-                dp.add(fpv);
-                tab.addTab("Punto de Venta", dp);
-                tab.setSelectedComponent(dp);
-                tab.requestFocus();
-                dp.requestFocus();
+            dp.setBackground(Color.WHITE);
+            FormularioPunoVentas fpv = new FormularioPunoVentas(tab, dp, this);
+            dp.add(fpv);
+            tab.addTab("Punto de Venta", dp);
+            tab.setSelectedComponent(dp);
+            tab.requestFocus();
+            dp.requestFocus();
         } else {
             tab.setSelectedIndex(esta("Punto de Ventas"));
         }
@@ -1038,9 +1036,9 @@ public class Principal extends JFrame implements Buscadores {
 
     private void diarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diarioActionPerformed
         // TODO add your handling code here:
-        int confirmado = JOptionPane.showConfirmDialog(this,"Esta seguro que desea cerrar la Sesión?","¿Salir?",JOptionPane.YES_NO_OPTION);
+        int confirmado = JOptionPane.showConfirmDialog(this, "Esta seguro que desea cerrar la Sesión?", "¿Salir?", JOptionPane.YES_NO_OPTION);
 
-        if (JOptionPane.OK_OPTION == confirmado){
+        if (JOptionPane.OK_OPTION == confirmado) {
             this.dispose();
             ini.setVisible(true);
         }
@@ -1098,7 +1096,7 @@ public class Principal extends JFrame implements Buscadores {
         seleccionar(caja_bancos);
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Caja y Bancos");
 
-     //   treeNode1.add(new DefaultMutableTreeNode("Cortes de Caja"));
+        //   treeNode1.add(new DefaultMutableTreeNode("Cortes de Caja"));
         treeNode1.add(new DefaultMutableTreeNode("Informe de Caja Actual"));
         treeNode1.add(new DefaultMutableTreeNode("Resumen de Caja"));
         treeNode1.add(new DefaultMutableTreeNode("Ingresos/Egresos"));
@@ -1162,26 +1160,24 @@ public class Principal extends JFrame implements Buscadores {
     private void arbolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arbolMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() % 2 == 0) {
-         seleccionarOpcion( arbol.getSelectionPath().getLastPathComponent() + "");
+            seleccionarOpcion(arbol.getSelectionPath().getLastPathComponent() + "");
         }
 
     }//GEN-LAST:event_arbolMouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
-       
-
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-         int confirmado = JOptionPane.showConfirmDialog(this,"Está seguro de salir de M&MContable ?","¿Salir?",JOptionPane.YES_NO_OPTION);
+        int confirmado = JOptionPane.showConfirmDialog(this, "Está seguro de salir de M&MContable ?", "¿Salir?", JOptionPane.YES_NO_OPTION);
 
-                    if (JOptionPane.OK_OPTION == confirmado)
-                        this.dispose();
-                   
+        if (JOptionPane.OK_OPTION == confirmado) {
+            this.dispose();
+        }
+
     }//GEN-LAST:event_formWindowClosing
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alquiler;
     private javax.swing.JTree arbol;

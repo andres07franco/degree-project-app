@@ -156,6 +156,10 @@
             OR
                 d.tipo = #{tipo2,jdbcType=DATE}
         </if>
+        <if test="estado != null">
+            AND
+                d.estado = #{estado,jdbcType=VARCHAR}
+        </if>
                 )
           ) ORDER BY d.fecha desc, d.numero desc
     </select>

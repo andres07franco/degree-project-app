@@ -41,7 +41,6 @@ public class Reporte {
     private String password;
 
     public Reporte() {
-        
     }
 
     public Connection getConexion() {
@@ -57,7 +56,6 @@ public class Reporte {
                 return con;
 
             } else {
-                
             }
         } catch (Exception er) {
             return null;
@@ -65,52 +63,49 @@ public class Reporte {
         return null;
     }
 
-
- public void executeSqlScript(Connection conn, File inputFile) {
-          String delimiter = ";";
-          Scanner scanner;
+    public void executeSqlScript(Connection conn, File inputFile) {
+        String delimiter = ";";
+        Scanner scanner;
         try {
 
             scanner = new Scanner(inputFile).useDelimiter(delimiter);
-        } catch(FileNotFoundException e1) {
+        } catch (FileNotFoundException e1) {
             e1.printStackTrace();
             return;
         }
 
-    // Loop through the SQL file statements
-    Statement currentStatement = null;
-    while(scanner.hasNext()) {
-        // Get statement
-        String rawStatement = scanner.next() + delimiter;
-        try {
+        // Loop through the SQL file statements
+        Statement currentStatement = null;
+        while (scanner.hasNext()) {
+            // Get statement
+            String rawStatement = scanner.next() + delimiter;
+            try {
 
-           if(rawStatement.charAt(0) == '﻿')
-              rawStatement = rawStatement.substring(1,rawStatement.length());
-          currentStatement = conn.createStatement();
-            currentStatement.execute(rawStatement);
-            
-        }
-        catch (SQLException e) {
-            if(e.getErrorCode()!=1062 && e.getErrorCode()!=1065)
-                    e.printStackTrace();
-          
-          // System.exit(0);
-        }
-         finally
-        {
-            // Release resources
-            if (currentStatement != null) {
-                try {
-                    currentStatement.close();
-                } catch (SQLException e) {
+                if (rawStatement.charAt(0) == '﻿') {
+                    rawStatement = rawStatement.substring(1, rawStatement.length());
+                }
+                currentStatement = conn.createStatement();
+                currentStatement.execute(rawStatement);
+
+            } catch (SQLException e) {
+                if (e.getErrorCode() != 1062 && e.getErrorCode() != 1065) {
                     e.printStackTrace();
                 }
-            }
-            currentStatement = null;
-         }
-    }
-}
 
+                // System.exit(0);
+            } finally {
+                // Release resources
+                if (currentStatement != null) {
+                    try {
+                        currentStatement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                currentStatement = null;
+            }
+        }
+    }
 
     public void connect() throws SQLException {
         if (this.isConnect()) {
@@ -144,29 +139,26 @@ public class Reporte {
         this.m = m;
     }
 
-
-
-    public Reporte( JFrame d) {
+    public Reporte(JFrame d) {
         this.d = d;
         funcion = 1;
     }
 
-
-    public static void main(String ar[]){
+    public static void main(String ar[]) {
         try {
 
 
-                 Map parametro=new HashMap();
-                   parametro.put("fecha","2011-06-01");
-                   parametro.put("fecha2","2011-06-01");
+            Map parametro = new HashMap();
+            parametro.put("fecha", "2011-06-01");
+            parametro.put("fecha2", "2011-06-01");
 
-                 //  new utilidades.Reporte().runReporte("reportes/Reporte de Caja.jasper", parametro);
+            //  new utilidades.Reporte().runReporte("reportes/Reporte de Caja.jasper", parametro);
             utilidades.Reporte rep = new utilidades.Reporte();
-            rep.executeSqlScript(rep.getConexion(),new File("InsertIniciales.sql"));
-            
-            } catch (Exception ex) {
-               ex.printStackTrace();
-            }
+            rep.executeSqlScript(rep.getConexion(), new File("InsertIniciales.sql"));
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void runReporte(String archivo, Map parametro) {
@@ -181,7 +173,7 @@ public class Reporte {
 
             if (master == null) {
                 System.out.println("No encuentro el archivo del reporte maestro.");
-               // System.exit(2);
+                // System.exit(2);
             }
             System.out.println(master);
             JasperReport masterReport = null;
@@ -191,7 +183,7 @@ public class Reporte {
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error cargando el reporte maestro: " + e.getMessage());
-              //  System.exit(3);
+                //  System.exit(3);
             }
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, parametro, this.getConexion());
