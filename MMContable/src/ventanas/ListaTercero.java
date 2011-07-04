@@ -196,7 +196,11 @@ public class ListaTercero extends JPanel implements Buscadores {
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         if (tabla.getSelectedRow() > -1) {
-            new FormularioTercero(padre, true, this, listaTerceros.get(tabla.getSelectedRow()));
+            Tercero t = listaTerceros.get(tabla.getSelectedRow());
+            if(!t.getNit().toString().equals("0"))
+             new FormularioTercero(padre, true, this, listaTerceros.get(tabla.getSelectedRow()));
+            else
+                JOptionPane.showMessageDialog(null, "No puede acceder a editar el tercero por defecto");
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione una fila primero");
         }
@@ -208,7 +212,11 @@ public class ListaTercero extends JPanel implements Buscadores {
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
         if (tabla.getSelectedRow() > -1) {
-            new FormularioTercero(padre, true, this, listaTerceros.get(tabla.getSelectedRow()));
+            Tercero t = listaTerceros.get(tabla.getSelectedRow());
+            if(!t.getNit().toString().equals("0"))
+             new FormularioTercero(padre, true, this, listaTerceros.get(tabla.getSelectedRow()));
+            else
+                JOptionPane.showMessageDialog(null, "No puede acceder a editar el tercero por defecto");
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione una fila primero");
         }

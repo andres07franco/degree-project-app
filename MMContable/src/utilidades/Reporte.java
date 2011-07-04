@@ -7,10 +7,13 @@ package utilidades;
 import db.Model;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +65,53 @@ public class Reporte {
         return null;
     }
 
+
+ public void executeSqlScript(Connection conn, File inputFile) {
+          String delimiter = ";";
+          Scanner scanner;
+        try {
+
+            scanner = new Scanner(inputFile).useDelimiter(delimiter);
+        } catch(FileNotFoundException e1) {
+            e1.printStackTrace();
+            return;
+        }
+
+    // Loop through the SQL file statements
+    Statement currentStatement = null;
+    while(scanner.hasNext()) {
+        // Get statement
+        String rawStatement = scanner.next() + delimiter;
+        try {
+
+           if(rawStatement.charAt(0) == '﻿')
+              rawStatement = rawStatement.substring(1,rawStatement.length());
+          currentStatement = conn.createStatement();
+            currentStatement.execute(rawStatement);
+            
+        }
+        catch (SQLException e) {
+            if(e.getErrorCode()!=1062 && e.getErrorCode()!=1065)
+                    e.printStackTrace();
+          
+          // System.exit(0);
+        }
+         finally
+        {
+            // Release resources
+            if (currentStatement != null) {
+                try {
+                    currentStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            currentStatement = null;
+         }
+    }
+}
+
+
     public void connect() throws SQLException {
         if (this.isConnect()) {
             throw new SQLException("Ya Esta Conectado");
@@ -110,8 +160,10 @@ public class Reporte {
                    parametro.put("fecha","2011-06-01");
                    parametro.put("fecha2","2011-06-01");
 
-                   new utilidades.Reporte().runReporte("Reporte de Caja.jasper", parametro);
-
+                 //  new utilidades.Reporte().runReporte("reportes/Reporte de Caja.jasper", parametro);
+            utilidades.Reporte rep = new utilidades.Reporte();
+            rep.executeSqlScript(rep.getConexion(),new File("InsertIniciales.sql"));
+            
             } catch (Exception ex) {
                ex.printStackTrace();
             }

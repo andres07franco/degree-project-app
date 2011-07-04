@@ -207,7 +207,7 @@ private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         parametro.put("fecha", fecha.getText());
                         parametro.put("fecha2", fecha1.getText());
                         this.dispose();
-                         new utilidades.Reporte().runReporte("Reporte de Caja.jasper", parametro);
+                         new utilidades.Reporte().runReporte("reportes/Reporte de Caja.jasper", parametro);
                     } else {
                         JOptionPane.showMessageDialog(null, "Seleccione una Fecha 2");
                     }

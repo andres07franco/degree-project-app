@@ -78,7 +78,7 @@
         <mapper resource="beans/xml/TipoPago.xml"/>
         <mapper resource="beans/xml/ArticulosDocumento.xml"/>
         <mapper resource="beans/xml/Kardex.xml"/>
-        <mapper resource="beans/xml/InsertIniciales.xml"/>
+       
 
 
     </mappers>

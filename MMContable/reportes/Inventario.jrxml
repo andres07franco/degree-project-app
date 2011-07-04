@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Inventario" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CODIGO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     articulo.`codigobarras` AS articulo_codigobarras,
+     articulo.`descripcioncomercial` AS articulo_descripcioncomercial,
+     articulo.`existencia` AS articulo_existencia,
+     articulo.`fechaucompra` AS articulo_fechaucompra,
+     articulo.`fechauventa` AS articulo_fechauventa,
+     articulo.`vlrpromedio` AS articulo_vlrpromedio,
+     articulo.`vlrcosto` AS articulo_vlrcosto
+FROM
+     `articulo` articulo
+WHERE
+      articulo.`codigobarras` LIKE $P{CODIGO}]]>
+	</queryString>
+	<field name="articulo_codigobarras" class="java.lang.String"/>
+	<field name="articulo_descripcioncomercial" class="java.lang.String"/>
+	<field name="articulo_existencia" class="java.math.BigDecimal"/>
+	<field name="articulo_fechaucompra" class="java.sql.Date"/>
+	<field name="articulo_fechauventa" class="java.sql.Date"/>
+	<field name="articulo_vlrpromedio" class="java.math.BigDecimal"/>
+	<field name="articulo_vlrcosto" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="62"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inventario]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="3" width="572" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="29" width="572" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="9" y="6" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="6" width="132" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción Comercial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="449" y="6" width="54" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="513" y="6" width="49" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Físico ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="9" y="4" width="133" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{articulo_codigobarras}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="152" y="5" width="282" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{articulo_descripcioncomercial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="449" y="4" width="54" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{articulo_existencia}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="513" y="24" width="49" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="31" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="28" width="572" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="2" width="572" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="394" y="6" width="40" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="513" y="20" width="49" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="449" y="6" width="54" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{articulo_existencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="233" y="6" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="313" y="6" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
