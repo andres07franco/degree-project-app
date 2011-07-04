@@ -37,7 +37,7 @@
                 grupo
             WHERE
                 codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
-            AND
+            OR
                 grupo LIKE IFNULL(#{grupo, jdbcType=VARCHAR},'%')
             AND
                 estado = 1

@@ -37,7 +37,7 @@
                 marca
             WHERE
                 codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
-            AND
+            OR
                 marca LIKE IFNULL(#{marca, jdbcType=VARCHAR},'%')
             AND
                 estado = 1
