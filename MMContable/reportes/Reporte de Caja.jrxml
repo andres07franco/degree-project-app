@@ -55,7 +55,7 @@ AND  caja.`fechaabre` <= $P{fecha2}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="64" splitType="Stretch">
 			<staticText>
 				<reportElement x="90" y="28" width="394" height="20"/>
 				<textElement textAlignment="Center">
