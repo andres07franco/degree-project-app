@@ -70,6 +70,7 @@ public class FormularioGrupo extends JDialog {
         estado = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Grupos");
 
         jPanel1.setBackground(new java.awt.Color(153, 205, 255));
 

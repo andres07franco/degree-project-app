@@ -69,6 +69,7 @@ public class FormularioMarca extends javax.swing.JDialog {
         estado = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Marcas");
 
         jPanel1.setBackground(new java.awt.Color(153, 205, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(313, 130));
