@@ -19,6 +19,8 @@ import beans.*;
 import interfaces.Constantes;
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.HashMap;
+import java.util.Map;
 import utilidades.Calendario;
 import utilidades.FormatoNumeros;
 import utilidades.ModeloTabla;
@@ -992,7 +994,9 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotalpagado()));
              }
             m.actualizarRegistro("actualizarCajaDia", cajaDia);
-            
+         int confirmado = JOptionPane.showConfirmDialog(this,"¿Desea imprimir la Factura?","¿Imprimir?",JOptionPane.YES_NO_OPTION);
+         if (JOptionPane.OK_OPTION == confirmado)
+              imprimir(d.getNumero());
             
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -1474,13 +1478,20 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
         }
     }
+
+    public void imprimir(String numero){
+       Map parametro = new HashMap();
+       parametro.put("numero", numero);
+       new utilidades.Reporte().runReporte("reportes/Factura.jasper", parametro);
+   }
+
     private void descuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descuentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_descuentoActionPerformed
 
     private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
         // TODO add your handling code here:
-    //    managers.Reporte.imprimir(d, mc);
+    imprimir(d.getNumero());
 }//GEN-LAST:event_imprimirActionPerformed
 
     private void cantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyReleased

@@ -19,6 +19,8 @@ import beans.*;
 import interfaces.Constantes;
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JDesktopPane;
 import javax.swing.JTabbedPane;
 import utilidades.Calendario;
@@ -766,7 +768,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                     .addComponent(restaurar)
                     .addComponent(salir)
                     .addComponent(imprimir))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1000,13 +1002,21 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                 cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotalpagado()));
              }
             m.actualizarRegistro("actualizarCajaDia", cajaDia);
-            
-            
+         int confirmado = JOptionPane.showConfirmDialog(this,"¿Desea imprimir la Factura?","¿Imprimir?",JOptionPane.YES_NO_OPTION);
+         if (JOptionPane.OK_OPTION == confirmado)
+              imprimir(d.getNumero());
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
             return true;
     }
+
+   public void imprimir(String numero){
+       Map parametro = new HashMap();
+       parametro.put("numero", numero);
+       new utilidades.Reporte().runReporte("reportes/Factura.jasper", parametro);
+   }
 
     public void llenar() {
         try {
@@ -1486,11 +1496,6 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
         // TODO add your handling code here:
     }//GEN-LAST:event_descuentoActionPerformed
 
-    private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
-        // TODO add your handling code here:
-    //    managers.Reporte.imprimir(d, mc);
-}//GEN-LAST:event_imprimirActionPerformed
-
     private void cantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyReleased
         // TODO add your handling code here:
         this.calcularVlrParcial();
@@ -1540,6 +1545,12 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                     this.cantidad.setSelectionEnd(cantidad.getText().length());
                 }
     }//GEN-LAST:event_cantidadFocusGained
+
+    private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
+        // TODO add your handling code here:
+        //    managers.Reporte.imprimir(d, mc);
+        imprimir(d.getNumero());
+}//GEN-LAST:event_imprimirActionPerformed
 
     public boolean esta(Object a) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
