@@ -346,8 +346,8 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
-      //  this.dispose();
-        //   tab.remove(dp);
+        this.dispose();
+      //     tab.remove(dp);
 }//GEN-LAST:event_salirActionPerformed
 
     private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
