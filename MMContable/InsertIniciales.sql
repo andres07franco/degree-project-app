@@ -1180,5 +1180,6 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'ZAPAYAN ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'ZONA BANANERA ');
         
-        INSERT INTO `tercero` VALUES (1,0,1,'Tercero Por Defecto','Tercero Por Defecto',1,13,'0','0',NULL,NULL,1)
+        INSERT INTO `tercero` VALUES (1,0,1,'Tercero Por Defecto','Tercero Por Defecto',1,13,'0','0',NULL,NULL,1);
+
 	INSERT INTO `m_mcontable`.`papelimpresion` (`descripcion`) VALUES ('Media Carta');
