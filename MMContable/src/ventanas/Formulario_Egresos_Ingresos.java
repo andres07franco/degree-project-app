@@ -24,7 +24,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
     Buscadores bu;
     Frame parent;
     int funcion = 0;
-    Documento d;
+    Documento d,doc;
     Tercero t;
 
     public Formulario_Egresos_Ingresos(java.awt.Frame parent, boolean modal, Buscadores bu, Model m) {
@@ -43,20 +43,23 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         this.setVisible(true);
     }
 
-    public Formulario_Egresos_Ingresos(java.awt.Frame parent, boolean modal) {
+    public Formulario_Egresos_Ingresos(java.awt.Frame parent, boolean modal, Buscadores bu, Model m,Documento d) {
 
         super(parent, modal);
         this.parent = parent;
         this.m = m;
         this.bu = bu;
+        this.doc = doc;
         initComponents();
-        llenar();
         int ano = Calendar.getInstance().get(Calendar.YEAR);
         int mes = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int dia = Calendar.getInstance().get(Calendar.DATE);
         obtentenerConsecutivo();
         fecha.setText(ano + "-" + mes + "-" + dia);
-      /*  numero.setText("" + (fp.getPrefacturas() + 1));*/
+        
+        if(doc!=null)
+            llenar();
+        
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -65,14 +68,14 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
         funcion = 1;
 
-       /* tercero.setText(d.getTerceros().getNit() + "");
-        ntercero.setText(d.getTerceros().getNombre());
-        tipoc.setSelectedIndex(d.getTipoconcepto());
-        valor.setText(utilidades.FormatoNumeros.formatear(ie.getValor() + ""));
-        numero.setText(d.getNumero());
-        fecha.setText(new java.text.SimpleDateFormat("yyyy-MM-dd").format(ie.getFecha()));
+        tercero.setText(doc.getTercero().getNombre());
+        ntercero.setText(doc.getTercero().getNit().toString());
+      /*  tipoc.setSelectedIndex(d.getTipoconcepto());*/
+        valor.setText(utilidades.FormatoNumeros.formatear(doc.getTotal() + ""));
+        numero.setText(doc.getNumero());
+        fecha.setText(new java.text.SimpleDateFormat("yyyy-MM-dd").format(doc.getFecha()));
 
-        valor.setEnabled(false);*/
+        valor.setEnabled(false);
     }
 
     public void obtentenerConsecutivo(){
