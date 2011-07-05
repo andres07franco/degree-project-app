@@ -4,6 +4,7 @@ import beans.Caja;
 import beans.Documento;
 import beans.FacturaEmpresa;
 import beans.Tercero;
+import beans.TipoDocumento;
 import interfaces.Buscadores;
 import java.awt.Frame;
 import java.util.Calendar;
@@ -205,7 +206,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
         jLabel4.setText("Concepto");
 
-        tipoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abono a Factura", "Otros Ingresos", "Otros Egresos" }));
+        tipoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abono a Factura", "Otros Ingresos" }));
         tipoc.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 tipocItemStateChanged(evt);
@@ -409,41 +410,52 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 }//GEN-LAST:event_imprimirActionPerformed
 
     public void guardar() {
-
-        obtentenerConsecutivo();
-        Documento doc = new Documento();
-        doc.setNumero(numero.getText());
-        doc.setNota(concepto.getText());
-        doc.setTipo(null);
-        doc.setTotal(new BigDecimal(valor.getText()));
-        doc.setTotalpagado(new BigDecimal(valor.getText()));
-        doc.setFecha(new Date());
-        doc.setTercero(t);
         try {
-        m.insertarRegistro("insertarDocumento", d);
-         /*Actualizamos caja*/
-         
-             Caja cajaDia = (Caja) m.obtenerRegistro("obtenerCajaDia");
-             if(d.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO){
-                 cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotal()));
-                 cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotal()));
-             }else{
-                cajaDia.setVentascredito(cajaDia.getVentascredito().add(d.getTotal()));
-                cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotalpagado()));
-                cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotalpagado()));
-             }
-            m.actualizarRegistro("actualizarCajaDia", cajaDia);
-        /* int confirmado = JOptionPane.showConfirmDialog(this,"¿Desea imprimir la Factura?","¿Imprimir?",JOptionPane.YES_NO_OPTION);
-         if (JOptionPane.OK_OPTION == confirmado)
-              imprimir(d.getNumero());*/
+            obtentenerConsecutivo();
+            Documento doc = new Documento();
+            doc.setNumero(numero.getText());
+            doc.setNota(concepto.getText());
+            
+            if (tipoc.getSelectedIndex() == 0) {
+                this.d.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_ABONO_A_FACTURA));
+                doc.setDocumento(d);
+            } else if (tipoc.getSelectedIndex() == 1) {
+                 if (tipo.getSelectedIndex() == 1)
+                        this.d.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_INGRESO));
+                 else
+                   this.d.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_EGRESO));
+            }
+
+            doc.setTotal(new BigDecimal(valor.getText()));
+            doc.setTotalpagado(new BigDecimal(valor.getText()));
+            doc.setFecha(new Date());
+            doc.setTercero(t);
+            try {
+                m.insertarRegistro("insertarDocumento", d);
+                /*Actualizamos caja*/
+                Caja cajaDia = (Caja) m.obtenerRegistro("obtenerCajaDia");
+                if (d.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO) {
+                    cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotal()));
+                    cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotal()));
+                } else {
+                    cajaDia.setVentascredito(cajaDia.getVentascredito().add(d.getTotal()));
+                    cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotalpagado()));
+                    cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotalpagado()));
+                }
+                m.actualizarRegistro("actualizarCajaDia", cajaDia);
+                /* int confirmado = JOptionPane.showConfirmDialog(this,"¿Desea imprimir la Factura?","¿Imprimir?",JOptionPane.YES_NO_OPTION);
+                if (JOptionPane.OK_OPTION == confirmado)
+                imprimir(d.getNumero());*/
+                  bu.buscar();
+                 this.dispose();
+                 JOptionPane.showMessageDialog(null, "Registro Exitoso");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Logger.getLogger(Formulario_Egresos_Ingresos.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        bu.buscar();
-         this.dispose();
-        JOptionPane.showMessageDialog(null, "Registro Exitoso");
     }
 
     public boolean validar() {
@@ -522,6 +534,10 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             tercero.setText("");
             ntercero.setText("");
             t = null;
+            tipo.removeAllItems();
+            tipo.addItem("Abono a Factura");
+            tipo.addItem("Otros Ingresos");
+
         }else{
             buscaFactrura.setEnabled(false);
             concepto.setEditable(true);
@@ -533,6 +549,9 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             tercero.setText("");
             ntercero.setText("");
             t = null;
+             tipo.removeAllItems();
+            tipo.addItem("Abono a Factura");
+            tipo.addItem("Otros Egresos");
         }
     }//GEN-LAST:event_tipocItemStateChanged
 
