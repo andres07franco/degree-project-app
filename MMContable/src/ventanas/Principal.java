@@ -780,7 +780,7 @@ public class Principal extends JFrame implements Buscadores {
                 dp.setBackground(Color.WHITE);
                 ListaEgresosIngresos lu = new ListaEgresosIngresos(tab, dp, this);
                 dp.add(lu);
-                tab.addTab("Ventas", lu);
+                tab.addTab("Ingresos/Egresos", lu);
                 tab.setSelectedComponent(lu);
             } else {
                 tab.setSelectedIndex(esta("Ingresos/Egresos"));
