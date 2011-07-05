@@ -76,6 +76,10 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         fecha.setText(new java.text.SimpleDateFormat("yyyy-MM-dd").format(doc.getFecha()));
 
         valor.setEnabled(false);
+        this.guardar.setEnabled(false);
+        this.imprimir.setEnabled(true);
+        this.buscaFactrura.setEnabled(false);
+        this.buscaproveedor.setEnabled(false);
     }
 
     public void obtentenerConsecutivo(){
