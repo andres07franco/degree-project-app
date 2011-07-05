@@ -2,6 +2,7 @@ package ventanas;
 
 import beans.Caja;
 import beans.Documento;
+import beans.FacturaEmpresa;
 import beans.Tercero;
 import interfaces.Buscadores;
 import java.awt.Frame;
@@ -9,6 +10,10 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import db.Model;
+import interfaces.Constantes;
+import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
@@ -28,12 +33,11 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         this.m = m;
         this.bu = bu;
         initComponents();
-
         int ano = Calendar.getInstance().get(Calendar.YEAR);
         int mes = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int dia = Calendar.getInstance().get(Calendar.DATE);
-
- 
+        obtentenerConsecutivo();
+        fecha.setText(ano + "-" + mes + "-" + dia);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -45,15 +49,12 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         this.m = m;
         this.bu = bu;
         initComponents();
-
         llenar();
-
-
         int ano = Calendar.getInstance().get(Calendar.YEAR);
         int mes = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int dia = Calendar.getInstance().get(Calendar.DATE);
-
-       /* fecha.setText(ano + "-" + mes + "-" + dia);*/
+        obtentenerConsecutivo();
+        fecha.setText(ano + "-" + mes + "-" + dia);
       /*  numero.setText("" + (fp.getPrefacturas() + 1));*/
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -71,6 +72,28 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         fecha.setText(new java.text.SimpleDateFormat("yyyy-MM-dd").format(ie.getFecha()));
 
         valor.setEnabled(false);*/
+    }
+
+    public void obtentenerConsecutivo(){
+                FacturaEmpresa fe = null;
+        try {
+            fe = (FacturaEmpresa) m.obtenerRegistro("obtenerFacturaEmpresaActual");
+        } catch (Exception ex) {
+            Logger.getLogger(FormularioPunoVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (fe != null) {
+            long consecutivo = 0;
+            if(tipo.getSelectedIndex()==0)
+                consecutivo = fe.getIngresos() + 1;
+            else{
+                 consecutivo = fe.getIngresos() + 1;
+            }
+            numero.setText(consecutivo + "");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se han configurado las propiedades de la Factura,  no podrá  vender. \nDiríjase al Modulo de configuración y a continuación haga click en Personalizar Factura");
+            this.dispose();
+            
+        }
     }
 
     /** This method is called from within the constructor to
@@ -105,12 +128,13 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         buscaFactrura = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Comprobantes de Ingresos y Egresos");
 
         jPanel1.setBackground(new java.awt.Color(212, 233, 255));
 
         jLabel1.setText("Comprobante de ");
 
-        tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ingreso", "Egreso", " " }));
+        tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ingreso", "Egreso" }));
         tipo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 tipoItemStateChanged(evt);
@@ -127,6 +151,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         fecha.setEditable(false);
 
         buscaproveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search-16x16.png"))); // NOI18N
+        buscaproveedor.setEnabled(false);
         buscaproveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscaproveedorActionPerformed(evt);
@@ -167,10 +192,11 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         });
 
         imprimir.setBackground(new java.awt.Color(0, 153, 255));
-        imprimir.setFont(new java.awt.Font("Tahoma", 1, 11));
+        imprimir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         imprimir.setForeground(new java.awt.Color(0, 51, 153));
         imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/print-16x16.png"))); // NOI18N
         imprimir.setText("Imprimir");
+        imprimir.setEnabled(false);
         imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 imprimirActionPerformed(evt);
@@ -186,6 +212,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             }
         });
 
+        concepto.setEnabled(false);
         concepto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 conceptoActionPerformed(evt);
@@ -216,72 +243,68 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tipo, 0, 97, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(et, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel4))
-                            .addComponent(jLabel5))
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(valor)
-                            .addComponent(tipoc, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tercero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(concepto, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                            .addComponent(ntercero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buscaproveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buscaFactrura, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(16, 16, 16))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(jLabel5)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(63, 63, 63)
-                                .addComponent(imprimir, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                .addComponent(imprimir, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(guardar, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                                .addComponent(guardar, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(65, 65, 65))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(et)
+                                    .addComponent(jLabel4))
+                                .addGap(32, 32, 32)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tercero)
+                                    .addComponent(tipoc, 0, 116, Short.MAX_VALUE)
+                                    .addComponent(valor, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(concepto, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buscaFactrura, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(ntercero, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buscaproveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3)
+                                .addGap(12, 12, 12)
+                                .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel3)
                     .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ntercero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tercero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(et)))
-                    .addComponent(buscaproveedor))
+                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,18 +313,25 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
                             .addComponent(tipoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
                     .addComponent(buscaFactrura))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ntercero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tercero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(et))
+                    .addComponent(buscaproveedor, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(guardar)
                     .addComponent(imprimir)
                     .addComponent(salir))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -332,9 +362,16 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
     }
 
     public void adicionarDocumento(){
-        d = (new BuscarFactura(parent, true).getDocumento());
+        if(tipo.getSelectedIndex() == 0)
+            d = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_VENTA).getDocumento());
+        else
+            d = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_COMPRA).getDocumento());
         if (t != null) {
             concepto.setText(d.getNumero() + "");
+            t=d.getTercero();
+            tercero.setText(t.getNit() + "");
+            ntercero.setText(t.getNombre());
+
         }
     }
 
@@ -355,8 +392,11 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
-        guardar();
+        if(validar())
+            guardar();
     }//GEN-LAST:event_guardarActionPerformed
+
+
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
@@ -369,60 +409,77 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 }//GEN-LAST:event_imprimirActionPerformed
 
     public void guardar() {
-     /*   Facturapropiedades fp = mc.getFacturaporpiedades("1");
 
-        ie.setNumero((fp.getEgresos() + 1) + "");
-        ie.setConcepto(concepto.getText());
-        ie.setTipo(tipo.getSelectedIndex());
-        ie.setValor(Double.parseDouble(valor.getText().replaceAll(",", "")));
-        ie.setTipoconcepto(tipoc.getSelectedIndex());
-        ie.setFecha(new Date(fecha.getText().replaceAll("-", "/")));
-        md.crear(ie);
-        bu.buscar();
-        Caja caja = md.getCaja();
-        if (ie.getTipo() == 0) {
-            // caja.set
+        obtentenerConsecutivo();
+        Documento doc = new Documento();
+        doc.setNumero(numero.getText());
+        doc.setNota(concepto.getText());
+        doc.setTipo(null);
+        doc.setTotal(new BigDecimal(valor.getText()));
+        doc.setTotalpagado(new BigDecimal(valor.getText()));
+        doc.setFecha(new Date());
+        doc.setTercero(t);
+        try {
+        m.insertarRegistro("insertarDocumento", d);
+         /*Actualizamos caja*/
+         
+             Caja cajaDia = (Caja) m.obtenerRegistro("obtenerCajaDia");
+             if(d.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO){
+                 cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotal()));
+                 cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotal()));
+             }else{
+                cajaDia.setVentascredito(cajaDia.getVentascredito().add(d.getTotal()));
+                cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotalpagado()));
+                cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotalpagado()));
+             }
+            m.actualizarRegistro("actualizarCajaDia", cajaDia);
+        /* int confirmado = JOptionPane.showConfirmDialog(this,"¿Desea imprimir la Factura?","¿Imprimir?",JOptionPane.YES_NO_OPTION);
+         if (JOptionPane.OK_OPTION == confirmado)
+              imprimir(d.getNumero());*/
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
-        Movimientoscaja mcaja = new Movimientoscaja();
-        mcaja.setCaja(caja);
-        mcaja.setConcepto(tipo.getSelectedItem() + " " + concepto.getText());
-        mcaja.setDoc(ie.getNumero() + "");
-        mcaja.setTercero(ntercero.getText());
-        mcaja.setTipo(ie.getTipo());
-        mcaja.setValor(ie.getValor());
-        md.crear(mcaja);
-
-        this.dispose();
-        JOptionPane.showMessageDialog(null, "Registro Exitoso");*/
+        bu.buscar();
+         this.dispose();
+        JOptionPane.showMessageDialog(null, "Registro Exitoso");
     }
 
     public boolean validar() {
-        /*if (numero.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el NUMERO porfavor");
-            numero.requestFocus();
-            return false;
-        } else if (fecha.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite la FECHA porfavor");
-            fecha.requestFocus();
-            return false;
-        } else if (tercero.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el PROVEEDOR porfavor");
-            tercero.requestFocus();
+        if(tipoc.getSelectedIndex()==0){
+            if(d==null){
+              JOptionPane.showMessageDialog(null, "Seleccione  una factura por favor");
+              buscaFactrura.requestFocus();
+              return false;
+            }else if(valor.getText().trim().equals("")){
+                JOptionPane.showMessageDialog(null, "Escriba un valor por favor");
+                return false;
+
+            }else if(new BigDecimal(valor.getText()).compareTo(BigDecimal.ZERO)==0){
+                JOptionPane.showMessageDialog(null, "Escriba un valor mayor que 0 por favor");
+                return false;
+            }
+        }else{
+         if (t==null) {
+             JOptionPane.showMessageDialog(null, "Seleccione el Tercero por favor");
+            concepto.requestFocus();
             return false;
         } else if (concepto.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el Concepto porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el Concepto por favor");
             concepto.requestFocus();
             return false;
         } else if (valor.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el valor porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el valor por favor");
             concepto.requestFocus();
             return false;
         } else if (Double.parseDouble(valor.getText().replaceAll(",", "")) <= 0) {
-            JOptionPane.showMessageDialog(null, "Digite el valor porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el valor por favor");
             concepto.requestFocus();
             return false;
-        }*/
+        }
+        }
+
         return true;
     }
 
@@ -438,24 +495,50 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
     private void tipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoItemStateChanged
         // TODO add your handling code here:
-      /*  if (tipo.getSelectedIndex() == 0) {
-            et.setText("Recibido de de");
-            tipoc.removeAllItems();
-            tipoc.addItem("Otros Ingreso");
+        obtentenerConsecutivo();
+       if (tipo.getSelectedIndex() == 0) {
+            et.setText("Recibido de");
         } else {
-            tipoc.removeAllItems();
-            tipoc.addItem("Gastos varios");
-            tipoc.addItem("Retiros de Caja");
-            et.setText("Pagado de");
-        }*/
+            et.setText("Pagado a   ");
+        }
+            tercero.setText("");
+            ntercero.setText("");
+            t = null;
+            concepto.setText("");
+            d = null;
+            valor.setText("0.0");
     }//GEN-LAST:event_tipoItemStateChanged
 
     private void tipocItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipocItemStateChanged
         // TODO add your handling code here:
+        if(tipoc.getSelectedIndex()==0){
+            buscaFactrura.setEnabled(true);
+            concepto.setEditable(false);
+            concepto.setEnabled(false);
+            ntercero.setEnabled(false);
+            ntercero.setEditable(false);
+            tercero.setEditable(false);
+            ntercero.setEnabled(false);
+            tercero.setText("");
+            ntercero.setText("");
+            t = null;
+        }else{
+            buscaFactrura.setEnabled(false);
+            concepto.setEditable(true);
+            concepto.setEnabled(true);
+            ntercero.setEnabled(true);
+            ntercero.setEditable(true);
+            tercero.setEditable(true);
+            ntercero.setEnabled(true);
+            tercero.setText("");
+            ntercero.setText("");
+            t = null;
+        }
     }//GEN-LAST:event_tipocItemStateChanged
 
     private void buscaFactruraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaFactruraActionPerformed
         // TODO add your handling code here:
+        adicionarDocumento();
     }//GEN-LAST:event_buscaFactruraActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

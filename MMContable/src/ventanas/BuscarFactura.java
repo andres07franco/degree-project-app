@@ -19,10 +19,11 @@ public class BuscarFactura extends javax.swing.JDialog {
     private List<Documento> listaDocumento;
     private Model modelo;
     private Documento documentoPadre;
-
+    int tipoFactua = Constantes.DOCUMENTO_FACTURA_VENTA ;
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public BuscarFactura(Frame padre, boolean modal) {
+    public BuscarFactura(Frame padre, boolean modal,int tipoFactua) {
         super(padre, modal);
+        this.tipoFactua =  tipoFactua;
         this.modelo = Model.getInstance();
         initComponents();
         setTitle("Buscar Factura");
@@ -46,7 +47,7 @@ public class BuscarFactura extends javax.swing.JDialog {
             modeloTabla.addColumn("Saldo");
 
             Map<String, Object> mapa = new HashMap<String, Object>();
-            mapa.put("tipo", new Integer(Constantes.DOCUMENTO_FACTURA_VENTA));
+            mapa.put("tipo", new Integer(this.tipoFactua));
             mapa.put("estado", Constantes.ESTADO_DOCUMENTO_DEBE);
             mapa.put("busqueda", "%" + busqueda.getText() + "%");
             try {
