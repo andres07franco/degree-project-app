@@ -40,7 +40,7 @@
             OR
                 grupo LIKE IFNULL(#{grupo, jdbcType=VARCHAR},'%')
             AND
-                estado = 1
+                estado = 2
         ]]>
     </select>
 

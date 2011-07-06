@@ -54,7 +54,7 @@
             WHERE
                 fechaabre = curdate()
             AND
-                estado = 1
+                estado = 2
         ]]>
     </select>
 

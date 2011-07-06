@@ -40,7 +40,7 @@
             OR
                 marca LIKE IFNULL(#{marca, jdbcType=VARCHAR},'%')
             AND
-                estado = 1
+                estado = 2
         ]]>
     </select>
 
