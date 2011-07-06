@@ -107,8 +107,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
 
         vunit.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(KeyEvent evt) {
-                if(Validaciones.esEntero(vunit.getText()))
-                    evt.consume();
+              
             }
         });
 
@@ -256,6 +255,9 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
         vunit.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 vunitKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                vunitKeyTyped(evt);
             }
         });
 
@@ -839,6 +841,12 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
         // TODO add your handling code here:}
         calcularVlrParcial();
     }//GEN-LAST:event_vunitKeyReleased
+
+    private void vunitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vunitKeyTyped
+        // TODO add your handling code here:
+          if(Character.isLetter(evt.getKeyChar()))
+                    evt.consume();
+    }//GEN-LAST:event_vunitKeyTyped
 
 
     public void calcularVlrParcial(){
