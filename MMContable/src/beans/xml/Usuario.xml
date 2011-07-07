@@ -45,6 +45,22 @@
                 usuario USUARIO
             FROM
                 usuario
+            WHERE
+            estado = 2
+        ]]>
+    </select>
+
+   <select id="obtenerUsuariosAct" resultMap="resMapUsuario" parameterType="java.lang.Integer">
+        <![CDATA[
+            SELECT
+                id ID,
+                usuario USUARIO
+            FROM
+                usuario
+            WHERE
+                estado = 2
+            AND
+                id != #{id,jdbcType=INTEGER}
         ]]>
     </select>
 

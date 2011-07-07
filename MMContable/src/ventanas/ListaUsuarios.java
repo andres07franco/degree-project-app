@@ -64,7 +64,7 @@ public class ListaUsuarios extends javax.swing.JPanel implements Buscadores {
         jScrollPane1.setFont(new java.awt.Font("Arial", 1, 11));
 
         tabla.setAutoCreateRowSorter(true);
-        tabla.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        tabla.setFont(new java.awt.Font("Arial", 1, 11));
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -109,7 +109,7 @@ public class ListaUsuarios extends javax.swing.JPanel implements Buscadores {
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 153, 255), 2, true));
 
         nuevo.setBackground(new java.awt.Color(121, 188, 252));
-        nuevo.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        nuevo.setFont(new java.awt.Font("Arial", 1, 11));
         nuevo.setForeground(new java.awt.Color(0, 0, 102));
         nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar.png"))); // NOI18N
         nuevo.setText("Nuevo");
@@ -152,9 +152,9 @@ public class ListaUsuarios extends javax.swing.JPanel implements Buscadores {
         });
 
         por.setBackground(new java.awt.Color(121, 188, 252));
-        por.setFont(new java.awt.Font("Arial", 1, 11));
+        por.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         por.setForeground(new java.awt.Color(0, 0, 102));
-        por.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Usuario", " ", " " }));
+        por.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Usuario" }));
 
         salir.setBackground(new java.awt.Color(121, 188, 252));
         salir.setFont(new java.awt.Font("Arial", 1, 11));
