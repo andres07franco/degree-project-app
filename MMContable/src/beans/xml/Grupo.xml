@@ -8,21 +8,25 @@
         <result property="codigo"       column="CODIGO" />
         <result property="grupo"        column="GRUPO" />
         <result property="estado.id"    column="ESTADO" />
+        <result property="estado.descripcion"    column="ESTADO_DESCRIPCION" />
     </resultMap>
 
     <select id="obtenerGrupos" parameterType="aliasGrupo" resultMap="resMapGrupo">
         <![CDATA[
             SELECT
-                id ID,
-                codigo CODIGO,
-                grupo GRUPO,
-                estado ESTADO
+                g.id ID,
+                g.codigo CODIGO,
+                g.grupo GRUPO,
+                g.estado ESTADO,
+                e.descripcion ESTADO_DESCRIPCION
             FROM
-                grupo
+                grupo g, estado e
             WHERE
-                codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
+                (g.codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
             AND
-                grupo LIKE IFNULL(#{grupo, jdbcType=VARCHAR},'%')
+                g.grupo LIKE IFNULL(#{grupo, jdbcType=VARCHAR},'%'))
+            AND
+                e.id = g.estado
         ]]>
     </select>
 
@@ -34,11 +38,11 @@
                 grupo GRUPO,
                 estado ESTADO
             FROM
-                grupo
+                grupo g
             WHERE
-                codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
+             (   codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
             OR
-                grupo LIKE IFNULL(#{grupo, jdbcType=VARCHAR},'%')
+                grupo LIKE IFNULL(#{grupo, jdbcType=VARCHAR},'%'))
             AND
                 estado = 2
         ]]>

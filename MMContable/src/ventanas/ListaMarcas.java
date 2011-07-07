@@ -224,12 +224,14 @@ public class ListaMarcas extends javax.swing.JPanel implements Buscadores {
             modeloTabla = new ModeloTabla(new boolean[]{false, false});
             modeloTabla.addColumn("Codigo");
             modeloTabla.addColumn("Marca");
+            modeloTabla.addColumn("Estado");
             listaMarcas = (List<Marca>) modelo.obtenerListado("obtenerMarcas", setObjeto(por.getSelectedItem().toString(), busqueda.getText()));
 
             for (Marca marc : listaMarcas) {
-                String[] fila = new String[2];
+                String[] fila = new String[3];
                 fila[0] = marc.getCodigo();
                 fila[1] = marc.getMarca();
+                fila[2] = marc.getEstado().getDescripcion();
                 modeloTabla.addRow(fila);
             }
 

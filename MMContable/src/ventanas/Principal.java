@@ -773,7 +773,7 @@ public class Principal extends JFrame implements Buscadores {
             // Formulario_Ajuste fa = new Formulario_Ajuste(this, true, m);
             //fa.setVisible(true);
         } else if (sele.equals("Kardex")) {
-            //  new VentanaKardex(this, true, m).setVisible(true);
+              new VentanaKardex(this, true).setVisible(true);
         } else if (sele.equals("Ingresos/Egresos")) {//||Lista_Ingresos_Egresos
             if (esta("Ingresos/Egresos") == -1) {
                 JDesktopPane dp = new JDesktopPane();
