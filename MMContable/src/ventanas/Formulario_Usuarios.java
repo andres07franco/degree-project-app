@@ -180,11 +180,25 @@ public class Formulario_Usuarios extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Las Contraseñas no coinciden");
             clave.requestFocus();
             return false;
-        }/* else if (!verificarFunciones()) {
-            JOptionPane.showMessageDialog(null, "Seleccione almenos una función para el Usuario");
+        }if(funcion == interfaces.Constantes.ESTADO_EDICION && estado.getSelectedIndex()>0){
+                    try {
+                        Map<String, Object> mapa = new HashMap<String, Object>();
+                        mapa.put("id", u.getId());
+                        List<Usuario> listaUsuarios = (List<Usuario>) m.obtenerListado("obtenerUsuariosAct",mapa);
+
+                        if(listaUsuarios.size()==0){
+                            JOptionPane.showMessageDialog(null, "No se puede desactivar este usuario, pues no quedaran usuarios activos poa iniciar  sesión");
             clave.requestFocus();
             return false;
-        }*/
+                        }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+        }
+        
+
+
         return true;
     }
 

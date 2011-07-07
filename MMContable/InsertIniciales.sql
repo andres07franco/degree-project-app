@@ -61,19 +61,19 @@
         INSERT INTO `departamento` VALUES (97,'Vaupe',57);
         INSERT INTO `departamento` VALUES (99,'Vichada',57);
 
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'MEDELLIN ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (8,'BARRANQUILLA ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (11,'BOGOTA, ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (13,'CARTAGENA ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'MEDELLIN');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (8,'BARRANQUILLA');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (11,'BOGOTA');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (13,'CARTAGENA');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'TUNJA ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (17,'MANIZALES ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (18,'FLORENCIA ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (17,'MANIZALES');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (18,'FLORENCIA');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (19,'POPAYAN ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (20,'VALLEDUPAR ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (23,'MONTERIA ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (23,'MONTERIA');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'AGUA DE DIOS ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (27,'QUIBDO ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (41,'NEIVA ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (27,'QUIBDO');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (41,'NEIVA');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (44,'RIOHACHA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'SANTA MARTA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (50,'VILLAVICENCIO ');
@@ -119,7 +119,6 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'ALMEIDA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (19,'ALMAGUER ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'ALDANA ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (73,'');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (27,'ALTO BAUDO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (95,'EL RETORNO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (41,'ALTAMIRA ');

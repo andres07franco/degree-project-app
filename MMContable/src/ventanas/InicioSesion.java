@@ -41,6 +41,11 @@ public class InicioSesion extends javax.swing.JFrame {
         iniciar();
     }
 
+    public void setVisible(boolean sw){
+        super.setVisible(sw);
+        iniciar();
+    }
+
     public void iniciar() {
         usuario.removeAllItems();
         try {
