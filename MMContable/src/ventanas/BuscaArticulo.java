@@ -40,7 +40,7 @@ public class BuscaArticulo extends javax.swing.JDialog {
     public void buscar() {
         try {
             modeloTabla = new ModeloTabla(new boolean[]{false, false, false, false});
-            modeloTabla.addColumn("Artículo");
+            modeloTabla.addColumn("ID");
             modeloTabla.addColumn("Código");
             modeloTabla.addColumn("Descripción");
             modeloTabla.addColumn("existencia");

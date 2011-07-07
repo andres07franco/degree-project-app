@@ -226,12 +226,14 @@ public class ListaGrupos extends JPanel implements Buscadores {
             modeloTabla = new ModeloTabla(new boolean[]{false,false});
             modeloTabla.addColumn("Código");
             modeloTabla.addColumn("Grupo");
+            modeloTabla.addColumn("Estado");
             listaGrupos = (List<Grupo>) modelo.obtenerListado("obtenerGrupos", setObjeto(por.getSelectedItem().toString(), busqueda.getText()));
 
             for (Grupo group : listaGrupos) {
                 String[] fila = new String[3];
                 fila[0] = group.getCodigo();
                 fila[1] = group.getGrupo();
+                fila[2] = group.getEstado().getDescripcion();
                 modeloTabla.addRow(fila);
             }
 

@@ -8,21 +8,25 @@
         <result property="codigo"       column="CODIGO" />
         <result property="marca"        column="MARCA" />
         <result property="estado.id"    column="ESTADO" />
+        <result property="estado.descripcion"    column="ESTADO_DESCRIPCION" />
     </resultMap>
 
     <select id="obtenerMarcas" parameterType="aliasMarca" resultMap="resMapMarca">
         <![CDATA[
             SELECT
-                id ID,
-                codigo CODIGO,
-                marca MARCA,
-                estado ESTADO
+                m.id ID,
+                m.codigo CODIGO,
+                m.marca MARCA,
+                m.estado ESTADO,
+                e.descripcion ESTADO_DESCRIPCION
             FROM
-                marca
+                marca m, estado e
             WHERE
-                codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
+                (m.codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
             AND
-                marca LIKE IFNULL(#{marca, jdbcType=VARCHAR},'%')
+                m.marca LIKE IFNULL(#{marca, jdbcType=VARCHAR},'%'))
+            AND
+                e.id = m.estado
         ]]>
     </select>
 
@@ -36,9 +40,9 @@
             FROM
                 marca
             WHERE
-                codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
+               ( codigo LIKE IFNULL(#{codigo, jdbcType=VARCHAR},'%')
             OR
-                marca LIKE IFNULL(#{marca, jdbcType=VARCHAR},'%')
+                marca LIKE IFNULL(#{marca, jdbcType=VARCHAR},'%') )
             AND
                 estado = 2
         ]]>
