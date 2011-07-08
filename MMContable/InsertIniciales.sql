@@ -26,7 +26,6 @@
         INSERT INTO `estado` VALUES (2,'Activo');
 
 
-        INSERT INTO `departamento` VALUES (1,'Bolivar',57);
         INSERT INTO `departamento` VALUES (5,'Antioquia',57);
         INSERT INTO `departamento` VALUES (8,'Atlantico',57);
         INSERT INTO `departamento` VALUES (11,'DISTRITO CAPITAL Bogota D. C.',57);
@@ -1179,6 +1178,6 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'ZAPAYAN ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'ZONA BANANERA ');
         
-        INSERT INTO `tercero` VALUES (1,0,1,'Tercero Por Defecto','Tercero Por Defecto',1,13,'0','0',NULL,NULL,1);
+        INSERT INTO `tercero` VALUES (1,0,1,'Tercero Por Defecto','Tercero Por Defecto',13,4,'0','0',NULL,NULL,1);
 
 	INSERT INTO `m_mcontable`.`papelimpresion` (`descripcion`) VALUES ('Media Carta');

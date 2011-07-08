@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Inventario" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     (documento.`total`-documento.`totalpagado`) AS saldo,
+     documento.`id` AS documento_id,
+     documento.`fecha` AS documento_fecha,
+     documento.`tipo` AS documento_tipo,
+     documento.`numero` AS documento_numero,
+     documento.`total` AS documento_total,
+     documento.`fechavencimiento` AS documento_fechavencimiento,
+     documento.`totalpagado` AS documento_totalpagado,
+     documento.`subtotal` AS documento_subtotal,
+     documento.`documento_id` AS documento_documento_id,
+     documento.`estado` AS documento_estado,
+     tercero.`nit` AS tercero_nit,
+    (select a.`fecha` from `documento` a where a.`documento_id` = documento.`id`   order by a.`fecha` desc limit 1) as fecha_abono,
+    IF (documento.`fechavencimiento` < curdate(), "Vencida", "Debe") AS estado
+FROM
+     `tercero` tercero INNER JOIN `documento` documento ON tercero.`id` = documento.`tercero`
+WHERE
+     ( documento.`estado` = 'D')
+AND   documento.`tipo` = 2
+
+order by documento.`fecha` ASC]]>
+	</queryString>
+	<field name="saldo" class="java.math.BigDecimal"/>
+	<field name="documento_id" class="java.lang.Integer"/>
+	<field name="documento_fecha" class="java.sql.Date"/>
+	<field name="documento_tipo" class="java.lang.Integer"/>
+	<field name="documento_numero" class="java.lang.String"/>
+	<field name="documento_total" class="java.math.BigDecimal"/>
+	<field name="documento_fechavencimiento" class="java.sql.Date"/>
+	<field name="documento_totalpagado" class="java.math.BigDecimal"/>
+	<field name="documento_subtotal" class="java.math.BigDecimal"/>
+	<field name="documento_documento_id" class="java.lang.Integer"/>
+	<field name="documento_estado" class="java.lang.String"/>
+	<field name="tercero_nit" class="java.lang.Long"/>
+	<field name="fecha_abono" class="java.sql.Date"/>
+	<field name="estado" class="java.lang.String"/>
+	<variable name="estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="62"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuentas Por Pagar]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="3" width="572" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="29" width="572" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="9" y="6" width="60" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[# Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="72" y="6" width="73" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="6" width="66" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="6" width="82" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pagado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="6" width="61" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha V]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="6" width="72" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="218" y="6" width="60" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="512" y="6" width="58" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="152" y="5" width="61" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{documento_fechavencimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="5" width="73" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{tercero_nit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="5" width="60" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{documento_numero}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="282" y="5" width="66" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{documento_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="352" y="5" width="82" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{documento_totalpagado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="436" y="5" width="76" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="5" width="60" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{fecha_abono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="514" y="5" width="58" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="31" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="28" width="572" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="2" width="572" height="1"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="233" y="6" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="313" y="6" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
