@@ -12,6 +12,7 @@ import interfaces.Constantes;
 import java.awt.Frame;
 import java.util.List;
 import javax.swing.JDialog;
+import utilidades.Validaciones;
 
 public class FormularioTercero extends JDialog {
 
@@ -104,6 +105,14 @@ public class FormularioTercero extends JDialog {
         } else if (telefono.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite el TELÉFONO  por favor");
             telefono.requestFocus();
+            return false;
+        }else if (!Validaciones.esEmail(email.getText())) {
+            JOptionPane.showMessageDialog(null, "Digite un E-MAIL valido por favor");
+            email.requestFocus();
+            return false;
+        }else if(contacto.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Digite un CONTACTO valido por favor");
+            email.requestFocus();
             return false;
         }
 
@@ -265,6 +274,12 @@ public class FormularioTercero extends JDialog {
 
         jLabel11.setText("Contacto:");
 
+        contacto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                contactoKeyTyped(evt);
+            }
+        });
+
         jLabel8.setText("E-Mail:");
 
         email.addActionListener(new java.awt.event.ActionListener() {
@@ -278,6 +293,11 @@ public class FormularioTercero extends JDialog {
         cel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 celActionPerformed(evt);
+            }
+        });
+        cel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                celKeyTyped(evt);
             }
         });
 
@@ -361,7 +381,7 @@ public class FormularioTercero extends JDialog {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos Básicos", jPanel1);
@@ -569,7 +589,7 @@ public class FormularioTercero extends JDialog {
 
     private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
         if (Character.isLetterOrDigit(evt.getKeyChar())) {
-            if (nombre.getText().length() == 200) {
+            if (nombre.getText().length() == 45) {
                 evt.consume();
             } else {
                 String letra = ("" + evt.getKeyChar()).toUpperCase();
@@ -594,12 +614,33 @@ public class FormularioTercero extends JDialog {
     }//GEN-LAST:event_direccionKeyTyped
 
     private void telefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyTyped
-        if (!Character.isDigit(evt.getKeyChar())) {
-            evt.consume();
-        } else if (telefono.getText().length() == 12) {
+        if (!Character.isDigit(evt.getKeyChar()) || telefono.getText().length() >= 12) {
             evt.consume();
         }
     }//GEN-LAST:event_telefonoKeyTyped
+
+    private void celKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_celKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isDigit(evt.getKeyChar()) || cel.getText().length() >= 12) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_celKeyTyped
+
+    private void contactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contactoKeyTyped
+        // TODO add your handling code here:
+                if (Character.isLetterOrDigit(evt.getKeyChar())) {
+            if (contacto.getText().length() == 45) {
+                evt.consume();
+            } else {
+                String letra = ("" + evt.getKeyChar()).toUpperCase();
+
+                evt.consume();
+
+                contacto.setText(contacto.getText().concat(letra));
+            }
+        }
+    }//GEN-LAST:event_contactoKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cel;
     private javax.swing.JComboBox ciudad;
