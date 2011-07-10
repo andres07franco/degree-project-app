@@ -422,7 +422,8 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             Documento doc = new Documento();
             doc.setNumero(numero.getText());
             doc.setNota(concepto.getText());
-            
+
+            /*SELECCIONAMOS EL SITIO*/
             if (tipoc.getSelectedIndex() == 0) {
                 this.d.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_ABONO_A_FACTURA));
                 doc.setDocumento(d);
