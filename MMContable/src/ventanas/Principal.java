@@ -829,6 +829,14 @@ public class Principal extends JFrame implements Buscadores {
             } catch (Exception ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else if (sele.equals("Cuentas X Cobrar")) {
+                Map parametro = new HashMap();
+                new utilidades.Reporte(this).runReporte("reportes/CXC.jasper", parametro);
+
+        }else if (sele.equals("Cuentas X Pagar")) { 
+                Map parametro = new HashMap();
+                new utilidades.Reporte(this).runReporte("reportes/CXP.jasper", parametro);
+
         }
 
     }
