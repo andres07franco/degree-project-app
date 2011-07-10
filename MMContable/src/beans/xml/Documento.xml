@@ -164,6 +164,48 @@
           ) ORDER BY d.fecha desc, d.numero desc
     </select>
 
+      <select id="obtenerDocumentosAIE" parameterType="java.util.Map" resultMap="resMapDocumento">
+        SELECT
+            d.id               ID,
+            d.fecha            FECHA,
+            d.tipo             ID_TIPO_DOCUMENTO,
+            d.tercero          ID_TERCERO,
+            t.nit              NIT_TERCERO,
+            t.nombre           NOMBRE_TERCERO,
+            d.numero           NUMERO,
+            d.total            TOTAL,
+            d.nota             NOTA,
+            d.tipopago         ID_TIPO_PAGO,
+            d.fechavencimiento FECHA_VENCIMIENTO,
+            d.totalpagado      TOTAL_PAGADO,
+            d.tipodescuento    ID_TIPO_DESCUENTO,
+            d.subtotal         SUBTOTAL,
+            d.descuento        DESCUENTO,
+            d.estado           ESTADO
+        FROM
+            documento d, tercero t
+        WHERE
+           ( d.numero     LIKE  #{busqueda,jdbcType=VARCHAR}
+            OR  d.fecha  LIKE  #{busqueda,jdbcType=VARCHAR}
+            OR  t.nit    LIKE  #{busqueda,jdbcType=VARCHAR}
+            OR  t.nombre LIKE  #{busqueda,jdbcType=VARCHAR}
+            OR  d.total  LIKE  #{busqueda,jdbcType=VARCHAR}
+            )
+            AND
+                 d.tercero = t.id
+            AND
+            (
+                 d.tipo = 5
+            OR
+                 d.tipo = 6
+            OR
+                 d.tipo = 7
+
+             )
+                
+           ORDER BY d.fecha desc, d.numero desc
+    </select>
+
       <select id="obtenerAbonos" parameterType="java.lang.Integer" resultMap="resMapDocumento">
         SELECT
             d.id               ID,

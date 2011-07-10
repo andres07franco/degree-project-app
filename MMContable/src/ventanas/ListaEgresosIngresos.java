@@ -285,10 +285,8 @@ public class ListaEgresosIngresos extends javax.swing.JPanel implements Buscador
             dtm.addColumn("Tercero");
             dtm.addColumn("Total");
             Map<String, Object> mapa = new HashMap<String, Object>();
-            mapa.put("tipo", new Integer(Constantes.DOCUMENTO_FACTURA_VENTA));
-            mapa.put("tipo2", new Integer(Constantes.DOCUMENTO_COTIZACION));
             mapa.put("busqueda", "%" + busqueda.getText() + "%");
-            l = (List<Documento>) m.obtenerListado("obtenerDocumentosCyV",mapa);
+            l = (List<Documento>) m.obtenerListado("obtenerDocumentosAIE",mapa);
             if (l != null) {
                 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
                 for (int i = 0; i < l.size(); i++) {                    
