@@ -27,7 +27,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
     Documento d,doc;
     Tercero t;
 
-    public Formulario_Egresos_Ingresos(java.awt.Frame parent, boolean modal, Buscadores bu, Model m) {
+    public Formulario_Egresos_Ingresos(java.awt.Frame parent, boolean modal, Buscadores bu) {
 
         super(parent, modal);
         this.parent = parent;
@@ -37,13 +37,14 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         int ano = Calendar.getInstance().get(Calendar.YEAR);
         int mes = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int dia = Calendar.getInstance().get(Calendar.DATE);
+         m = m.getInstance();
         obtentenerConsecutivo();
         fecha.setText(ano + "-" + mes + "-" + dia);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
-    public Formulario_Egresos_Ingresos(java.awt.Frame parent, boolean modal, Buscadores bu, Model m,Documento d) {
+    public Formulario_Egresos_Ingresos(java.awt.Frame parent, boolean modal, Buscadores bu,Documento d) {
 
         super(parent, modal);
         this.parent = parent;
@@ -54,6 +55,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         int ano = Calendar.getInstance().get(Calendar.YEAR);
         int mes = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int dia = Calendar.getInstance().get(Calendar.DATE);
+        m = m.getInstance();
         obtentenerConsecutivo();
         fecha.setText(ano + "-" + mes + "-" + dia);
         
@@ -94,7 +96,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             if(tipo.getSelectedIndex()==0)
                 consecutivo = fe.getIngresos() + 1;
             else{
-                 consecutivo = fe.getIngresos() + 1;
+                 consecutivo = fe.getEgresos() + 1;
             }
             numero.setText(consecutivo + "");
         } else {
