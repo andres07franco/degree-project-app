@@ -233,7 +233,7 @@ public class ListaEgresosIngresos extends javax.swing.JPanel implements Buscador
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
         // TODO add your handling code here:
-        Formulario_Egresos_Ingresos fp = new Formulario_Egresos_Ingresos(parent, true,  this, null);
+        Formulario_Egresos_Ingresos fp = new Formulario_Egresos_Ingresos(parent, true,  this);
         // dp.add(fde);
 }//GEN-LAST:event_nuevoActionPerformed
 
