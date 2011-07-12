@@ -5,6 +5,7 @@ import beans.Documento;
 import beans.FacturaEmpresa;
 import beans.Tercero;
 import beans.TipoDocumento;
+import beans.TipoPago;
 import interfaces.Buscadores;
 import java.awt.Frame;
 import java.util.Calendar;
@@ -376,12 +377,12 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             d = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_VENTA).getDocumento());
         else
             d = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_COMPRA).getDocumento());
-        if (t != null) {
+        if (d != null) {
             concepto.setText(d.getNumero() + "");
             t=d.getTercero();
             tercero.setText(t.getNit() + "");
             ntercero.setText(t.getNombre());
-
+            
         }
     }
 
@@ -427,31 +428,36 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
             /*SELECCIONAMOS EL SITIO*/
             if (tipoc.getSelectedIndex() == 0) {
-                this.d.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_ABONO_A_FACTURA));
+                doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_ABONO_A_FACTURA));
                 doc.setDocumento(d);
             } else if (tipoc.getSelectedIndex() == 1) {
                  if (tipo.getSelectedIndex() == 1)
-                        this.d.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_INGRESO));
+                        doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_INGRESO));
                  else
-                   this.d.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_EGRESO));
+                   doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_EGRESO));
             }
 
             doc.setTotal(new BigDecimal(valor.getText()));
             doc.setTotalpagado(new BigDecimal(valor.getText()));
             doc.setFecha(new Date());
             doc.setTercero(t);
+            doc.setDescuento(BigDecimal.ZERO);
+            doc.setFechavencimiento(new Date());
+            doc.setTipopago((TipoPago) m.obtenerRegistro("obtenerTipoPago", Constantes.TIPO_PAGO_PAGADO));
+            doc.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
+            doc.setSubtotal(doc.getTotal());
             try {
-                m.insertarRegistro("insertarDocumento", d);
+
+                /*disminuimos saldo*/
+                d.setTotalpagado(d.getTotalpagado().add(doc.getTotal()));
+                m.actualizarRegistro("actualizarDocumento", d);
+                m.insertarRegistro("insertarDocumento", doc);
                 /*Actualizamos caja*/
                 Caja cajaDia = (Caja) m.obtenerRegistro("obtenerCajaDia");
-                if (d.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO) {
+                
                     cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotal()));
                     cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotal()));
-                } else {
-                    cajaDia.setVentascredito(cajaDia.getVentascredito().add(d.getTotal()));
-                    cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotalpagado()));
-                    cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotalpagado()));
-                }
+              
                 m.actualizarRegistro("actualizarCajaDia", cajaDia);
                 /* int confirmado = JOptionPane.showConfirmDialog(this,"¿Desea imprimir la Factura?","¿Imprimir?",JOptionPane.YES_NO_OPTION);
                 if (JOptionPane.OK_OPTION == confirmado)

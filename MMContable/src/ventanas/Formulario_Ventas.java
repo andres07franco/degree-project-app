@@ -1021,8 +1021,11 @@ public class Formulario_Ventas extends javax.swing.JDialog {
              if ( d.getTipo().getId() == Constantes.DOCUMENTO_FACTURA_VENTA) {
                 if (d.getEstado().equals(Constantes.ESTADO_DOCUMENTO_PAGADO ))
                    this.estadofactura.setText("Pagada");
-                 else 
+                 else{
                     this.estadofactura.setText("En Deuda");
+
+                 } 
+                    
                 
             } else {
                 this.estadofactura.setText("");
@@ -1043,7 +1046,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                     mt.addRow(fila);
                 }
             }
-
+                
          if (d.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO) {
 
             boolean cedit[] = {false, false,false,false,false};
@@ -1053,6 +1056,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             totalpagado.setText(utilidades.FormatoNumeros.formatear(d.getTotalpagado() + ""));
             saldo.setText(utilidades.FormatoNumeros.formatear((d.getTotal().subtract(d.getTotalpagado())+"")));
             List<Documento> labonos = (List<Documento>) m.obtenerListado("obtenerAbonos",d.getId());
+            System.out.println(d.getId());
             if (labonos!= null)
              for (int i = 0; i < labonos.size(); i++) {
                             Documento abo = labonos.get(i);
