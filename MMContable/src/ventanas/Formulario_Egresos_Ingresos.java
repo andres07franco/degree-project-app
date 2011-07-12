@@ -450,6 +450,8 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
                 /*disminuimos saldo*/
                 d.setTotalpagado(d.getTotalpagado().add(doc.getTotal()));
+                if(d.getTotalpagado().compareTo(d.getTotal())==0)
+                    d.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
                 m.actualizarRegistro("actualizarDocumento", d);
                 m.insertarRegistro("insertarDocumento", doc);
                 /*Actualizamos caja*/
@@ -486,6 +488,9 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
             }else if(new BigDecimal(valor.getText()).compareTo(BigDecimal.ZERO)==0){
                 JOptionPane.showMessageDialog(null, "Escriba un valor mayor que 0 por favor");
+                return false;
+            }else if(new BigDecimal(valor.getText()).compareTo(d.getTotal().subtract(d.getTotalpagado()))==1){
+                JOptionPane.showMessageDialog(null, "La cantidad digitada supera el saldo a pagar ("+d.getTotal().subtract(d.getTotalpagado())+")");
                 return false;
             }
         }else{
