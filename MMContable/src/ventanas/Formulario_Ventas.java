@@ -1022,7 +1022,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
     public void llenar() {
         try {
-       
+        this.anular.setEnabled(true);
             /*CARGANDO CABECERA*/
             numero.setText(d.getNumero());
             fecha.setText(new java.text.SimpleDateFormat("yyyy-MM-dd").format(d.getFecha()));
@@ -1564,7 +1564,51 @@ public class Formulario_Ventas extends javax.swing.JDialog {
     }//GEN-LAST:event_cantidadFocusGained
 
     private void anularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anularActionPerformed
-        // TODO add your handling code here:
+       
+            // TODO add your handling code here:
+            d.setEstado(interfaces.Constantes.ESTADO_DOCUMENTO_ANULADO);
+
+            List<ArticulosDocumento> la = null;
+            try {
+                m.actualizarRegistro("actualizarDocumento", d);
+                la = (List<ArticulosDocumento>) m.obtenerListado("obtenerArticulosDocumento",d.getId());
+            } catch (Exception ex) {
+                Logger.getLogger(Formulario_Ventas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (la != null) {
+                for (int i = 0; i < la.size(); i++) {
+                    try {
+                        ArticulosDocumento ad = la.get(i);
+                        Object[] fila = new Object[5];
+                        Articulo a = (Articulo) m.obtenerRegistro("obtenerArticuloPorId", ad.getArticulo().getId());
+
+                        a.setFechauventa(d.getFecha());
+
+                        a.setExistencia(a.getExistencia().add(a.getExistencia()));
+
+                        BigDecimal costoRestar = ad.getCantidad().multiply(a.getVlrpromedio());
+
+                        a.setSaldocosto(a.getSaldocosto().add(costoRestar));
+                        
+                        m.actualizarRegistro("actualizarArticulo", a);
+                        /*creando kardex*/
+                        Kardex k = new Kardex();
+                        k.setDocumento(d);
+                        k.setArticulo(a);
+                        k.setEntradas(ad.getCantidad());
+                        k.setSalidas(BigDecimal.ZERO);
+                        k.setExistencia(ad.getCantidad());
+                        k.setVlrunitario(a.getVlrpromedio());
+                        k.setVlrtotal(a.getVlrpromedio().multiply(ad.getCantidad()));
+                        k.setHora(new Date());
+                        k.setFecha(new Date());
+                        m.insertarRegistro("insertarKardex", k);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Formulario_Ventas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+
     }//GEN-LAST:event_anularActionPerformed
 
     public boolean esta(Object a) {
