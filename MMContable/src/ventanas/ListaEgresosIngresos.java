@@ -224,7 +224,7 @@ public class ListaEgresosIngresos extends javax.swing.JPanel implements Buscador
         if (evt.getClickCount() % 2 == 0) {
             if (tabla.getSelectedRow() > -1) {
                
-                new Formulario_Ventas(parent, true, this, l.get(tabla.getSelectedRow()));
+                new Formulario_Egresos_Ingresos(parent, true, this, l.get(tabla.getSelectedRow()));
             } else {
                 JOptionPane.showMessageDialog(null, "Selecciones una fila primero");
             }
@@ -241,7 +241,7 @@ public class ListaEgresosIngresos extends javax.swing.JPanel implements Buscador
         // TODO add your handling code here:
         if (tabla.getSelectedRow() > -1) {
 
-            new Formulario_Ventas(parent, true, this,  l.get(tabla.getSelectedRow()));
+            new Formulario_Egresos_Ingresos(parent, true, this,  l.get(tabla.getSelectedRow()));
         } else {
             JOptionPane.showMessageDialog(null, "Selecciones una fila primero");
         }

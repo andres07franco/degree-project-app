@@ -40,6 +40,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         int dia = Calendar.getInstance().get(Calendar.DATE);
          m = m.getInstance();
         obtentenerConsecutivo();
+        funcion = interfaces.Constantes.ESTADO_CREACION;
         fecha.setText(ano + "-" + mes + "-" + dia);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -51,7 +52,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         this.parent = parent;
         this.m = m;
         this.bu = bu;
-        this.doc = doc;
+        this.d = d;
         initComponents();
         int ano = Calendar.getInstance().get(Calendar.YEAR);
         int mes = Calendar.getInstance().get(Calendar.MONTH) + 1;
@@ -60,7 +61,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         obtentenerConsecutivo();
         fecha.setText(ano + "-" + mes + "-" + dia);
         
-        if(doc!=null)
+        if(d!=null)
             llenar();
         
         this.setLocationRelativeTo(null);
@@ -69,14 +70,26 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
     public void llenar() {
 
-        funcion = 1;
+        funcion = interfaces.Constantes.ESTADO_EDICION;
+            
+         if (d.getTipo().getId() == Constantes.DOCUMENTO_ABONO_A_FACTURA ){
+            this.tipoc.setSelectedIndex(0);
+         }else if (d.getTipo().getId() == Constantes.DOCUMENTO_INGRESO){
+            this.tipo.setSelectedIndex(0);
+        this.tipoc.setSelectedIndex(1);
+         } else if (d.getTipo().getId() == Constantes.DOCUMENTO_EGRESO){
+            this.tipo.setSelectedIndex(1);
+            this.tipo.setSelectedIndex(1);
+         }
 
-        tercero.setText(doc.getTercero().getNombre());
-        ntercero.setText(doc.getTercero().getNit().toString());
+        this.tipoc.setEditable(false);
+        this.tipo.setEditable(false);
+        tercero.setText(d.getTercero().getNombre());
+        ntercero.setText(d.getTercero().getNit().toString());
       /*  tipoc.setSelectedIndex(d.getTipoconcepto());*/
-        valor.setText(utilidades.FormatoNumeros.formatear(doc.getTotal() + ""));
-        numero.setText(doc.getNumero());
-        fecha.setText(new java.text.SimpleDateFormat("yyyy-MM-dd").format(doc.getFecha()));
+        valor.setText(utilidades.FormatoNumeros.formatear(d.getTotal() + ""));
+        numero.setText(d.getNumero());
+        fecha.setText(new java.text.SimpleDateFormat("yyyy-MM-dd").format(d.getFecha()));
 
         valor.setEnabled(false);
         this.guardar.setEnabled(false);
@@ -496,7 +509,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
         }else{
          if (t==null) {
              JOptionPane.showMessageDialog(null, "Seleccione el Tercero por favor");
-            concepto.requestFocus();
+             concepto.requestFocus();
             return false;
         } else if (concepto.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite el Concepto por favor");
