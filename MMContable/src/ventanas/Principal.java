@@ -611,7 +611,7 @@ public class Principal extends JFrame implements Buscadores {
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Compras");
 
         treeNode1.add(new DefaultMutableTreeNode("Registrar Compra"));
-        treeNode1.add(new DefaultMutableTreeNode("Devoluciones"));
+       // treeNode1.add(new DefaultMutableTreeNode("Devoluciones"));
         //   treeNode1.add(new DefaultMutableTreeNode("Movimientos Compras"));
         treeNode1.add(new DefaultMutableTreeNode("Cuentas X Pagar"));
 
@@ -627,7 +627,7 @@ public class Principal extends JFrame implements Buscadores {
             javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Ventas");
 
             treeNode1.add(new DefaultMutableTreeNode("Registrar Venta"));
-            treeNode1.add(new DefaultMutableTreeNode("Devoluciones"));
+           // treeNode1.add(new DefaultMutableTreeNode("Devoluciones"));
             /*  treeNode1.add(new DefaultMutableTreeNode("Movimientos Ventas"));*/
             treeNode1.add(new DefaultMutableTreeNode("Cuentas X Cobrar"));
 
