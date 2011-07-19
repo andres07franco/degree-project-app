@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import db.Model;
 import interfaces.Constantes;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,9 +76,12 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             
          if (d.getTipo().getId() == Constantes.DOCUMENTO_ABONO_A_FACTURA ){
             this.tipoc.setSelectedIndex(0);
+            this.tipo.setSelectedIndex(1);
+            if (d.getDocumento().getTipo().getId() == Constantes.DOCUMENTO_FACTURA_VENTA)
+                this.tipo.setSelectedIndex(0);
          }else if (d.getTipo().getId() == Constantes.DOCUMENTO_INGRESO){
             this.tipo.setSelectedIndex(0);
-        this.tipoc.setSelectedIndex(1);
+            this.tipoc.setSelectedIndex(1);
          } else if (d.getTipo().getId() == Constantes.DOCUMENTO_EGRESO){
             this.tipo.setSelectedIndex(1);
             this.tipo.setSelectedIndex(1);
@@ -429,7 +434,16 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 }//GEN-LAST:event_salirActionPerformed
 
     private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
-       
+                        Map parametro = new HashMap();
+                        parametro.put("numero", "" + d.getNumero());
+
+                        parametro.put("tipo", "" + d.getTipo().getId());
+                        parametro.put("tiporecibo", "" + d.getTipo().getId());
+                        parametro.put("tiportercero", "" + d.getTipo().getId());
+                        parametro.put("concepto", "" + d.getTipo().getId());
+                        parametro.put("valorletras", "" + d.getTipo().getId());
+                        this.dispose();
+                        new utilidades.Reporte().runReporte("reportes/ReciboCaja.jasper", parametro);
 }//GEN-LAST:event_imprimirActionPerformed
 
     public void guardar() {
