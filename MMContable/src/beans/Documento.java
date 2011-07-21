@@ -20,6 +20,7 @@ public class Documento {
     private BigDecimal subtotal;
     private Documento documento;
     private String estado;
+    private int id_documento;
 
     @Override
     public String toString() {
@@ -166,6 +167,20 @@ public class Documento {
      */
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the id_documento
+     */
+    public int getId_documento() {
+        return id_documento;
+    }
+
+    /**
+     * @param id_documento the id_documento to set
+     */
+    public void setId_documento(int id_documento) {
+        this.id_documento = id_documento;
     }
 
 
