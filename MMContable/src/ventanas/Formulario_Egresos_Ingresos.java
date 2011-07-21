@@ -15,6 +15,7 @@ import db.Model;
 import interfaces.Constantes;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,12 +74,24 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
     public void llenar() {
 
         funcion = interfaces.Constantes.ESTADO_EDICION;
-            
+
+ 
          if (d.getTipo().getId() == Constantes.DOCUMENTO_ABONO_A_FACTURA ){
+
             this.tipoc.setSelectedIndex(0);
             this.tipo.setSelectedIndex(1);
-            if (d.getDocumento().getTipo().getId() == Constantes.DOCUMENTO_FACTURA_VENTA)
-                this.tipo.setSelectedIndex(0);
+            
+            try {
+                
+                 List<Documento> l = (List<Documento>) Model.getInstance().obtenerListado("obtenerUnDocumento",d.getDocumento().getId());
+             
+                    if(l.size()> 0)
+                          if (l.get(0).getTipo().getId() == Constantes.DOCUMENTO_FACTURA_VENTA)
+                                 this.tipo.setSelectedIndex(0);
+            } catch (Exception ex) {
+                Logger.getLogger(Formulario_Egresos_Ingresos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+  
          }else if (d.getTipo().getId() == Constantes.DOCUMENTO_INGRESO){
             this.tipo.setSelectedIndex(0);
             this.tipoc.setSelectedIndex(1);
@@ -434,16 +447,43 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 }//GEN-LAST:event_salirActionPerformed
 
     private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
-                        Map parametro = new HashMap();
-                        parametro.put("numero", "" + d.getNumero());
+                Map parametro = new HashMap();
+                if (d.getTipo().getId() == Constantes.DOCUMENTO_ABONO_A_FACTURA ){
 
-                        parametro.put("tipo", "" + d.getTipo().getId());
-                        parametro.put("tiporecibo", "" + d.getTipo().getId());
-                        parametro.put("tiportercero", "" + d.getTipo().getId());
-                        parametro.put("concepto", "" + d.getTipo().getId());
-                        parametro.put("valorletras", "" + d.getTipo().getId());
+                    this.tipoc.setSelectedIndex(0);
+
+                    parametro.put("tiporecibo", "EGRESO" );
+                    parametro.put("tipotercero", "Pagado a:" );
+                    try {
+
+                         List<Documento> l = (List<Documento>) Model.getInstance().obtenerListado("obtenerUnDocumento",d.getDocumento().getId());
+                            parametro.put("concepto", "ABONO A FACTURA #" + l.get(0).getNumero());
+                            if(l.size()> 0)
+                                  if (l.get(0).getTipo().getId() == Constantes.DOCUMENTO_FACTURA_VENTA){
+                                         parametro.put("tipo", "INGRESO" );
+                                         parametro.put("tipotercero", "Recibi de:" );
+                                }
+                    } catch (Exception ex) {
+                        Logger.getLogger(Formulario_Egresos_Ingresos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                 }else if (d.getTipo().getId() == Constantes.DOCUMENTO_INGRESO){
+                    parametro.put("tiporecibo", "INFRESO" );
+                    parametro.put("concepto", d.getNota());
+                    parametro.put("tipotercero", "Recibi de:" );
+                 } else if (d.getTipo().getId() == Constantes.DOCUMENTO_EGRESO){
+                    parametro.put("tiporecibo", "EGRESO" );
+                    parametro.put("concepto", d.getNota());
+                    parametro.put("tiportercerotipotercero", "Pagado a:" );
+                 }
+
+                        parametro.put("numero", "" + d.getNumero());
+                        parametro.put("tipo", d.getTipo().getId() );
+                        parametro.put("valorletras", new utilidades.CnvNumsLets().toLetras(d.getTotal().longValue()));
+
                         this.dispose();
                         new utilidades.Reporte().runReporte("reportes/ReciboCaja.jasper", parametro);
+                        
 }//GEN-LAST:event_imprimirActionPerformed
 
     public void guardar() {
@@ -555,7 +595,8 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
     private void tipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoItemStateChanged
         // TODO add your handling code here:
-        obtentenerConsecutivo();
+        if(funcion !=  interfaces.Constantes.ESTADO_EDICION){
+                    obtentenerConsecutivo();
        if (tipo.getSelectedIndex() == 0) {
             et.setText("Recibido de");
         } else {
@@ -567,6 +608,8 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             concepto.setText("");
             d = null;
             valor.setText("0.0");
+        }
+
     }//GEN-LAST:event_tipoItemStateChanged
 
     private void tipocItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipocItemStateChanged

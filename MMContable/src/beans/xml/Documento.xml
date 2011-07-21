@@ -7,6 +7,7 @@
         <result property="id"                               column="ID" />
         <result property="fecha"                            column="FECHA" />
         <result property="tipo.id"                          column="ID_TIPO_DOCUMENTO" />
+        <result property="tipo.descripcion"                 column="DES_TIPO_DOCUMENTO" />
         <result property="tercero.id"                       column="ID_TERCERO" />
         <result property="tercero.nit"                      column="NIT_TERCERO" />
         <result property="tercero.tipo"                     column="TIPO_TERCERO" />
@@ -39,7 +40,7 @@
         <result property="tipodescuento"                    column="ID_TIPO_DESCUENTO" />
         <result property="subtotal"                         column="SUBTOTAL" />
         <result property="documento.id"                     column="ID_DOCUMENTO" />
-        <result property="documento.numero"                     column="NUMERO_DOCUMENTO" />
+        <result property="documento.numero"                 column="NUMERO_DOCUMENTO" />
         <result property="estado"                     column="ESTADO" />
     </resultMap>
 
@@ -74,7 +75,34 @@
     </select>
 
 
+     <select id="obtenerUnDocumento"  resultMap="resMapDocumento" parameterType="java.lang.Integer">
 
+        SELECT
+            d.id               ID,
+            d.fecha            FECHA,
+            d.tipo             ID_TIPO_DOCUMENTO,
+            d.tercero          ID_TERCERO,
+            t.nit              NIT_TERCERO,
+            t.nombre           NOMBRE_TERCERO,
+            d.numero           NUMERO,
+            d.total            TOTAL,
+            d.nota             NOTA,
+            d.tipopago         ID_TIPO_PAGO,
+            d.fechavencimiento FECHA_VENCIMIENTO,
+            d.totalpagado      TOTAL_PAGADO,
+            d.tipodescuento    ID_TIPO_DESCUENTO,
+            d.subtotal         SUBTOTAL,
+            d.descuento        DESCUENTO,
+            d.estado           ESTADO,
+            d.documento_id     ID_DOCUMENTO
+        FROM
+            documento d, tercero t
+        WHERE
+                 d.tercero = t.id
+            AND
+                d.id = #{id, jdbcType=INTEGER}
+
+    </select>
 
 
     <select id="existeDocumento" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -181,7 +209,8 @@
             d.tipodescuento    ID_TIPO_DESCUENTO,
             d.subtotal         SUBTOTAL,
             d.descuento        DESCUENTO,
-            d.estado           ESTADO
+            d.estado           ESTADO,
+            d.documento_id     ID_DOCUMENTO
         FROM
             documento d, tercero t
         WHERE
