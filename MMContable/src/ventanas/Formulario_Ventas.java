@@ -1151,7 +1151,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
     }//GEN-LAST:event_adicionarActionPerformed
 
     public void adicionar() {
-
+        if(utilidades.Validaciones.esEntero(cantidad.getText()))
         if (validarArticulo()) {
             calcularVlrParcial();
             adicionarItem();
@@ -1247,13 +1247,16 @@ public class Formulario_Ventas extends javax.swing.JDialog {
     }
 
     public void calcularVlrParcial() {
-        String canti = this.cantidad.getText();
-        if (this.cantidad.getText().trim().equals("")) {
-            canti = "0.0";
+
+        if(utilidades.Validaciones.esEntero(cantidad.getText())){
+            String canti = this.cantidad.getText();
+            if (this.cantidad.getText().trim().equals("")) {
+                canti = "0.0";
+            }
+            BigDecimal vun = new BigDecimal(this.vunit.getText().replaceAll(",", ""));
+            BigDecimal cant = new BigDecimal(canti.replaceAll(",", ""));
+            this.vparcial.setText(FormatoNumeros.formatear(vun.multiply(cant).toString()));
         }
-        BigDecimal vun = new BigDecimal(this.vunit.getText().replaceAll(",", ""));
-        BigDecimal cant = new BigDecimal(canti.replaceAll(",", ""));
-        this.vparcial.setText(FormatoNumeros.formatear(vun.multiply(cant).toString()));
     }
 
     public boolean validarArticulo() {
