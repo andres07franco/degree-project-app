@@ -1524,8 +1524,13 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
     private void cantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyTyped
         // TODO add your handling code here:
-        if (!Character.isDigit(evt.getKeyChar())) {
-            evt.consume();
+        System.out.println(cantidad.getSelectionStart() + " - " + cantidad.getSelectionEnd());
+        if(evt.getKeyChar()=='-'){
+             if(cantidad.getSelectionStart()!=0 || (cantidad.getText().length()>cantidad.getText().replaceAll("-", "").length()) )
+                evt.consume();
+        }
+        else if(!Character.isDigit(evt.getKeyChar())) {
+                            evt.consume();
         }
     }//GEN-LAST:event_cantidadKeyTyped
 
