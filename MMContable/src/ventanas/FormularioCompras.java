@@ -4,7 +4,6 @@ import beans.Articulo;
 import beans.ArticulosDocumento;
 import beans.Caja;
 import beans.Documento;
-import beans.FacturaEmpresa;
 import beans.Kardex;
 import beans.Tercero;
 import beans.TipoDocumento;
@@ -13,8 +12,6 @@ import interfaces.Buscadores;
 import interfaces.Constantes;
 import java.awt.Frame;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.MathContext;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -43,7 +40,7 @@ public class FormularioCompras extends javax.swing.JDialog {
         initComponents();
         tab.remove(panelabonos);
 
-        boolean cedit[] = {false, false,false,false,false};
+        boolean cedit[] = {false, false, false, false, false};
 
         modeloTabla = new ModeloTabla(cedit);
         modeloTabla.addColumn("Código");
@@ -79,19 +76,20 @@ public class FormularioCompras extends javax.swing.JDialog {
         numero.requestFocus();
     }
 
-    public FormularioCompras(Frame padre, boolean modal,  Buscadores buscador, Documento documento) {
+    public FormularioCompras(Frame padre, boolean modal, Buscadores buscador, Documento documento) {
         super(padre, modal);
         this.model = Model.getInstance();
         this.padre = padre;
         this.buscador = buscador;
         this.documento = documento;
 
-        if(documento == null)
+        if (documento == null) {
             documento = new Documento();
-        else
+        } else {
             llenar();
+        }
         init();
-        
+
 
         this.setSize(900, 580);
         this.setResizable(false);
@@ -199,11 +197,6 @@ public class FormularioCompras extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tabla);
 
         articulo.addActionListener(new java.awt.event.ActionListener() {
@@ -293,6 +286,7 @@ public class FormularioCompras extends javax.swing.JDialog {
 
         jLabel14.setText("Descuento:");
 
+        subtotal.setEditable(false);
         subtotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel8.setText("Subtotal");
@@ -682,16 +676,17 @@ public class FormularioCompras extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void restaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarActionPerformed
-         int confirmado = JOptionPane.showConfirmDialog(this,"Se borrara todo lo que ha hecho esta seguro de REINICIAR?","¿Reinicar?",JOptionPane.YES_NO_OPTION);
-         if (JOptionPane.OK_OPTION == confirmado)
-                init();
+        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho esta seguro de REINICIAR?", "¿Reinicar?", JOptionPane.YES_NO_OPTION);
+        if (JOptionPane.OK_OPTION == confirmado) {
+            init();
+        }
 }//GEN-LAST:event_restaurarActionPerformed
 
     private void buscaproveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaproveedorActionPerformed
-       adicionarTercero();
+        adicionarTercero();
 }//GEN-LAST:event_buscaproveedorActionPerformed
 
- public void adicionarTercero(){
+    public void adicionarTercero() {
         t = (new BuscaTerceros(padre, true).getTercero());
         if (t != null) {
             tercero.setText(t.getNit() + "");
@@ -725,15 +720,15 @@ public class FormularioCompras extends javax.swing.JDialog {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         try {
-         
-            if (validar()) {                
-               
-                    if ((Integer) model.obtenerRegistro("existeDocumento", numero.getText()) == 0) {
-                        guardar();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Número de FACTURA de COMPRA ya existe");
-                    }
-               
+
+            if (validar()) {
+
+                if ((Integer) model.obtenerRegistro("existeDocumento", numero.getText()) == 0) {
+                    guardar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Número de FACTURA de COMPRA ya existe");
+                }
+
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -745,11 +740,11 @@ public class FormularioCompras extends javax.swing.JDialog {
 }//GEN-LAST:event_descuentoKeyReleased
 
     private void buscaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaraActionPerformed
-    buscarArticulo();
+        buscarArticulo();
 }//GEN-LAST:event_buscaraActionPerformed
 
-    public void buscarArticulo(){
-        
+    public void buscarArticulo() {
+
         a = new BuscaArticulo(padre, true, null).getArticulo();
         if (a != null) {
             articuloDocumento = new ArticulosDocumento();
@@ -777,62 +772,62 @@ public class FormularioCompras extends javax.swing.JDialog {
 
     }
 
-       public void adicionar(){
-
-        if (validarArticulo()){
-                 calcularVlrParcial();
-                 adicionarItem();
-                 calcularDescuento();
-                 limpiarFormularioAdicion();
-                 this.articulo.requestFocus();
+    public void adicionar() {
+        if (validarArticulo()) {
+            calcularVlrParcial();
+            adicionarItem();
+            calcularDescuento();
+            limpiarFormularioAdicion();
+            this.articulo.requestFocus();
         }
     }
 
+    public boolean validarArticulo() {
+        BigDecimal vun = new BigDecimal(this.vunit.getText().replaceAll(",", ""));
+        BigDecimal cant = new BigDecimal(this.cantidad.getText().replaceAll(",", ""));
 
-      public boolean validarArticulo(){
-      
-       BigDecimal vun = new BigDecimal( this.vunit.getText().replaceAll(",", ""));
-       BigDecimal cant = new BigDecimal( this.cantidad.getText().replaceAll(",", ""));
         try {
             a = (Articulo) model.obtenerRegistro("obtenerArticuloPorCodigo", this.articulo.getText());
-        } catch (Exception ex) {
 
+            if (a == null) {
+                JOptionPane.showMessageDialog(this, "Selecione o escriba un articulo Valido", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+                articulo.requestFocus();
+                return false;
+            } else if (cant.compareTo(new BigDecimal(0)) == 0) {
+                JOptionPane.showMessageDialog(this, "Digete una Cantidad mayor a 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+                cantidad.requestFocus();
+                return false;
+            } else if (vun.compareTo(new BigDecimal(0)) == 0) {
+                JOptionPane.showMessageDialog(this, "Digete un Valor Unitario mayor a 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+                vunit.requestFocus();
+                return false;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-       if(a==null){
-           JOptionPane.showMessageDialog(this,"Selecione o escriba un articulo Valido","Inconveniente",JOptionPane.ERROR_MESSAGE);
-           articulo.requestFocus();
-           return false;
-       }else
-       if(cant.compareTo(new BigDecimal(0))==0){
-           JOptionPane.showMessageDialog(this,"Digete una Cantidad mayor a 0","Inconveniente",JOptionPane.ERROR_MESSAGE);
-           cantidad.requestFocus();
-           return false;
-       }else if(vun.compareTo(new BigDecimal(0))==0){
-           JOptionPane.showMessageDialog(this,"Digete un Valor Unitario mayor a 0","Inconveniente",JOptionPane.ERROR_MESSAGE);
-           vunit.requestFocus();
-           return false;
-       }
+
         return true;
     }
 
-       public void setEstado(int estado){
+    public void setEstado(int estado) {
         this.estado = estado;
-        if(estado == interfaces.Constantes.ADICIONANDO_ITEMS){
-            this.buscara.setEnabled(true);;
+        if (estado == interfaces.Constantes.ADICIONANDO_ITEMS) {
+            this.buscara.setEnabled(true);
+            ;
             this.articulo.setEnabled(true);
             this.adicionar.setText("Adicionar");
 
-        }else if(estado == interfaces.Constantes.EDITANDO_ITEMS){
-                this.buscara.setEnabled(false);;
-                this.articulo.setEnabled(false);
-                this.adicionar.setText("Acpetar");
+        } else if (estado == interfaces.Constantes.EDITANDO_ITEMS) {
+            this.buscara.setEnabled(false);
+            ;
+            this.articulo.setEnabled(false);
+            this.adicionar.setText("Acpetar");
         }
     }
 
     public int getFilaArticulo(Object a) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
-
-            if ((tabla.getValueAt(i, 0) + "").equals(a + "")) {
+            if ((tabla.getValueAt(i, 0)).equals(a)) {
                 return i;
             }
         }
@@ -841,15 +836,18 @@ public class FormularioCompras extends javax.swing.JDialog {
 
     private void quitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitarActionPerformed
         if (tabla.getSelectedRow() > -1) {
-            BigDecimal totales = new BigDecimal(total.getText().replaceAll(",", ""));
+            BigDecimal totales = new BigDecimal(subtotal.getText().replaceAll(",", ""));
             BigDecimal totalaquitar = new BigDecimal(("" + tabla.getValueAt(tabla.getSelectedRow(), 4)).replaceAll(",", ""));
-            if (totales.compareTo(totalaquitar) == -1) {
-                totales = BigDecimal.ZERO;
-            } else {
-                totales = totales.subtract(totalaquitar);
-            }
+
+            totales = totales.subtract(totalaquitar);
             modeloTabla.removeRow(tabla.getSelectedRow());
-            total.setText(utilidades.FormatoNumeros.formatear("" + totales));
+
+            if (totales.compareTo(BigDecimal.ZERO) == 0) {
+                subtotal.setText(utilidades.FormatoNumeros.formatear("0.00"));
+            } else {
+                subtotal.setText(utilidades.FormatoNumeros.formatear("" + totales));
+            }
+
             calcularDescuento();
         } else {
             JOptionPane.showMessageDialog(null, "No hay Artículo Seleccionado");
@@ -861,52 +859,31 @@ public class FormularioCompras extends javax.swing.JDialog {
 }//GEN-LAST:event_vunitActionPerformed
 
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
-        // TODO add your handling code here:
         vunit.requestFocus();
 
 }//GEN-LAST:event_cantidadActionPerformed
 
-    public void calcularVlrParcial(){
+    public void calcularVlrParcial() {
         String canti = this.cantidad.getText();
-        if(this.cantidad.getText().trim().equals(""))
-                canti = "0.0";
-        BigDecimal vun = new BigDecimal( this.vunit.getText().replaceAll(",", ""));
-        BigDecimal cant = new BigDecimal( canti.replaceAll(",", ""));
-              this.vparcial.setText(FormatoNumeros.formatear(vun.multiply(cant).toString()));
+        if (this.cantidad.getText().trim().equals("")) {
+            canti = "0.0";
+        }
+        BigDecimal vun = new BigDecimal(this.vunit.getText().replaceAll(",", ""));
+        BigDecimal cant = new BigDecimal(canti.replaceAll(",", ""));
+        this.vparcial.setText(FormatoNumeros.formatear(vun.multiply(cant).toString()));
     }
 
     private void articuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_articuloActionPerformed
-
 }//GEN-LAST:event_articuloActionPerformed
 
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
-        int index = tabla.getSelectedRow();
-        if (index > -1) {
-            //            articuloDocumento = Ventana_Editar_Item.editarItem(padre, true, (Articulosdocumento) tabla.getValueAt(index, 0), 0);
-            if (articuloDocumento != null) {
-                //  System.out.println("entrando");
-                tabla.setValueAt(articuloDocumento, index, 0);
-                String descrip = articuloDocumento.getArticulo() + "";
-                //                if (articuloDocumento.getArticulo().getTipo() == 1) {
-                //                    descrip = "Servicio de " + articuloDocumento.getArticulo().getDescripcioncomercial();
-                //                }
-                tabla.setValueAt(descrip, index, 1);
-                tabla.setValueAt(articuloDocumento.getCantidad(), index, 2);
-                tabla.setValueAt(utilidades.FormatoNumeros.formatear("" + articuloDocumento.getVlrunitario()), index, 3);
-                tabla.setValueAt(utilidades.FormatoNumeros.formatear("" + articuloDocumento.getVlrparcial()), index, 4);
-                articuloDocumento = null;
-            }
-        }
-}//GEN-LAST:event_tablaMouseClicked
-
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-
 }//GEN-LAST:event_agregarActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        int confirmado = JOptionPane.showConfirmDialog(this,"Se borrara todo lo que ha hecho esta seguro de SALIR?","¿Reinicar?",JOptionPane.YES_NO_OPTION);
-         if (JOptionPane.OK_OPTION == confirmado)
-                this.dispose();
+        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho esta seguro de SALIR?", "¿Reinicar?", JOptionPane.YES_NO_OPTION);
+        if (JOptionPane.OK_OPTION == confirmado) {
+            this.dispose();
+        }
 }//GEN-LAST:event_salirActionPerformed
 
     private void numeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numeroKeyTyped
@@ -921,25 +898,25 @@ public class FormularioCompras extends javax.swing.JDialog {
 
     private void terceroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_terceroKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == evt.VK_F1){
+        if (evt.getKeyCode() == evt.VK_F1) {
             adicionarTercero();
         }
     }//GEN-LAST:event_terceroKeyPressed
 
     private void cantidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cantidadFocusGained
         // TODO add your handling code here:
-                  if(cantidad.getText().length()>0){
-                    this.cantidad.setSelectionStart(0);
-                    this.cantidad.setSelectionEnd(cantidad.getText().length());
-                }
+        if (cantidad.getText().length() > 0) {
+            this.cantidad.setSelectionStart(0);
+            this.cantidad.setSelectionEnd(cantidad.getText().length());
+        }
     }//GEN-LAST:event_cantidadFocusGained
 
     private void vunitFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vunitFocusGained
         // TODO add your handling code here:
-                  if(vunit.getText().length()>0){
-                    this.vunit.setSelectionStart(0);
-                    this.vunit.setSelectionEnd(vunit.getText().length());
-                }
+        if (vunit.getText().length() > 0) {
+            this.vunit.setSelectionStart(0);
+            this.vunit.setSelectionEnd(vunit.getText().length());
+        }
     }//GEN-LAST:event_vunitFocusGained
 
     private void cantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyReleased
@@ -954,7 +931,6 @@ public class FormularioCompras extends javax.swing.JDialog {
 
     private void articuloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_articuloKeyTyped
         // TODO add your handling code here:}
-
     }//GEN-LAST:event_articuloKeyTyped
 
     private void articuloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_articuloKeyPressed
@@ -970,12 +946,13 @@ public class FormularioCompras extends javax.swing.JDialog {
     public void guardar() {
         try {
 
-            if(documento==null)
+            if (documento == null) {
                 documento = new Documento();
+            }
             documento.setNumero(numero.getText());
             documento.setFecha(new Date(fecha.getText().replaceAll("-", "/")));
             documento.setTotal(new BigDecimal(total.getText().replaceAll(",", "")));
-            documento.setSubtotal(new BigDecimal(total.getText().replaceAll(",", "")).subtract(new BigDecimal(descuento.getText())));
+            documento.setSubtotal(new BigDecimal(total.getText().replaceAll(",", "")).subtract(new BigDecimal(descuento.getText().replaceAll(",", ""))));
             documento.setNota(nota.getText());
             documento.setTipo(new TipoDocumento(Constantes.DOCUMENTO_FACTURA_COMPRA, null));
             documento.setTercero(t);
@@ -991,27 +968,27 @@ public class FormularioCompras extends javax.swing.JDialog {
                 model.insertarRegistro("insertarDocumento", documento);
 
                 for (int i = 0; i < tabla.getRowCount(); i++) {
-                    ArticulosDocumento  ad = new ArticulosDocumento();
-                    a = (Articulo) tabla.getValueAt(i,0);
+                    ArticulosDocumento ad = new ArticulosDocumento();
+                    a = (Articulo) tabla.getValueAt(i, 0);
                     ad.setArticulo(a);
                     ad.setDocumento(documento);
                     ad.setIva(new BigDecimal(Constantes.IVA));
-                    ad.setCantidad(new BigDecimal((tabla.getValueAt(i,2)+"").replaceAll(",", "")));
-                    ad.setVlrunitario(new BigDecimal((tabla.getValueAt(i,3)+"").replaceAll(",", "")));
-                    ad.setVlrparcial(new BigDecimal((tabla.getValueAt(i,4)+"").replaceAll(",", "")));
+                    ad.setCantidad(new BigDecimal((tabla.getValueAt(i, 2) + "").replaceAll(",", "")));
+                    ad.setVlrunitario(new BigDecimal((tabla.getValueAt(i, 3) + "").replaceAll(",", "")));
+                    ad.setVlrparcial(new BigDecimal((tabla.getValueAt(i, 4) + "").replaceAll(",", "")));
                     model.insertarRegistro("insertarArticulosDocumento", ad);
-                    
+
 
                     /*claculando promedio ponderado y actualizando existencias*/
-                     a.setFechauventa(documento.getFecha());
-                     a.setExistencia(a.getExistencia().add(ad.getCantidad()));
-                     BigDecimal costoSumar = ad.getCantidad().multiply(ad.getVlrunitario());
-                     a.setSaldocosto(a.getSaldocosto().add(costoSumar));
-                     a.setVlrpromedio(new BigDecimal(a.getSaldocosto().doubleValue() / a.getExistencia().doubleValue()));
+                    a.setFechauventa(documento.getFecha());
+                    a.setExistencia(a.getExistencia().add(ad.getCantidad()));
+                    BigDecimal costoSumar = ad.getCantidad().multiply(ad.getVlrunitario());
+                    a.setSaldocosto(a.getSaldocosto().add(costoSumar));
+                    a.setVlrpromedio(new BigDecimal(a.getSaldocosto().doubleValue() / a.getExistencia().doubleValue()));
 
-                      model.actualizarRegistro("actualizarArticulo", a);
+                    model.actualizarRegistro("actualizarArticulo", a);
 
-                     /*movemos el kardex*/
+                    /*movemos el kardex*/
                     Kardex kardex = new Kardex();
                     kardex.setArticulo(ad.getArticulo());
                     kardex.setDocumento(documento);
@@ -1021,18 +998,18 @@ public class FormularioCompras extends javax.swing.JDialog {
                     kardex.setVlrtotal(a.getVlrpromedio().multiply(ad.getCantidad()));
                     kardex.setFecha(new Date());
                     model.insertarRegistro("insertarKardex", kardex);
-                   
+
                 }
 
                 Caja cajaDia = (Caja) model.obtenerRegistro("obtenerCajaDia");
-                 if(documento.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO){
-                     cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(documento.getTotal()));
-                    
-                 }else if(documento.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO){
-                   // cajaDia.setComprascredito(documento.getTotal().subtract(documento.getTotalpagado()));
+                if (documento.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO) {
+                    cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(documento.getTotal()));
+
+                } else if (documento.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO) {
+                    // cajaDia.setComprascredito(documento.getTotal().subtract(documento.getTotalpagado()));
                     cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(documento.getTotalpagado()));
-                    
-                 }
+
+                }
                 model.actualizarRegistro("actualizarCajaDia", cajaDia);
             }
         } catch (Exception ex) {
@@ -1057,14 +1034,14 @@ public class FormularioCompras extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Agregue  al menos un Artículo a la Compra");
             articulo.requestFocus();
             return false;
-        }else if(t==null){
-                JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR valido por favor");
-                tercero.requestFocus();
-                return false;
-        }else if ((!(t.getNit()+"").equals(tercero.getText()))){
-                JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR valido por favor");
-                tercero.requestFocus();
-                return false;
+        } else if (t == null) {
+            JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR valido por favor");
+            tercero.requestFocus();
+            return false;
+        } else if ((!(t.getNit() + "").equals(tercero.getText()))) {
+            JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR valido por favor");
+            tercero.requestFocus();
+            return false;
         }
         return true;
     }
@@ -1134,68 +1111,60 @@ public class FormularioCompras extends javax.swing.JDialog {
     }
 
     public void adicionarItem() {
-
         int index = getFilaArticulo(a);
-        BigDecimal acomu = new BigDecimal(this.total.getText().replaceAll(",",""));
-        BigDecimal vpar  = new BigDecimal(this.vparcial.getText().replaceAll(",", ""));
-        BigDecimal cant  = new BigDecimal(this.cantidad.getText().replaceAll(",", ""));
-        if(index == -1){
-                Object fila[] = new Object[5];
-                fila[0] = this.a;
-                fila[1] =  this.a.getDescripcioncomercial();
-                fila[2] =  this.cantidad.getText();
-                fila[3]=   this.vunit.getText();
-                fila[4] = this.vparcial.getText();
-                this.modeloTabla.addRow(fila);
-        }else{
+        BigDecimal acomu = new BigDecimal(this.total.getText().replaceAll(",", ""));
+        BigDecimal vpar = new BigDecimal(this.vparcial.getText().replaceAll(",", ""));
+        BigDecimal cant = new BigDecimal(this.cantidad.getText().replaceAll(",", ""));
+
+        if (index == -1) {
+            Object fila[] = new Object[5];
+            fila[0] = this.a;
+            fila[1] = this.a.getDescripcioncomercial();
+            fila[2] = this.cantidad.getText();
+            fila[3] = this.vunit.getText();
+            fila[4] = this.vparcial.getText();
+            this.modeloTabla.addRow(fila);
+        } else {
             /*validamos que no halla digitado un valor unitario distinto*/
-            BigDecimal vunf  = new BigDecimal(tabla.getValueAt(index, 3).toString().replaceAll(",","")); /* valor unitario en la tabla*/
-            BigDecimal vun  = new BigDecimal(this.vunit.getText().replaceAll(",","")); /*valor unitario nuevo*/
-            BigDecimal cantf  = new BigDecimal(tabla.getValueAt(index,2).toString().replaceAll(",","")); /*cantidadque esta en la tabla*/
-            BigDecimal vparf  = new BigDecimal(tabla.getValueAt(index,4).toString().replaceAll(",","")); /*calor parcial esta en la tabla*/
-            Object option[] = {"Si","No"} ;
-            if(vunf.compareTo(vun) != 0 && estado == interfaces.Constantes.ADICIONANDO_ITEMS){
-                int op = JOptionPane.showOptionDialog(this, "Digito un Valor Unitario nuevo, desea cambiarlor?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,option,option[0]);
-                if(op  != JOptionPane.YES_OPTION)
+            BigDecimal vunf = new BigDecimal(tabla.getValueAt(index, 3).toString().replaceAll(",", "")); /* valor unitario en la tabla*/
+            BigDecimal vun = new BigDecimal(this.vunit.getText().replaceAll(",", "")); /*valor unitario nuevo*/
+            BigDecimal cantf = new BigDecimal(tabla.getValueAt(index, 2).toString().replaceAll(",", "")); /*cantidadque esta en la tabla*/
+            BigDecimal vparf = new BigDecimal(tabla.getValueAt(index, 4).toString().replaceAll(",", "")); /*calor parcial esta en la tabla*/
+            Object option[] = {"Si", "No"};
+            if (vunf.compareTo(vun) != 0 && estado == interfaces.Constantes.ADICIONANDO_ITEMS) {
+                int op = JOptionPane.showOptionDialog(this, "Digito un Valor Unitario nuevo, desea cambiarlor?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
+                if (op != JOptionPane.YES_OPTION) {
                     vun = vunf;
+                }
             }
-           acomu = acomu.subtract(vparf);
+            acomu = acomu.subtract(vparf);
 
-           if( estado == interfaces.Constantes.ADICIONANDO_ITEMS)
-            cant = cant.add(cantf);
-           else{
-
-              setEstado(interfaces.Constantes.ADICIONANDO_ITEMS);
+            if (estado == interfaces.Constantes.ADICIONANDO_ITEMS) {
+                cant = cant.add(cantf);
+            } else {
+                setEstado(interfaces.Constantes.ADICIONANDO_ITEMS);
             }
 
-           tabla.setValueAt(cant,index, 2);
-           tabla.setValueAt(vun,index, 3);
-           vpar = vun.multiply(cant);
-           tabla.setValueAt(vpar,index, 4);
+            tabla.setValueAt(cant, index, 2);
+            tabla.setValueAt(vun, index, 3);
+            vpar = vun.multiply(cant);
+            tabla.setValueAt(vpar, index, 4);
         }
-        acomu =  acomu.add(vpar);
-        this.total.setText(utilidades.FormatoNumeros.formatear( acomu + ""));
-        this.subtotal.setText(total.getText());
-        this.descuento.setEditable(true);
-        this.descuento.setText("0.00");
-        
-
+        acomu = acomu.add(vpar);
+        this.total.setText(utilidades.FormatoNumeros.formatear(acomu + ""));
+        this.subtotal.setText(utilidades.FormatoNumeros.formatear(acomu.add(new BigDecimal(descuento.getText().replaceAll(",", ""))) + ""));
     }
 
-
-
-    public void calcularDescuento()
-    {
+    public void calcularDescuento() {
         /*obtenemos que tipodescuanto hace, porcetaje o valor*/
         BigDecimal des = BigDecimal.ZERO;
-        if(!this.descuento.getText().trim().equals("")){ /*validamos que halla clocad algo*/
-             des = new BigDecimal(this.descuento.getText().replaceAll(",", ""));
+        if (!this.descuento.getText().trim().equals("")) { /*validamos que halla clocad algo*/
+            des = new BigDecimal(this.descuento.getText().replaceAll(",", ""));
         }
 
-         BigDecimal tot = new BigDecimal(this.subtotal.getText().replaceAll(",", ""));
-         tot = tot.subtract(des);
-         this.total.setText(utilidades.FormatoNumeros.formatear(tot.toString()));
-
+        BigDecimal tot = new BigDecimal(this.subtotal.getText().replaceAll(",", ""));
+        tot = tot.subtract(des);
+        this.total.setText(utilidades.FormatoNumeros.formatear(tot.toString()));
     }
 
     public boolean esta(Object a) {
