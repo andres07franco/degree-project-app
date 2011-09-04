@@ -128,6 +128,11 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
                 creditoMouseClicked(evt);
             }
         });
+        credito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creditoActionPerformed(evt);
+            }
+        });
 
         efectivo.setBackground(new java.awt.Color(212, 233, 255));
         buttonGroup1.add(efectivo);
@@ -150,6 +155,11 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
         pagada.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pagadaMouseClicked(evt);
+            }
+        });
+        pagada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagadaActionPerformed(evt);
             }
         });
 
@@ -350,12 +360,13 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
                 }
                 if (pagada.isSelected()) {
                     documento.setTipopago(new TipoPago(Constantes.TIPO_PAGO_PAGADO, null));
-                    documento.setEstado(Constantes.ESTADO_DOCUMENTO_DEBE);
+                    documento.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
                 } else if (credito.isSelected()) {
                     documento.setTotalpagado(new BigDecimal(vabonar.getText().replaceAll(",", "")));
                     documento.setTipopago(new TipoPago(Constantes.TIPO_PAGO_CREDITO, null));
-                    documento.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
+                    documento.setEstado(Constantes.ESTADO_DOCUMENTO_DEBE);
                 } else if (efectivo.isSelected()) {
+
                     documento.setTotalpagado(documento.getTotal());
                     documento.setTipopago(new TipoPago(Constantes.TIPO_PAGO_DEBITO, null));
                     documento.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
@@ -391,6 +402,9 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
 
     private void creditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_creditoMouseClicked
         vabonar.setEnabled(true);
+        vabonar.setEditable(true);
+        vabonar.setText("0");
+        scxc.setText(tot.getText());
         buscafecha.setEnabled(true);
         buscafecha.requestFocus();
     }//GEN-LAST:event_creditoMouseClicked
@@ -408,11 +422,29 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
 
     private void vabonarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vabonarKeyReleased
         // TODO add your handling code here:
+        if (!vabonar.getText().trim().equals("")) {
+            double t = Double.parseDouble(totalF.replaceAll(",", ""));
+            double dev = t - Double.parseDouble(vabonar.getText().replaceAll(",", ""));
+            if(dev>0)
+                scxc.setText(utilidades.FormatoNumeros.formatear(dev + ""));
+            else
+                scxc.setText("0.0");
+        }else{
+           scxc.setText(vabonar.getText());
+        }
     }//GEN-LAST:event_vabonarKeyReleased
 
     private void efectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_efectivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_efectivoActionPerformed
+
+    private void creditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_creditoActionPerformed
+
+    private void pagadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagadaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pagadaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscafecha;
