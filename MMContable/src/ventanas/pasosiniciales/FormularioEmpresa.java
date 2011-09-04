@@ -300,7 +300,7 @@ public class FormularioEmpresa extends javax.swing.JPanel {
 
     private void txtnitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnitKeyTyped
         // TODO add your handling code here:
-        if(!Character.isDigit(evt.getKeyChar()) && txtnit.getText().length() >= 17)
+        if(!Character.isDigit(evt.getKeyChar()) || txtnit.getText().length() >= 17)
             evt.consume();
     }//GEN-LAST:event_txtnitKeyTyped
 
