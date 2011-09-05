@@ -187,7 +187,7 @@ public class Formulario_Usuarios extends javax.swing.JDialog {
                         List<Usuario> listaUsuarios = (List<Usuario>) m.obtenerListado("obtenerUsuariosAct",mapa);
 
                         if(listaUsuarios.size()==0){
-                            JOptionPane.showMessageDialog(null, "No se puede desactivar este usuario, pues no quedaran usuarios activos poa iniciar  sesión");
+                            JOptionPane.showMessageDialog(null, "No se puede desactivar este usuario, pues no quedaran usuarios activos pora iniciar  sesión");
             clave.requestFocus();
             return false;
                         }

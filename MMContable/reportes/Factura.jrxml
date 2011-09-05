@@ -30,6 +30,9 @@
 	<parameter name="numero" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="tipo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      documento.`fecha` AS documento_fecha,
@@ -58,7 +61,7 @@ FROM
      INNER JOIN `articulo` articulo ON articulosdocumento.`articulo` = articulo.`id`
 WHERE
      documento.`numero` = $P{numero}
- AND documento.`tipo` = 3]]>
+ AND documento.`tipo` = $P{tipo}]]>
 	</queryString>
 	<field name="documento_fecha" class="java.sql.Date"/>
 	<field name="documento_numero" class="java.lang.String"/>

@@ -279,7 +279,7 @@ public class FormularioGrupo extends JDialog {
         }
         buscador.buscar();
         this.dispose();
-        JOptionPane.showMessageDialog(null, "Datos Guardados con Exito");
+        JOptionPane.showMessageDialog(null, "Datos Guardados con éxito");
     }
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed

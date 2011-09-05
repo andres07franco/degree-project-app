@@ -241,12 +241,17 @@ public class VentanaKardex extends javax.swing.JDialog {
                 if (!fecha.getText().equals("")) {
                     if (!fecha1.getText().equals("")) {
 
-                        Map parametro = new HashMap();
-                        parametro.put("fecha1", fecha.getText());
-                        parametro.put("fecha2", fecha1.getText());
-                        parametro.put("codigo", "" + a.getCodigobarras());
-                        this.dispose();
-                        new utilidades.Reporte().runReporte("reportes/Kardex.jasper", parametro);
+                        if(Integer.parseInt(fecha.getText().replaceAll("-", ""))<=Integer.parseInt(fecha.getText().replaceAll("-", ""))){
+                            Map parametro = new HashMap();
+                            parametro.put("fecha1", fecha.getText());
+                            parametro.put("fecha2", fecha1.getText());
+                            parametro.put("codigo", "" + a.getCodigobarras());
+                            this.dispose();
+                            new utilidades.Reporte().runReporte("reportes/Kardex.jasper", parametro);
+                        }else {
+                        JOptionPane.showMessageDialog(null, "La Fecha Inicial debe ser mayor que la Fecha Final");
+                    }
+
                     } else {
                         JOptionPane.showMessageDialog(null, "Seleccione una Fecha 2");
                     }
@@ -259,6 +264,8 @@ public class VentanaKardex extends javax.swing.JDialog {
         } catch (Exception ex) {
             ex.printStackTrace();
 }//GEN-LAST:event_imprimirActionPerformed
+
+
     }
         private void fecha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecha1ActionPerformed
             // TODO add your handling code here:

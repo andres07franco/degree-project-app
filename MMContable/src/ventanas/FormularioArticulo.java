@@ -23,6 +23,7 @@ import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import utilidades.FormatoNumeros;
 import utilidades.ModeloTabla;
 
@@ -1355,6 +1356,8 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
 
     private void imagenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenMouseClicked
         JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
+        chooser.setFileFilter(filter);
         chooser.setDialogTitle("Guardar un fichero");
         chooser.setMultiSelectionEnabled(false);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
