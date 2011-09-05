@@ -303,7 +303,7 @@ public class FormularioMarca extends javax.swing.JDialog {
 
         buscador.buscar();
         this.dispose();
-        JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+        JOptionPane.showMessageDialog(null, "Datos guardados con éxito");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

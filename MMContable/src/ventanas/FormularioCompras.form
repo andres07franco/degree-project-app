@@ -723,7 +723,11 @@
               <Image iconType="3" name="/img/print-16x16.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Imprimir"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="imprimirActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="salir">
           <Properties>

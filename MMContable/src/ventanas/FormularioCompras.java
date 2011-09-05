@@ -14,8 +14,10 @@ import java.awt.Frame;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utilidades.Calendario;
@@ -37,7 +39,7 @@ public class FormularioCompras extends javax.swing.JDialog {
     Articulo a;
 
     private void init() {
-        initComponents();
+        
         tab.remove(panelabonos);
 
         boolean cedit[] = {false, false, false, false, false};
@@ -88,6 +90,7 @@ public class FormularioCompras extends javax.swing.JDialog {
         } else {
             llenar();
         }
+        initComponents();
         init();
 
 
@@ -539,10 +542,16 @@ public class FormularioCompras extends javax.swing.JDialog {
         ntercero.setEditable(false);
 
         imprimir.setBackground(new java.awt.Color(0, 152, 255));
-        imprimir.setFont(new java.awt.Font("Tahoma", 1, 11));
+        imprimir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         imprimir.setForeground(new java.awt.Color(0, 51, 153));
         imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/print-16x16.png"))); // NOI18N
         imprimir.setText("Imprimir");
+        imprimir.setEnabled(false);
+        imprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirActionPerformed(evt);
+            }
+        });
 
         salir.setBackground(new java.awt.Color(0, 153, 255));
         salir.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -724,7 +733,13 @@ public class FormularioCompras extends javax.swing.JDialog {
             if (validar()) {
 
                 if ((Integer) model.obtenerRegistro("existeDocumento", numero.getText()) == 0) {
-                    guardar();
+                    if(guardar()){
+                    JOptionPane.showMessageDialog(null,  "Compra Guardada Con Exito");
+                        this.buscador.buscar();
+                        this.dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No se pudo realizar la transacción");
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Número de FACTURA de COMPRA ya existe");
                 }
@@ -943,7 +958,18 @@ public class FormularioCompras extends javax.swing.JDialog {
         calcularDescuento();
     }//GEN-LAST:event_descuentoKeyTyped
 
-    public void guardar() {
+    private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
+        // TODO add your handling code here:
+        if(documento!=null && funcion==Constantes.ESTADO_CREACION)
+              imprimir(documento.getNumero());
+    }//GEN-LAST:event_imprimirActionPerformed
+    public void imprimir(String numero) {
+        Map parametro = new HashMap();
+        parametro.put("numero", numero);
+        parametro.put("tipo", Constantes.DOCUMENTO_FACTURA_COMPRA);
+        new utilidades.Reporte().runReporte("reportes/Factura.jasper", parametro);
+    }
+    public boolean guardar() {
         try {
 
             if (documento == null) {
@@ -997,6 +1023,8 @@ public class FormularioCompras extends javax.swing.JDialog {
                     kardex.setVlrunitario(a.getVlrpromedio());
                     kardex.setVlrtotal(a.getVlrpromedio().multiply(ad.getCantidad()));
                     kardex.setFecha(new Date());
+                    kardex.setHora(new Date());
+                    kardex.setExistencia(a.getExistencia());
                     model.insertarRegistro("insertarKardex", kardex);
 
                 }
@@ -1011,10 +1039,18 @@ public class FormularioCompras extends javax.swing.JDialog {
 
                 }
                 model.actualizarRegistro("actualizarCajaDia", cajaDia);
+              int confirmado = JOptionPane.showConfirmDialog(this, "¿Desea imprimir la Factura?", "¿Imprimir?", JOptionPane.YES_NO_OPTION);
+            if (JOptionPane.OK_OPTION == confirmado) {
+                imprimir(documento.getNumero());
             }
+
+            }else
+                return false;
         } catch (Exception ex) {
             ex.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     public boolean validar() {
@@ -1064,7 +1100,7 @@ public class FormularioCompras extends javax.swing.JDialog {
                 restaurar.setEnabled(false);
             }
             funcion = Constantes.ESTADO_EDICION;
-
+            imprimir.setEnabled(true);
             if (documento.getDescuento() != null) {
                 descuento.setText(utilidades.FormatoNumeros.formatear(documento.getDescuento() + ""));
             } else {

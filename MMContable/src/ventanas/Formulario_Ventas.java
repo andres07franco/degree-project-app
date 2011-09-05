@@ -965,7 +965,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 k.setArticulo(a);
                 k.setEntradas(ad.getCantidad());
                 k.setSalidas(BigDecimal.ZERO);
-                k.setExistencia(ad.getCantidad());
+                k.setExistencia(a.getExistencia());
                 k.setVlrunitario(a.getVlrpromedio());
                 k.setVlrtotal(a.getVlrpromedio().multiply(ad.getCantidad()));
                 k.setHora(new Date());
@@ -1508,6 +1508,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
     public void imprimir(String numero) {
         Map parametro = new HashMap();
         parametro.put("numero", numero);
+        parametro.put("tipo", Constantes.DOCUMENTO_FACTURA_VENTA);
         new utilidades.Reporte().runReporte("reportes/Factura.jasper", parametro);
     }
 
