@@ -671,7 +671,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
         }else if(estado == interfaces.Constantes.EDITANDO_ITEMS){
                 this.buscara.setEnabled(false);;
                 this.articulo.setEnabled(false);
-                this.adicionar.setText("Acpetar");
+                this.adicionar.setText("Acepetar");
         }        
     }
 
