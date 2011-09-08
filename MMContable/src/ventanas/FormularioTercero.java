@@ -240,7 +240,7 @@ public class FormularioTercero extends JDialog {
 
         jLabel6.setText("Teléfono:");
 
-        jLabel5.setText("Direccion:");
+        jLabel5.setText("Dirección:");
 
         jLabel7.setText("Ciudad:");
 
@@ -536,7 +536,7 @@ public class FormularioTercero extends JDialog {
 
             buscador.buscar();
             this.dispose();
-            JOptionPane.showMessageDialog(null, "Datos guardados con exito");
+            JOptionPane.showMessageDialog(null, "Datos guardados con éxito");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

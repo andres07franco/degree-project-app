@@ -5,6 +5,7 @@ import db.Model;
 import java.awt.Frame;
 import java.util.*;
 import interfaces.Buscadores;
+import java.awt.event.MouseEvent;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -193,17 +194,23 @@ public class ListaTercero extends JPanel implements Buscadores {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+    public void seleccionarFila(MouseEvent me) {
+        if (me.getClickCount() % 2 == 0) {
+            if (tabla.getSelectedRow() > -1) {
+                Tercero t = listaTerceros.get(tabla.getSelectedRow());
+                if(!t.getNit().toString().equals("0"))
+                 new FormularioTercero(padre, true, this, listaTerceros.get(tabla.getSelectedRow()));
+                else
+                    JOptionPane.showMessageDialog(null, "No puede acceder a editar el tercero por defecto");
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione una fila primero");
+            }
+
+        }
+    }
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
-        if (tabla.getSelectedRow() > -1) {
-            Tercero t = listaTerceros.get(tabla.getSelectedRow());
-            if(!t.getNit().toString().equals("0"))
-             new FormularioTercero(padre, true, this, listaTerceros.get(tabla.getSelectedRow()));
-            else
-                JOptionPane.showMessageDialog(null, "No puede acceder a editar el tercero por defecto");
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una fila primero");
-        }
+        seleccionarFila(evt);
 }//GEN-LAST:event_tablaMouseClicked
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed

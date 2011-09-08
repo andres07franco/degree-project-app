@@ -289,7 +289,7 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
         estado = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Maestro de Articulos");
+        setTitle("Maestro de Artículos ");
 
         jPanel2.setBackground(new java.awt.Color(153, 204, 255));
 
@@ -467,7 +467,7 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
                     .addComponent(porcentajeSugerido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(valorsugerido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(212, 233, 255));

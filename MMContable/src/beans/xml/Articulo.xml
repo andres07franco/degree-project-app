@@ -93,6 +93,8 @@
             gru.id = a.grupo
         AND
             mar.id = a.marca
+        AND
+           a.estado = 2
         <if test="criterio == 0">
             AND
                 a.codigobarras LIKE #{valor, jdbcType=VARCHAR}
