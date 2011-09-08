@@ -488,7 +488,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
         if (validar()) {
             try {
                 guardar(Constantes.ESTADO_DOCUMENTO_GUARDADO);
-                JOptionPane.showMessageDialog(null,"Saldos Guardados Con Exito");
+                JOptionPane.showMessageDialog(null,"Saldos Guardados Con Éxito");
                 this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(Formulario_Saldos_Iniciales.class.getName()).log(Level.SEVERE, null, ex);
@@ -620,7 +620,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
             BigDecimal vparf  = new BigDecimal(tabla.getValueAt(index,4).toString().replaceAll(",","")); /*calor parcial esta en la tabla*/
             Object option[] = {"Si","No"} ;
             if(vunf.compareTo(vun) != 0 && estado == interfaces.Constantes.ADICIONANDO_ITEMS){
-                int op = JOptionPane.showOptionDialog(this, "Digito un Valor Unitario nuevo, desea cambiarlor?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,option,option[0]);
+                int op = JOptionPane.showOptionDialog(this, "¿Digitó un Valor Unitario nuevo, desea cambiarlo?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,option,option[0]);
                 if(op  != JOptionPane.YES_OPTION)
                     vun = vunf;
             }
@@ -795,7 +795,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
         if (validar()) {
             try {                
                 guardar(Constantes.ESTADO_DOCUMENTO_INICIADO);
-                 JOptionPane.showMessageDialog(null,"Saldos Iniciados Con Exito");
+                 JOptionPane.showMessageDialog(null,"Saldos Iniciados Con Éxito");
                  this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(Formulario_Saldos_Iniciales.class.getName()).log(Level.SEVERE, null, ex);
