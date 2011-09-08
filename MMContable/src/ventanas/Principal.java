@@ -720,13 +720,13 @@ public class Principal extends JFrame implements Buscadores {
                 tab.setSelectedIndex(esta(sele));
             }
 
-        } else if (sele.equals("Articulos")) {//Elementos bajo Stock
+        } else if (sele.equals("Artículos")) {//Elementos bajo Stock
             if (esta(sele) == -1) {
                 JDesktopPane dp = new JDesktopPane();
                 dp.setBackground(Color.WHITE);
                 ListaArticulos lu = new ListaArticulos(tab, this);
                 dp.add(lu);
-                tab.addTab("Articulos", lu);
+                tab.addTab("Artículos", lu);
                 tab.setSelectedComponent(lu);
             } else {
                 tab.setSelectedIndex(esta(sele));
@@ -809,7 +809,7 @@ public class Principal extends JFrame implements Buscadores {
             new VentanaInventario(this, true).setVisible(true);
         } else if (sele.equals("Artículo en Mínimo")) {
             Map parametro = new HashMap();
-            new utilidades.Reporte().runReporte("reportes/Articulos en Minimo.jasper", parametro);
+            new utilidades.Reporte().runReporte("reportes/Artículos en Minimo.jasper", parametro);
         } else if (sele.equals("Diario de Ventas (Arqueos)")) {
             new VentanaReporteCaja(this, true).setVisible(true);
         } else if (sele.equals("Resumen de Caja")) {
@@ -932,7 +932,7 @@ public class Principal extends JFrame implements Buscadores {
             seleccionar(inventario);
             javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Inventarios");
 
-            treeNode1.add(new DefaultMutableTreeNode("Articulos"));
+            treeNode1.add(new DefaultMutableTreeNode("Artículos"));
             treeNode1.add(new DefaultMutableTreeNode("Kardex"));
             //    treeNode1.add(new DefaultMutableTreeNode("Ajustes"));
             treeNode1.add(new DefaultMutableTreeNode("Grupos"));
@@ -963,15 +963,15 @@ public class Principal extends JFrame implements Buscadores {
     private void elementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elementoActionPerformed
         // TODO add your handling code here:
         //Elementos bajo Stock
-        if (esta("Articulos") == -1) {
+        if (esta("Artículos") == -1) {
             JDesktopPane dp = new JDesktopPane();
             dp.setBackground(Color.WHITE);
             ListaArticulos lu = new ListaArticulos(tab, this);
             dp.add(lu);
-            tab.addTab("Articulos", lu);
+            tab.addTab("Artículos", lu);
             tab.setSelectedComponent(lu);
         } else {
-            tab.setSelectedIndex(esta("Articulos"));
+            tab.setSelectedIndex(esta("Artículos"));
         }
 
 }//GEN-LAST:event_elementoActionPerformed
