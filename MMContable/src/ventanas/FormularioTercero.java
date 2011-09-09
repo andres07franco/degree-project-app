@@ -127,7 +127,7 @@ public class FormularioTercero extends JDialog {
         email.setText(tercero.getEmail());
         contacto.setText(tercero.getContacto());
         cel.setText(tercero.getCelular());
-
+        estado.setSelectedItem(tercero.getEstado());
         try {
             departamento.setSelectedItem(tercero.getDepartamento());
             ciudad.setSelectedItem(tercero.getCiudad());
