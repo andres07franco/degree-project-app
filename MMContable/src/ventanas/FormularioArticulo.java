@@ -1079,8 +1079,13 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
         } else {
             if (existePestana("Combo-Kit") > -1) {
                 tab.remove(this.combo);
+            } }
+
+        if(((TipoArticulo) tipo.getSelectedItem()).getDescripcion().equals("Servicio")){
+                cantidadMinima.setText("0");
+                cantidadMinima.setEnabled(false);
             }
-        }
+        
     }//GEN-LAST:event_tipoItemStateChanged
 
     public int existePestana(String titulo) {
