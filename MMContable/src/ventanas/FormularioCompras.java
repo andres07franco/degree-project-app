@@ -734,7 +734,7 @@ public class FormularioCompras extends javax.swing.JDialog {
 
                 if ((Integer) model.obtenerRegistro("existeDocumento", numero.getText()) == 0) {
                     if(guardar()){
-                    JOptionPane.showMessageDialog(null,  "Compra Guardada Con Exito");
+                    JOptionPane.showMessageDialog(null,  "Compra guardada con Éxito");
                         this.buscador.buscar();
                         this.dispose();
                     }else{
