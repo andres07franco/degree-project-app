@@ -16,9 +16,19 @@ public class BuscaTerceros extends javax.swing.JDialog {
     DefaultTableModel dtm = new DefaultTableModel();    
     List<Tercero> l = new LinkedList();
     Model m;
+    private int funcion;
 
     public BuscaTerceros(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.m = Model.getInstance();
+        initComponents();
+        setTitle("Buscar Terceros");
+        buscar();
+    }
+
+    public BuscaTerceros(java.awt.Frame parent, boolean modal, int funcion) {
+        super(parent, modal);
+        this.funcion = funcion;
         this.m = Model.getInstance();
         initComponents();
         setTitle("Buscar Terceros");
@@ -49,8 +59,12 @@ public class BuscaTerceros extends javax.swing.JDialog {
             } else {
                 terBus.setNombre(busqueda.getText().trim().isEmpty() ? null : "%" + busqueda.getText() + "%");
             }
-
-            l = (List<Tercero>) m.obtenerListado("obtenerListaTerceros", terBus);
+            if(funcion == interfaces.Constantes.CLIENTE)
+                 l = (List<Tercero>) m.obtenerListado("obtenerListaClientes", terBus);
+            else  if(funcion == interfaces.Constantes.PROVEESOR)
+                 l = (List<Tercero>) m.obtenerListado("obtenerListaProveedores", terBus);
+            else
+                 l = (List<Tercero>) m.obtenerListado("obtenerListaTerceros", terBus);
           
         } catch (Exception ex) {
             Logger.getLogger(BuscaTerceros.class.getName()).log(Level.SEVERE, null, ex);

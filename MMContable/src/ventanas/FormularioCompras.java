@@ -696,7 +696,7 @@ public class FormularioCompras extends javax.swing.JDialog {
 }//GEN-LAST:event_buscaproveedorActionPerformed
 
     public void adicionarTercero() {
-        t = (new BuscaTerceros(padre, true).getTercero());
+        t = (new BuscaTerceros(padre, true, interfaces.Constantes.PROVEESOR).getTercero());
         if (t != null) {
             tercero.setText(t.getNit() + "");
             ntercero.setText(t.getNombre());
