@@ -46,6 +46,70 @@
                 tt.id = t.tipo
         ]]>
     </select>
+
+        <select id="obtenerListaProveedores" parameterType="aliasTercero" resultMap="resMapTercero">
+        <![CDATA[
+            SELECT
+                t.id ID,
+                t.nit NIT,
+                t.nombre NOMBRE,
+                t.tipo TIPO,
+                tt.descripcion DESCRIPCION_TIPO,
+                t.direccion DIRECCION,
+                t.departamento DEPARTAMENTO,
+                t.ciudad CIUDAD,
+                t.telefono TELEFONO,
+                t.contacto CONTACTO,
+                t.email EMAIL,
+                t.celular CELULAR,
+                t.estado ESTADO
+            FROM
+                tercero t,
+                tipo_tercero tt
+            WHERE
+                t.nit LIKE IFNULL(#{nit,jdbcType=BIGINT},'%')
+            AND
+                t.nombre LIKE IFNULL(#{nombre,jdbcType=VARCHAR},'%')
+            AND (
+                t.tipo = 1
+            OR
+                t.tipo = 3)
+            AND
+                tt.id = t.tipo
+        ]]>
+    </select>
+
+        <select id="obtenerListaClientes" parameterType="aliasTercero" resultMap="resMapTercero">
+        <![CDATA[
+            SELECT
+                t.id ID,
+                t.nit NIT,
+                t.nombre NOMBRE,
+                t.tipo TIPO,
+                tt.descripcion DESCRIPCION_TIPO,
+                t.direccion DIRECCION,
+                t.departamento DEPARTAMENTO,
+                t.ciudad CIUDAD,
+                t.telefono TELEFONO,
+                t.contacto CONTACTO,
+                t.email EMAIL,
+                t.celular CELULAR,
+                t.estado ESTADO
+            FROM
+                tercero t,
+                tipo_tercero tt
+            WHERE
+                t.nit LIKE IFNULL(#{nit,jdbcType=BIGINT},'%')
+            AND
+                t.nombre LIKE IFNULL(#{nombre,jdbcType=VARCHAR},'%')
+            AND(
+                t.tipo = 1
+            OR
+                t.tipo = 2)
+            AND
+                tt.id = t.tipo
+        ]]>
+    </select>
     
     <select id="obtenerClientePorMostrador" parameterType="java.lang.Long" resultType="aliasTercero">
         <![CDATA[

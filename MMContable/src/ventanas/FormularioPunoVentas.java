@@ -1349,7 +1349,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
     }//GEN-LAST:event_buscaproveedorActionPerformed
 
     public void adicionarTercero(){
-        t = (new BuscaTerceros(parent, true).getTercero());
+        t = (new BuscaTerceros(parent, true, interfaces.Constantes.CLIENTE).getTercero());
         if (t != null) {
             tercero.setText(t.getNit() + "");
             ntercero.setText(t.getNombre());

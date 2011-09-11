@@ -11,6 +11,10 @@ public interface Constantes {
     public static final int ESTADO_GUARDADO = 2; /* Indica que el documento(Saldos inicales) solo esta alamcenado*/
     public static final int ESTADO_INICIADO = 3; /*indica que el documneto(saldos iniciales) se han inicado*/
 
+    /*tipos de terceros*/
+    public static final int TERCERO = 1;
+    public static final int CLIENTE = 2;
+    public static final int PROVEESOR = 3;
 
 
     public static final int FORMULARIO_NO_APTO_PARA_GUARDAR = 0;
