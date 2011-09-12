@@ -1098,11 +1098,10 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
     }
 
     private void buscaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaraActionPerformed
-        articuloParaCombo = new BuscaArticulo((Frame) this.getParent(), true, funcion == Constantes.ESTADO_EDICION ? articuloSeleccionado : null).getArticulo();
+       Articulo articuloParaCombo = new BuscaArticulo((Frame) this.getParent(), true, funcion == Constantes.ESTADO_EDICION ? articuloSeleccionado : null).getArticulo();
 
-        if (articuloParaCombo == null) {
-            JOptionPane.showMessageDialog(null, "Seleccione un Artículo");
-        } else {
+        if (articuloParaCombo != null) {
+           this.articuloParaCombo = articuloParaCombo;
             cbarras.setText("" + articuloParaCombo.getCodigobarras());
             dcomercial.setText(articuloParaCombo.getDescripcioncomercial());
             vcosto.setText("" + articuloParaCombo.getVlrcosto());
