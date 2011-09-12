@@ -82,16 +82,16 @@ public class FormularioCompras extends javax.swing.JDialog {
         super(padre, modal);
         this.model = Model.getInstance();
         this.padre = padre;
-        this.buscador = buscador;
+                initComponents();
+        init();
         this.documento = documento;
-
+this.buscador = buscador;
         if (documento == null) {
             documento = new Documento();
         } else {
             llenar();
         }
-        initComponents();
-        init();
+
 
 
         this.setSize(900, 580);
@@ -1084,13 +1084,14 @@ public class FormularioCompras extends javax.swing.JDialog {
 
     public void llenar() {
         try {
+             
             numero.setText(documento.getNumero());
-            System.out.println("" + documento.getNumero());
+          
             fecha.setText(new java.text.SimpleDateFormat("yyyy-MM-dd").format(documento.getFecha()));
             tercero.setText(documento.getTercero().getNit() + "");
             ntercero.setText(documento.getTercero().getNombre());
             descuento.setText(documento.getDescuento() + "");
-            List<ArticulosDocumento> listaArticulos = (LinkedList<ArticulosDocumento>) model.obtenerListado("obtenerArticulosDocumento", documento.getId());
+            List<ArticulosDocumento> listaArticulos = (List<ArticulosDocumento>) model.obtenerListado("obtenerArticulosDocumento", documento.getId());
 
             if (documento.getEstado().equals(Constantes.ESTADO_DOCUMENTO_DEBE)) {
                 estadoDocumento.setText("En Deuda");

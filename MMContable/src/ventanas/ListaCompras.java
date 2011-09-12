@@ -197,6 +197,7 @@ public class ListaCompras extends javax.swing.JPanel implements Buscadores {
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
        if (evt.getClickCount() % 2 == 0) {
             if (tabla.getSelectedRow() > -1) {
+                Documento d =  l.get(tabla.getSelectedRow());
                 new FormularioCompras(padre, true, this, l.get(tabla.getSelectedRow()));
             } else {
                 JOptionPane.showMessageDialog(null, "Seleccione una fila primero");
