@@ -1006,7 +1006,7 @@ this.buscador = buscador;
 
 
                     /*claculando promedio ponderado y actualizando existencias*/
-                    a.setFechauventa(documento.getFecha());
+                    a.setFechaucompra(documento.getFecha());
                     a.setExistencia(a.getExistencia().add(ad.getCantidad()));
                     BigDecimal costoSumar = ad.getCantidad().multiply(ad.getVlrunitario());
                     a.setSaldocosto(a.getSaldocosto().add(costoSumar));
@@ -1073,11 +1073,11 @@ this.buscador = buscador;
             articulo.requestFocus();
             return false;
         } else if (t == null) {
-            JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR valido por favor");
+            JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR válido por favor");
             tercero.requestFocus();
             return false;
         } else if ((!(t.getNit() + "").equals(tercero.getText()))) {
-            JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR valido por favor");
+            JOptionPane.showMessageDialog(null, "Digite un PROVEEDOR válido por favor");
             tercero.requestFocus();
             return false;
         }
