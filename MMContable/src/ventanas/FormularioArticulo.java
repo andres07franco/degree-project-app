@@ -949,7 +949,7 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
             int existeCodigo = (Integer) modelo.obtenerRegistro("existeArticuloPorCodigo", Long.parseLong(codigoBarras.getText()));
 
             if (validar()) {
-                if (new BigDecimal(porcentajeMinimo.getText()).compareTo(new BigDecimal(porcentajeSugerido.getText())) <= 0) {
+                if (new BigDecimal(porcentajeMinimo.getText().replaceAll(",", "")).compareTo(new BigDecimal(porcentajeSugerido.getText().replaceAll(",", ""))) <= 0) {
                     if (funcion == Constantes.ESTADO_EDICION) {
                         if (articuloSeleccionado.getCodigobarras().equals(codigoBarras.getText())) {
                             if (articuloSeleccionado.getDescripcioncomercial().equals(descripcionComercial.getText())) {
