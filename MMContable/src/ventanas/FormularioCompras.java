@@ -771,7 +771,7 @@ this.buscador = buscador;
             this.calcularVlrParcial();
             cantidad.requestFocus();
         } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un Articulo");
+            JOptionPane.showMessageDialog(null, "Seleccione un Artículo");
         }
     }
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
@@ -805,7 +805,7 @@ this.buscador = buscador;
             a = (Articulo) model.obtenerRegistro("obtenerArticuloPorCodigo", this.articulo.getText());
 
             if (a == null) {
-                JOptionPane.showMessageDialog(this, "Selecione o escriba un articulo Valido", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Seleccione o escriba un Artículo Válido", "Inconveniente", JOptionPane.ERROR_MESSAGE);
                 articulo.requestFocus();
                 return false;
             } else if (cant.compareTo(new BigDecimal(0)) == 0) {
