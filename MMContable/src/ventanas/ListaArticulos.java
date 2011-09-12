@@ -245,7 +245,7 @@ public class ListaArticulos extends JPanel implements Buscadores {
             mapa.put("criterio", por.getSelectedIndex());
             mapa.put("valor", "%" + busqueda.getText() + "%");
             mapa.put("padre", null);
-            listaArticulos = (List<Articulo>) modelo.obtenerListado("obtenerArticulosPorCriterio", mapa);
+            listaArticulos = (List<Articulo>) modelo.obtenerListado("obtenerArticulosPorCriterioIA", mapa);
             
             for (Articulo art : listaArticulos) {
                 Object[] fila = new Object[4];
