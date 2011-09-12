@@ -1433,7 +1433,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                 this.errordescuento.setText("No puede hacer un DESCUENTO menor " + (index == 1?"a $":"al " ) + utilidades.FormatoNumeros.formatear(desmin.toString()) + (index == 1?"":"%" ));
             }else{
                  tot = tot.subtract(des);
-                 this.errordescuento.setText("El DESCUENTO minimo es " + (index == 1?"$":"" ) + utilidades.FormatoNumeros.formatear(desmin.toString()) + (index == 1?"":"%" ));
+                 this.errordescuento.setText("El DESCUENTO máximo es " + (index == 1?"$":"" ) + utilidades.FormatoNumeros.formatear(desmin.toString()) + (index == 1?"":"%" ));
                  this.total.setText(utilidades.FormatoNumeros.formatear(tot.toString()));
             }
         
