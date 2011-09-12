@@ -1032,10 +1032,12 @@ this.buscador = buscador;
                 Caja cajaDia = (Caja) model.obtenerRegistro("obtenerCajaDia");
                 if (documento.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO) {
                     cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(documento.getTotal()));
+                    cajaDia.setComprasefectivo(cajaDia.getVentasefectivo().add(documento.getTotal()));
 
                 } else if (documento.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO) {
-                    // cajaDia.setComprascredito(documento.getTotal().subtract(documento.getTotalpagado()));
+                    cajaDia.setComprascredito(documento.getTotal().add(documento.getTotalpagado()));
                     cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(documento.getTotalpagado()));
+                    cajaDia.setComprasefectivo(cajaDia.getVentasefectivo().add(documento.getTotalpagado()));
 
                 }
                 model.actualizarRegistro("actualizarCajaDia", cajaDia);

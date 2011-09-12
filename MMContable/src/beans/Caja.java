@@ -25,6 +25,8 @@ public class Caja {
     private Date horaabre;
     private Date horacierre;
     private int estado;
+    private BigDecimal comprasefectivo;
+    private BigDecimal comprascredito;
 
     public Caja() {
     }
@@ -210,5 +212,33 @@ public class Caja {
 
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the comprasefectivo
+     */
+    public BigDecimal getComprasefectivo() {
+        return comprasefectivo;
+    }
+
+    /**
+     * @param comprasefectivo the comprasefectivo to set
+     */
+    public void setComprasefectivo(BigDecimal comprasefectivo) {
+        this.comprasefectivo = comprasefectivo;
+    }
+
+    /**
+     * @return the comprascredito
+     */
+    public BigDecimal getComprascredito() {
+        return comprascredito;
+    }
+
+    /**
+     * @param comprascredito the comprascredito to set
+     */
+    public void setComprascredito(BigDecimal comprascredito) {
+        this.comprascredito = comprascredito;
     }
 }
