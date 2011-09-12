@@ -54,6 +54,66 @@
         WHERE
             articulo_padre = #{ARTICULO_PADRE, jdbcType=INTEGER}
     </select>
+    <select id="obtenerArticulosPorCriterioIA" parameterType="java.util.Map" resultMap="resMapArticulo">
+        SELECT
+            a.id ID,
+            a.codigobarras CODIGO_BARRAS,
+            a.descripcioncomercial DESCRIPCION_COMERCIAL,
+            a.tipo TIPO_ID,
+            tipo.descripcion TIPO_DESCRIPCION,
+            a.imagen IMAGEN,
+            a.vlrcosto VLR_COSTO,
+            a.vlrpromedio VLR_PROMEDIO,
+            a.porcentajeminimo PORCENTAJE_MINIMO,
+            a.porcentajesugerido PORCENTAJE_SUGERIDO,
+            a.existencia EXISTENCIA,
+            a.cantidadminima CANTIDAD_MINIMA,
+            a.fechaucompra FECHA_U_COMPRA,
+            a.fechauventa FECHA_U_VENTA,
+            a.observaciones OBSERVACIONES,
+            a.vlrmin VALOR_MIN,
+            a.vlrsug VALOR_SUG,
+            a.vlrpromediov VLR_PROMEDIO_V,
+            a.saldocosto SALDO_COSTO,
+            a.saldoventa SALDO_VENTA,
+            a.grupo ID_GRUPO,
+            gru.grupo GRUPO,
+            a.marca ID_MARCA,
+            mar.marca MARCA,
+            a.estado ESTADO
+        FROM
+            articulo a,
+            tipo_articulo tipo,
+            grupo gru,
+            marca mar
+        WHERE
+            tipo.id = a.tipo
+        AND
+            gru.id = a.grupo
+        AND
+            mar.id = a.marca
+
+        <if test="criterio == 0">
+            AND
+                a.codigobarras LIKE #{valor, jdbcType=VARCHAR}
+        </if>
+        <if test="criterio == 1">
+            AND
+                a.descripcioncomercial LIKE #{valor, jdbcType=VARCHAR}
+        </if>
+        <if test="criterio == 3">
+            AND
+                a.grupo IN (SELECT g.id FROM grupo g WHERE g.grupo LIKE #{valor, jdbcType=VARCHAR})
+        </if>
+        <if test="criterio == 2">
+            AND
+                a.marca IN (SELECT m.id FROM marca m WHERE m.marca LIKE #{valor, jdbcType=VARCHAR})
+        </if>
+        <if test="padre != null">
+            AND
+                a.id != #{padre.id, jdbcType=BIGINT}
+        </if>
+    </select>
 
     <select id="obtenerArticulosPorCriterio" parameterType="java.util.Map" resultMap="resMapArticulo">
         SELECT
