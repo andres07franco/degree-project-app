@@ -24,6 +24,8 @@
         <result property="horaabre"         column="HORA_ABRE" />
         <result property="horacierre"       column="HORA_CIERRE" />
         <result property="estado"           column="ESTADO" />
+        <result property="comprasefectivo"   column="COMPRAS_EFECTIVO" />
+        <result property="comprascredito"    column="COMPRAS_CREDITO" />
     </resultMap>
 
     <select id="obtenerCajaDia" resultMap="resMapCaja">
@@ -48,7 +50,9 @@
                 fechacierre FECHA_CIERRE,
                 horaabre HORA_ABRE,
                 horacierre HORA_CIERRE,
-                estado ESTADO
+                estado ESTADO,
+                comprasefectivo COMPRAS_EFECTIVO,
+                comprascredito COMPRAS_CREDITO
             FROM
                 caja
             WHERE
@@ -75,6 +79,8 @@
             SET
                 ventasefectivo = #{ventasefectivo,jdbcType=NUMERIC},
                 ventascredito = #{ventascredito,jdbcType=NUMERIC},
+                comprasefectivo = #{comprasefectivo,jdbcType=NUMERIC},
+                comprascredito = #{comprascredito,jdbcType=NUMERIC},
                 pagosdecliente = #{pagosdecliente,jdbcType=NUMERIC},
                 anticipos = #{anticipos,jdbcType=NUMERIC},
                 otrosingresos = #{otrosingresos,jdbcType=NUMERIC},
