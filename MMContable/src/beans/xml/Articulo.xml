@@ -175,6 +175,11 @@
             AND
                 a.id != #{padre.id, jdbcType=BIGINT}
         </if>
+        <if test="tipo != null">
+            AND
+                a.tipo = #{tipo, jdbcType=BIGINT}
+      </if>
+
     </select>
 
     <select id="obtenerArticulosActivosPorCriterio" parameterType="java.util.Map" resultMap="resMapArticulo">

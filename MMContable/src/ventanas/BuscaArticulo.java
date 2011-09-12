@@ -49,6 +49,7 @@ public class BuscaArticulo extends javax.swing.JDialog {
             mapa.put("criterio", por.getSelectedIndex());
             mapa.put("valor", "%"+busqueda.getText()+"%");
             mapa.put("padre", articuloPadre);
+            mapa.put("tipo", 1);
             try {
                 listaArticulos = (List<Articulo>) modelo.obtenerListado("obtenerArticulosPorCriterio", mapa);
             } catch (Exception ex) {
