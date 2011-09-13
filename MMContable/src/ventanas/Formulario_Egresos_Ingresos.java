@@ -514,18 +514,38 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             doc.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
             doc.setSubtotal(doc.getTotal());
             try {
+                /*si se ha seleccioado una factura y el concepto es abono a factura*/
+                if(d!=null && tipoc.getSelectedIndex() == 0){
+                   /*disminuimos saldo*/
+                    d.setTotalpagado(d.getTotalpagado().add(doc.getTotal()));
+                    if(d.getTotalpagado().compareTo(d.getTotal())==0)
+                        d.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
+                    m.actualizarRegistro("actualizarDocumento", d);
+                    m.insertarRegistro("insertarDocumento", doc);                 
+                }
 
-                /*disminuimos saldo*/
-                d.setTotalpagado(d.getTotalpagado().add(doc.getTotal()));
-                if(d.getTotalpagado().compareTo(d.getTotal())==0)
-                    d.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
-                m.actualizarRegistro("actualizarDocumento", d);
-                m.insertarRegistro("insertarDocumento", doc);
                 /*Actualizamos caja*/
                 Caja cajaDia = (Caja) m.obtenerRegistro("obtenerCajaDia");
-                
-                    cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotal()));
-                    cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotal()));
+                if(tipo.getSelectedIndex()==0){
+                   cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(doc.getTotal()));
+                  /* cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(doc.getTotal()));*/
+                   if(tipoc.getSelectedIndex() == 0){
+                       // abono a ventas por cobrar
+                       cajaDia.setPagosdecliente(cajaDia.getPagosdecliente().add(doc.getTotal()));
+                   } else
+                       cajaDia.setOtrosingresos(cajaDia.getOtrosingresos().add(doc.getTotal()));
+                }                    
+                else{
+                    cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(doc.getTotal()));
+                   /* cajaDia.setComprasefectivo(cajaDia.getVentasefectivo().add(doc.getTotal()));*/
+                    if(tipoc.getSelectedIndex() == 0){
+                        //abono a compras por pagar
+                        cajaDia.setPagoaproveedor(cajaDia.getPagoaproveedor().add(doc.getTotal()));
+                        
+                    } else
+                        cajaDia.setGastosvarios(cajaDia.getGastosvarios().add(doc.getTotal()));
+                }
+                    
               
                 m.actualizarRegistro("actualizarCajaDia", cajaDia);
                 /* int confirmado = JOptionPane.showConfirmDialog(this,"¿Desea imprimir la Factura?","¿Imprimir?",JOptionPane.YES_NO_OPTION);
@@ -599,7 +619,13 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
                     obtentenerConsecutivo();
        if (tipo.getSelectedIndex() == 0) {
             et.setText("Recibido de");
+            tipoc.removeAllItems();
+            tipoc.addItem("Abono a Factura");
+            tipoc.addItem("Otros Ingresos");
         } else {
+            tipoc.removeAllItems();
+            tipoc.addItem("Abono a Factura");
+            tipoc.addItem("Otros Egresos");
             et.setText("Pagado a   ");
         }
             tercero.setText("");
@@ -624,11 +650,8 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             ntercero.setEnabled(false);
             tercero.setText("");
             ntercero.setText("");
-            t = null;
-            tipo.removeAllItems();
-            tipo.addItem("Abono a Factura");
-            tipo.addItem("Otros Ingresos");
-
+            t = null;;
+            buscaproveedor.setEnabled(false);
         }else{
             buscaFactrura.setEnabled(false);
             concepto.setEditable(true);
@@ -639,10 +662,9 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             ntercero.setEnabled(true);
             tercero.setText("");
             ntercero.setText("");
+            buscaproveedor.setEnabled(true);
             t = null;
-             tipo.removeAllItems();
-            tipo.addItem("Abono a Factura");
-            tipo.addItem("Otros Egresos");
+
         }
     }//GEN-LAST:event_tipocItemStateChanged
 
