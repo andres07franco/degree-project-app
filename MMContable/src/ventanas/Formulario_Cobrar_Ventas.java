@@ -6,6 +6,8 @@ import interfaces.Constantes;
 import java.awt.Frame;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,31 +60,38 @@ public class Formulario_Cobrar_Ventas extends javax.swing.JDialog {
 
     public boolean validar() {
         if (credito.isSelected()) {
-            if (fechavencimiento.getText().trim().equals("")) {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fecha de Vencimiento");
-                buscafecha.requestFocus();
-                return false;
-            } else  if(!this.vabonar.getText().trim().equals("")){
-                
-                if (Double.parseDouble(vabonar.getText().replaceAll(",", "")) >= d.getTotal().doubleValue()) {
-                    
-                   int confirmado = JOptionPane.showConfirmDialog(this,"La cantidad Abonada  cubre  el TOTAL de la Venta, Desea cambiar a DE CONTADO y pagar el valor digitado?","¿Cambiar a DE CONTADO?",JOptionPane.YES_NO_OPTION);
 
-                    if (JOptionPane.OK_OPTION == confirmado){
-                       tab.remove(0);
-                       tab.add("De Contado", this.panelca);
-                       this.efectivo.setSelected(true);
-                       this.pagacon.setText(vabonar.getText());
-                       calcularCambio();
-                       this.guardar.requestFocus();
-                       return false;
-                    } else {
-                       vabonar.requestFocus();
-                       return false;
+            try {
+                 SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+                
+                if (fechavencimiento.getText().trim().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Seleccione una Fecha de Vencimiento");
+                    buscafecha.requestFocus();
+                    return false;
+                }else if (formatoDelTexto.parse(this.fechavencimiento.getText()).getTime() <= new Date().getTime()) {
+                    JOptionPane.showMessageDialog(null, "Seleccione una Fecha de Vencimiento mayor al día actual");
+                    buscafecha.requestFocus();
+                    return false;
+                } else if (!this.vabonar.getText().trim().equals("")) {
+                    if (Double.parseDouble(vabonar.getText().replaceAll(",", "")) >= d.getTotal().doubleValue()) {
+                        int confirmado = JOptionPane.showConfirmDialog(this, "La cantidad Abonada  cubre  el TOTAL de la Venta, Desea cambiar a DE CONTADO y pagar el valor digitado?", "¿Cambiar a DE CONTADO?", JOptionPane.YES_NO_OPTION);
+                        if (JOptionPane.OK_OPTION == confirmado) {
+                            tab.remove(0);
+                            tab.add("De Contado", this.panelca);
+                            this.efectivo.setSelected(true);
+                            this.pagacon.setText(vabonar.getText());
+                            calcularCambio();
+                            this.guardar.requestFocus();
+                            return false;
+                        } else {
+                            vabonar.requestFocus();
+                            return false;
+                        }
                     }
-                }
-   
-           }          
+                } 
+            } catch (ParseException ex) {
+                Logger.getLogger(Formulario_Cobrar_Ventas.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else if(efectivo.isSelected()){
 

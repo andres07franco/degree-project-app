@@ -2,6 +2,7 @@ package ventanas;
 
 import beans.Caja;
 import java.awt.Frame;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -11,6 +12,7 @@ import db.Model;
 import interfaces.Constantes;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import utilidades.Calendario;
 import utilidades.FormatoNumeros;
 
@@ -56,31 +58,35 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
         }
 
         if (credito.isSelected()) {
-            if (fechavencimiento.getText().trim().equals("")) {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fecha de Vencimiento");
-                buscafecha.requestFocus();
-                return false;
-            } else  if(!this.vabonar.getText().trim().equals("")){
-
-                if (Double.parseDouble(vabonar.getText().replaceAll(",", "")) >= documento.getTotal().doubleValue()) {
-
-                   int confirmado = JOptionPane.showConfirmDialog(this,"La cantidad Abonada es cubre  el TOTAL de la COMPRA, Desea cambiar a EFECTIVO y pagar el valor digitado?","¿Cambiar a EFECTIVO?",JOptionPane.YES_NO_OPTION);
-
-                    if (JOptionPane.OK_OPTION == confirmado){
-
-                       this.efectivo.setSelected(true);
-                       return true;
-                    } else {
-                       vabonar.requestFocus();
-                       return false;
+            try {
+                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+                if (fechavencimiento.getText().trim().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Seleccione una Fecha de Vencimiento");
+                    buscafecha.requestFocus();
+                    return false;
+                } else if (formatoDelTexto.parse(this.fechavencimiento.getText()).getTime() <= new Date().getTime()) {
+                    JOptionPane.showMessageDialog(null, "Seleccione una Fecha de Vencimiento mayor al día actual");
+                    buscafecha.requestFocus();
+                    return false;
+                } else if (!this.vabonar.getText().trim().equals("")) {
+                    if (Double.parseDouble(vabonar.getText().replaceAll(",", "")) >= documento.getTotal().doubleValue()) {
+                        int confirmado = JOptionPane.showConfirmDialog(this, "La cantidad Abonada es cubre  el TOTAL de la COMPRA, Desea cambiar a EFECTIVO y pagar el valor digitado?", "¿Cambiar a EFECTIVO?", JOptionPane.YES_NO_OPTION);
+                        if (JOptionPane.OK_OPTION == confirmado) {
+                            this.efectivo.setSelected(true);
+                            return true;
+                        } else {
+                            vabonar.requestFocus();
+                            return false;
+                        }
+                    } else if (Double.parseDouble(vabonar.getText().replaceAll(",", "")) > cajaDia.getSaldoactual().doubleValue()) {
+                        JOptionPane.showMessageDialog(this, "El saldo actual en caja ($" + FormatoNumeros.formatear(cajaDia.getSaldoactual() + "") + ") no cubre las cantidad que  desea abonar", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+                        vabonar.requestFocus();
+                        return false;
                     }
-                }else if(Double.parseDouble(vabonar.getText().replaceAll(",", ""))>cajaDia.getSaldoactual().doubleValue()){
-                     JOptionPane.showMessageDialog(this,"El saldo actual en caja ($"+FormatoNumeros.formatear(cajaDia.getSaldoactual()+"")+") no cubre las cantidad que  desea abonar","Inconveniente",JOptionPane.ERROR_MESSAGE);
-                       vabonar.requestFocus();
-                       return false;
                 }
-
-           }
+            } catch (ParseException ex) {
+                Logger.getLogger(FormularioCobrarCompra.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else if(documento.getTotal().doubleValue()>cajaDia.getSaldoactual().doubleValue()){
             JOptionPane.showMessageDialog(this,"El saldo actual en caja ($"+FormatoNumeros.formatear(cajaDia.getSaldoactual()+"")+") no cubre las cantidad que  desea Pagar","Inconveniente",JOptionPane.ERROR_MESSAGE);
                       
