@@ -3,6 +3,7 @@ package ventanas;
 import java.util.*;
 import db.Model;
 import beans.Tercero;
+import interfaces.Constantes;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
@@ -17,6 +18,7 @@ public class BuscaTerceros extends javax.swing.JDialog {
     List<Tercero> l = new LinkedList();
     Model m;
     private int funcion;
+    boolean terceroDefecto = false;
 
     public BuscaTerceros(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -32,6 +34,15 @@ public class BuscaTerceros extends javax.swing.JDialog {
         this.m = Model.getInstance();
         initComponents();
         setTitle("Buscar Terceros");
+        buscar();
+    }
+
+    public BuscaTerceros(java.awt.Frame parent, boolean modal, boolean terceroDefecto) {
+        super(parent, modal);
+        this.m = Model.getInstance();
+        initComponents();
+        setTitle("Buscar Terceros");
+        this.terceroDefecto = terceroDefecto;
         buscar();
     }
 
@@ -71,12 +82,16 @@ public class BuscaTerceros extends javax.swing.JDialog {
         }
         
         for (int i = 0; i < l.size(); i++) {
+
             Object fila[] = new Object[3];
             fila[0] = l.get(i).getId() + "";
             fila[1] = l.get(i).getNit() + "";
             fila[2] = l.get(i).getNombre();
-
-            dtm.addRow(fila);
+            if(!terceroDefecto && l.get(i).getNit().longValue() != Constantes.TERCERO_POR_DEFECTO){
+                dtm.addRow(fila);
+              
+            }
+             terceroDefecto = false;
         }
 
         tabla.setModel(dtm);

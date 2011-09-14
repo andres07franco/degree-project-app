@@ -396,7 +396,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 }//GEN-LAST:event_buscaproveedorActionPerformed
 
   public void adicionarTercero(){
-        t = (new BuscaTerceros(parent, true).getTercero());
+        t = (new BuscaTerceros(parent, true, true).getTercero());
         if (t != null) {
             tercero.setText(t.getNit() + "");
             ntercero.setText(t.getNombre());
@@ -656,10 +656,10 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             buscaFactrura.setEnabled(false);
             concepto.setEditable(true);
             concepto.setEnabled(true);
-            ntercero.setEnabled(true);
-            ntercero.setEditable(true);
-            tercero.setEditable(true);
-            ntercero.setEnabled(true);
+            ntercero.setEnabled(false);
+            ntercero.setEditable(false);
+            tercero.setEditable(false);
+            ntercero.setEnabled(false);
             tercero.setText("");
             ntercero.setText("");
             buscaproveedor.setEnabled(true);

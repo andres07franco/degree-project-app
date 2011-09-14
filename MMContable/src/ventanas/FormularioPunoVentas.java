@@ -65,7 +65,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
 
     @SuppressWarnings("SillyAssignment")
     public void init() {
-       
+       errordescuento.setText("");
         tab.remove(panelabonos);
         setTitle(" Punto de Ventas ");
         this.setResizable(false);
@@ -100,7 +100,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
         subtotal.setText("0.00");
         descuento.setText("0.00");
         articulo.requestFocus();
-        articulo.setToolTipText("Ingrese CODIGO DE BARRAS o presione F1 para buscar el ARTICULO");
+        articulo.setToolTipText("Ingrese CÓDIGO DE BARRAS o presione F1 para buscar el ARTÍCULO");
         tercero.setToolTipText("Ingrese NIT/CC o presione F1 para buscar el CLIENTE");
         
         buscafecha.setEnabled(false);
@@ -808,9 +808,11 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             if (validar()) {
                 if(guardar()){
                     JOptionPane.showMessageDialog(null,(this.tipod.getSelectedIndex()==0?"FACTURA":"COTIZACION") + " Guardada con Éxito");
-                    b.buscar();
+                   /* b.buscar();
                     this.dispose();
-                     pestana.remove(desktopPane);
+                     pestana.remove(desktopPane);*/
+                    d = null;
+                    init();
                 }
             }
             }catch (Exception ex) {
@@ -1374,8 +1376,10 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
     private void restaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarActionPerformed
         // TODO add your handling code here:
          int confirmado = JOptionPane.showConfirmDialog(this,"Se borrara todo lo que ha hecho esta seguro de REINICIAR?","¿Reinicar?",JOptionPane.YES_NO_OPTION);
-         if (JOptionPane.OK_OPTION == confirmado)
+         if (JOptionPane.OK_OPTION == confirmado){
+             d = null;
                 init();
+        }
     }//GEN-LAST:event_restaurarActionPerformed
 
    
