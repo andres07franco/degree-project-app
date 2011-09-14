@@ -60,7 +60,7 @@ public interface Constantes {
     public static final int EDITANDO_ITEMS = 2;
 
     /*Id tercero por defecto*/
-    public static final Integer TERCERO_POR_DEFECTO = 1; /*es el mimo cliente por mostrador*/
+    public static final Integer TERCERO_POR_DEFECTO = 1; /*es el mismo cliente por mostrador*/
 
      /*Numero documento saldos iniciales*/
      public static final int NUMERO_SALDOS_INICIALES = 1;
