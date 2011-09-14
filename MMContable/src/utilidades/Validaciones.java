@@ -17,7 +17,7 @@ public class Validaciones {
 
         Pattern p = Pattern.compile("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*@[a-z0-9][\\w\\.-]*[a-z0-9]\\.[a-z][a-z\\.]*[a-z]$");//me gusta esta
 
-        Matcher m = p.matcher(email);
+        Matcher m = p.matcher(email.toLowerCase());
         return m.matches();
     }
 
