@@ -1042,8 +1042,11 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             if (d.getTipo().getId() == Constantes.DOCUMENTO_FACTURA_VENTA) {
                 if (d.getEstado().equals(Constantes.ESTADO_DOCUMENTO_PAGADO)) {
                     this.estadofactura.setText("Pagada");
-                } else {
+                } else if (d.getEstado().equals(Constantes.ESTADO_DOCUMENTO_DEBE)){
                     this.estadofactura.setText("En Deuda");
+
+                }else if (d.getEstado().equals(Constantes.ESTADO_DOCUMENTO_ANULADO)){
+                    this.estadofactura.setText("Anulada");
 
                 }
 
@@ -1581,7 +1584,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
     private void anularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anularActionPerformed
 
         // TODO add your handling code here:
-        d.setEstado(interfaces.Constantes.ESTADO_DOCUMENTO_ANULADO);
+       
         List<Documento> labonos = null;
         try {
             labonos = (List<Documento>) m.obtenerListado("obtenerAbonos", d.getId());
@@ -1607,7 +1610,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
         List<ArticulosDocumento> la = null;
         try {
-
+             d.setEstado(interfaces.Constantes.ESTADO_DOCUMENTO_ANULADO);
             m.actualizarRegistro("actualizarDocumento", d);
             la = (List<ArticulosDocumento>) m.obtenerListado("obtenerArticulosDocumento", d.getId());
 
@@ -1648,7 +1651,9 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().subtract(d.getTotalpagado()));
             }
             m.actualizarRegistro("actualizarCajaDia", cajaDia);
-
+            JOptionPane.showMessageDialog(parent, "Factura anulada con éxito");
+            b.buscar();
+            this.dispose();
 
         } catch (Exception ex) {
             Logger.getLogger(Formulario_Ventas.class.getName()).log(Level.SEVERE, null, ex);
