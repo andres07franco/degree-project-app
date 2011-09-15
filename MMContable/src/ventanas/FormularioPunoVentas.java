@@ -613,7 +613,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
         tab.addTab("Abonos", panelabonos);
 
         guardar.setBackground(new java.awt.Color(0, 153, 255));
-        guardar.setFont(new java.awt.Font("Tahoma", 1, 11));
+        guardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         guardar.setForeground(new java.awt.Color(0, 51, 153));
         guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
         guardar.setText("Vender");
@@ -630,6 +630,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             }
         });
 
+        tercero.setEditable(false);
         tercero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 terceroActionPerformed(evt);
@@ -768,7 +769,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                     .addComponent(restaurar)
                     .addComponent(salir)
                     .addComponent(imprimir))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -828,20 +829,20 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             articulo.requestFocus();
             return false;
         } else if (tercero.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el CLIENTE por favor");
+            JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE por favor");
             tercero.requestFocus();
             return false;
         }else if ( t==null) {
-            JOptionPane.showMessageDialog(null, "Digite el CLIENTE por favor");
+            JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE por favor");
             tercero.requestFocus();
             return false;
         }else if(t.getId()!=Constantes.TERCERO_POR_DEFECTO && (!(t.getNit()+"").equals(tercero.getText()))){
-                JOptionPane.showMessageDialog(null, "Digite un CLIENTE valido por favor");
+                JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE valido por favor");
                 tercero.requestFocus();
                  return false;
 
         }if(t.getId()==Constantes.TERCERO_POR_DEFECTO && (!(t.getNombre()+"").equals(tercero.getText()))){
-                JOptionPane.showMessageDialog(null, "Digite un CLIENTE valido por favor");
+                JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE valido por favor");
                 tercero.requestFocus();
                  return false;
         
@@ -1354,6 +1355,8 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
         t = (new BuscaTerceros(parent, true, interfaces.Constantes.CLIENTE).getTercero());
         if (t != null) {
             tercero.setText(t.getNit() + "");
+            if(t.getNit().intValue()==Constantes.TERCERO_POR_DEFECTO)
+                tercero.setText(t.getNombre());
             ntercero.setText(t.getNombre());
         }
     }

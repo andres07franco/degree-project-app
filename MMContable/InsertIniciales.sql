@@ -1,4 +1,4 @@
-ï»¿INSERT INTO `tipo_usuario` VALUES (1,'Administrador');
+INSERT INTO `tipo_usuario` VALUES (1,'Administrador');
         
         INSERT INTO `tipo_tercero` VALUES (1,'Tercero');
         INSERT INTO `tipo_tercero` VALUES (2,'Cliente');
@@ -42,7 +42,7 @@
         INSERT INTO `departamento` VALUES (44,'La Guajira',57);
         INSERT INTO `departamento` VALUES (47,'Magdalena',57);
         INSERT INTO `departamento` VALUES (50,'Meta',57);
-        INSERT INTO `departamento` VALUES (52,'NariÃ±o',57);
+        INSERT INTO `departamento` VALUES (52,'Nariño',57);
         INSERT INTO `departamento` VALUES (54,'Norte de Santander',57);
         INSERT INTO `departamento` VALUES (63,'Quindio',57);
         INSERT INTO `departamento` VALUES (66,'Risaralda',57);
@@ -92,7 +92,7 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (94,'INIRIDA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (95,'SAN JOSE DEL GUAVIARE ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (97,'MITU ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (99,'PUERTO CARREÃ‘O ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (99,'PUERTO CARREÑO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'ABEJORRAL ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (54,'ABREGO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'ABRIAQUI ');
@@ -211,8 +211,8 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'CIUDAD BOLIVAR ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'BOLIVAR ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'BOYACA ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'BRICEÃ‘O ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'BRICEÃ‘O ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'BRICEÑO ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'BRICEÑO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'BUENAVISTA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (54,'BUCARASICA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (76,'BUENAVENTURA ');
@@ -253,7 +253,7 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (85,'LA SALINA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (8,'CAMPO DE LA CRUZ ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (19,'CALDONO ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'CAÃ‘ASGORDAS ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'CAÑASGORDAS ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (85,'MANI ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (13,'CALAMAR ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (8,'CANDELARIA ');
@@ -380,7 +380,7 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (20,'EL COPEY ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (54,'DURANIA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'EBEJICO ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'CHACHAGÃ¼I ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'CHACHAGüI ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (76,'EL AGUILA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (13,'EL CARMEN DE BOLIVAR ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'EL COCUY ');
@@ -401,17 +401,17 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (27,'EL LITORAL DEL SAN JUAN ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'EL CHARCO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (54,'EL TARRA ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'EL PEÃ‘ON ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'EL PEÑON ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (76,'EL DOVIO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (85,'PAZ DE ARIPORO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (50,'EL CASTILLO ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'EL PEÃ‘OL ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'EL PEÑOL ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'EL PLAYON ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (18,'EL PAUJIL ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (19,'EL TAMBO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'EL ROSARIO ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'EL PEÃ‘ON ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'EL PIÃ‘ON ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'EL PEÑON ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'EL PIÑON ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'EL TABLON DE GOMEZ ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'EL ROSAL ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'EL TAMBO ');
@@ -423,7 +423,7 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (70,'GUARANDA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'ENVIGADO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'ENCISO ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (13,'EL PEÃ‘ON ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (13,'EL PEÑON ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'EL RETEN ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (73,'ESPINAL Tolima');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'FACATATIVA ');
@@ -509,10 +509,10 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (50,'MAPIRIPAN ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (85,'SAN LUIS DE PALENQUE ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'GUATAVITA ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'GÃ¼EPSA ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'GüEPSA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'GUAYABAL DE SIQUIMA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (50,'MESETAS ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'GÃ¼ICAN ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'GüICAN ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'GUAYABETAL ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'GUTIERREZ ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (94,'BARRANCO MINAS ');
@@ -533,7 +533,7 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'IPIALES ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (41,'IQUIRA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (41,'ISNOS ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'ITAGÃ¼I ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'ITAGüI ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'ITUANGO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (27,'ISTMINA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'IZA ');
@@ -577,7 +577,7 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (41,'LA PLATA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (19,'LA VEGA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'LA PAZ ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'LA PEÃ‘A ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'LA PEÑA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (54,'LA PLAYA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'LA UNION ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'LA UNION ');
@@ -600,7 +600,7 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'LENGUAZAQUE ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (91,'LA PEDRERA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (73,'LERIDA Tolima');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (18,'LA MONTAÃ‘ITA ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (18,'LA MONTAÑITA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (85,'TAURAMENA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'LIBORINA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'LINARES ');
@@ -620,7 +620,7 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (27,'MEDIO ATRATO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'MACARAVITA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'MACHETA ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'MAGÃ¼I ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'MAGüI ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (70,'MAJAGUAL ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (13,'MAGANGUE ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'MADRID ');
@@ -680,10 +680,10 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (18,'MORELIA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'MUTATA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'MUZO ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'NARIÃ‘O ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'NARIÑO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (54,'MUTISCUA ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'NARIÃ‘O ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'NARIÃ‘O ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'NARIÑO ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'NARIÑO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (41,'NATAGA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (73,'NATAGAIMA Tolima');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (17,'NEIRA ');
@@ -700,10 +700,10 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (17,'NORCASIA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (27,'NUQUI ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (76,'OBANDO ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (54,'OCAÃ‘A ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (54,'OCAÑA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'OCAMONTE ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'OICATA ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (23,'MOÃ‘ITOS ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (23,'MOÑITOS ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'OIBA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'OLAYA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'ONZAGA ');
@@ -751,13 +751,13 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (91,'PUERTO ARICA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'PAZ DE RIO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (52,'POLICARPA ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (91,'PUERTO NARIÃ‘O ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'PEÃ‘OL ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (91,'PUERTO NARIÑO ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'PEÑOL ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (17,'PENSILVANIA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'PEDRAZA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'PESCA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'PEQUE ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'PIJIÃ‘O DEL CARMEN ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'PIJIÑO DEL CARMEN ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'PIEDECUESTA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (73,'PIEDRAS Tolima');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (19,'PIENDAMO ');
@@ -879,7 +879,7 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (68,'SABANA DE TORRES ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'SAN JERONIMO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (13,'SAN JUAN NEPOMUCENO ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'SAN JOSE DE LA MONTAÃ‘A ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'SAN JOSE DE LA MONTAÑA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'SAN FRANCISCO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'SAN JUAN DE URABA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'SAN LUIS ');
@@ -909,7 +909,7 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (54,'SAN CALIXTO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (70,'SAMPUES ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (76,'SAN PEDRO ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (73,'SALDAÃ‘A Tolima');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (73,'SALDAÑA Tolima');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (23,'SAN ANTERO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (13,'SANTA CATALINA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'SAN MATEO ');
@@ -1079,7 +1079,7 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (54,'TIBU ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'TOCA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'TOCAIMA ');
-        INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'TOGÃ¼I ');
+        INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'TOGüI ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (25,'TOCANCIPA ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (5,'TOLEDO ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (15,'TOPAGA ');
@@ -1178,6 +1178,6 @@
         INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'ZAPAYAN ');
         INSERT INTO `ciudad` (departamento,nombre) VALUES (47,'ZONA BANANERA ');
         
-        INSERT INTO `tercero` VALUES (1,0,1,'Tercero Por Defecto','Tercero Por Defecto',13,4,'0','0',NULL,NULL,1);
+        INSERT INTO `tercero` VALUES (1,1,1,'Tercero Por Defecto','Tercero Por Defecto',13,4,'0','0',NULL,NULL,1);
 
 	INSERT INTO `m_mcontable`.`papelimpresion` (`descripcion`) VALUES ('Media Carta');

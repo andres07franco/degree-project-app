@@ -623,6 +623,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             }
         });
 
+        tercero.setEditable(false);
         tercero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 terceroActionPerformed(evt);
@@ -684,7 +685,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         });
 
         anular.setBackground(new java.awt.Color(0, 153, 255));
-        anular.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        anular.setFont(new java.awt.Font("Tahoma", 1, 11));
         anular.setForeground(new java.awt.Color(0, 51, 153));
         anular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/papelera-vacia-recycle-32x32.png"))); // NOI18N
         anular.setText("Anular");
@@ -833,21 +834,21 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             articulo.requestFocus();
             return false;
         } else if (tercero.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el CLIENTE porfavor");
+            JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE por favor");
             tercero.requestFocus();
             return false;
         } else if (t == null) {
-            JOptionPane.showMessageDialog(null, "Digite el CLIENTE porfavor");
+            JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE por favor");
             tercero.requestFocus();
             return false;
         } else if (t.getId() != Constantes.TERCERO_POR_DEFECTO && (!(t.getNit() + "").equals(tercero.getText()))) {
-            JOptionPane.showMessageDialog(null, "Digite un CLIENTE valido porfavor");
+            JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE valido por favor");
             tercero.requestFocus();
             return false;
 
         }
         if (t.getId() == Constantes.TERCERO_POR_DEFECTO && (!(t.getNombre() + "").equals(tercero.getText()))) {
-            JOptionPane.showMessageDialog(null, "Digite el CLIENTE valido porfavor");
+            JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE valido por favor");
             tercero.requestFocus();
             return false;
 
@@ -857,7 +858,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             return false;
         } else if (this.tipod.getSelectedIndex() == 0) {
             if (!this.comprovarExitencia()) {
-                JOptionPane.showMessageDialog(null, "Los Articulos en rojo tienen una CANTIDAD  mayor a la EXISTENCIA, Inconveniente");
+                JOptionPane.showMessageDialog(null, "Los Artículos en rojo tienen una CANTIDAD  mayor a la EXISTENCIA, Inconveniente");
                 return false;
             }
 
@@ -1371,6 +1372,8 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         t = (new BuscaTerceros(parent, true, interfaces.Constantes.CLIENTE).getTercero());
         if (t != null) {
             tercero.setText(t.getNit() + "");
+            if(t.getNit().intValue()==Constantes.TERCERO_POR_DEFECTO)
+                tercero.setText(t.getNombre());
             ntercero.setText(t.getNombre());
         }
     }
