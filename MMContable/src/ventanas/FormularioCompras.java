@@ -696,8 +696,10 @@ this.buscador = buscador;
 }//GEN-LAST:event_buscaproveedorActionPerformed
 
     public void adicionarTercero() {
-        t = (new BuscaTerceros(padre, true, interfaces.Constantes.PROVEESOR).getTercero());
-        if (t != null) {
+        Tercero ter = (new BuscaTerceros(padre, true, interfaces.Constantes.PROVEESOR).getTercero());
+       
+        if (ter != null) {
+            t = ter;
             tercero.setText(t.getNit() + "");
             ntercero.setText(t.getNombre());
             articulo.requestFocus();
@@ -759,9 +761,10 @@ this.buscador = buscador;
 }//GEN-LAST:event_buscaraActionPerformed
 
     public void buscarArticulo() {
-
-        a = new BuscaArticulo(padre, true, null).getArticulo();
-        if (a != null) {
+        Articulo art = new BuscaArticulo(padre, true, null).getArticulo();
+        
+        if (art != null) {
+            a = art;
             articuloDocumento = new ArticulosDocumento();
             articuloDocumento.setArticulo(a);
             articulo.setText("" + articuloDocumento.getArticulo().getCodigobarras());

@@ -292,9 +292,10 @@ public class VentanaKardex extends javax.swing.JDialog {
 
         private void buscaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaraActionPerformed
             // TODO add your handling code here:
-            a = null;
-            a = new BuscaArticulo(parent,true,a).getArticulo();
-            if (a != null) {
+            Articulo art = null;
+            art = new BuscaArticulo(parent, true, a).getArticulo();
+            if (art != null) {
+                a = art;
                 articulo.setText(a.getDescripcioncomercial());
             } else {
                 JOptionPane.showMessageDialog(null, "Seleccione un Articulo");

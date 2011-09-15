@@ -1317,8 +1317,9 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 }//GEN-LAST:event_buscaraActionPerformed
 
     public void buscarArticulo() {
-        a = new BuscaArticulo(parent, true, a).getArticulo();
-        if (a != null) {
+        Articulo art = new BuscaArticulo(parent, true, a).getArticulo(); 
+        if (art != null) {
+            a = art;
             /*validamos existencias del articlo*/
             if (a.getExistencia().compareTo(new BigDecimal("0.0")) > 0) {
                 this.articulo.setText(a.getCodigobarras());
@@ -1369,8 +1370,9 @@ public class Formulario_Ventas extends javax.swing.JDialog {
     }//GEN-LAST:event_buscaproveedorActionPerformed
 
     public void adicionarTercero() {
-        t = (new BuscaTerceros(parent, true, interfaces.Constantes.CLIENTE).getTercero());
-        if (t != null) {
+        Tercero ter = (new BuscaTerceros(parent, true, interfaces.Constantes.CLIENTE).getTercero());
+        if (ter != null) {
+            t = ter;
             tercero.setText(t.getNit() + "");
             if(t.getNit().intValue()==Constantes.TERCERO_POR_DEFECTO)
                 tercero.setText(t.getNombre());

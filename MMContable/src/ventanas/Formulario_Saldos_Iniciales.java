@@ -653,8 +653,10 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
 }//GEN-LAST:event_buscaraActionPerformed
 
     public void buscarArticulo(){
-       a = new BuscaArticulo(parent,true,a).getArticulo();
-        if(a!=null){
+       Articulo art = new BuscaArticulo(parent,true,a).getArticulo();
+      
+        if(art!=null){
+             a = art;
             this.articulo.setText(a.getCodigobarras());
             this.descripcion.setText(a.getDescripcioncomercial());
             this.cantidad.requestFocus();
