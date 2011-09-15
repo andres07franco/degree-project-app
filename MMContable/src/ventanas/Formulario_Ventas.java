@@ -103,6 +103,9 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
         /*Verificanmos si se esta editando o creando*/
         if (d != null) {
+            if(!d.getEstado().equals(Constantes.ESTADO_DOCUMENTO_ANULADO))
+                        imprimir.setEnabled(true);
+
             funcion = Constantes.ESTADO_SOLO_LECTURA;
             if (d.getTipo().getId() == Constantes.DOCUMENTO_COTIZACION) {
                 buscafecha.setVisible(true);
@@ -111,6 +114,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 tipod.setSelectedIndex(1);
                 restaurar.setEnabled(true);
                 descuento.setEnabled(true);
+                
             } else {
                 this.tipod.setSelectedIndex(0); /*se selcciona factura*/
                 this.tipod.setEnabled(false); /*no se puede cambiar el tipod e documento*/
@@ -830,7 +834,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
     public boolean validar() throws Exception {
         if (tabla.getRowCount() <= 0) {
-            JOptionPane.showMessageDialog(null, "Adicione al menos un ARTICULO a la Venta");
+            JOptionPane.showMessageDialog(null, "Adicione al menos un ARTÍCULO a la Venta");
             articulo.requestFocus();
             return false;
         } else if (tercero.getText().trim().equals("")) {
@@ -842,13 +846,13 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             tercero.requestFocus();
             return false;
         } else if (t.getId() != Constantes.TERCERO_POR_DEFECTO && (!(t.getNit() + "").equals(tercero.getText()))) {
-            JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE valido por favor");
+            JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE válido por favor");
             tercero.requestFocus();
             return false;
 
         }
         if (t.getId() == Constantes.TERCERO_POR_DEFECTO && (!(t.getNombre() + "").equals(tercero.getText()))) {
-            JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE valido por favor");
+            JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE válido por favor");
             tercero.requestFocus();
             return false;
 
@@ -1517,8 +1521,10 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
     public void imprimir(String numero) {
         Map parametro = new HashMap();
+        parametro.put("titulo", "FACTURA DE VENTA");
         parametro.put("numero", numero);
         parametro.put("tipo", Constantes.DOCUMENTO_FACTURA_VENTA);
+         this.dispose();
         new utilidades.Reporte().runReporte("reportes/Factura.jasper", parametro);
     }
 

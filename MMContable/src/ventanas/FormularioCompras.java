@@ -963,13 +963,15 @@ this.buscador = buscador;
 
     private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
         // TODO add your handling code here:
-        if(documento!=null && funcion==Constantes.ESTADO_CREACION)
+        if(documento!=null)
               imprimir(documento.getNumero());
     }//GEN-LAST:event_imprimirActionPerformed
     public void imprimir(String numero) {
         Map parametro = new HashMap();
+        parametro.put("titulo", "FACTURA DE COMPRA");
         parametro.put("numero", numero);
         parametro.put("tipo", Constantes.DOCUMENTO_FACTURA_COMPRA);
+        this.dispose();
         new utilidades.Reporte().runReporte("reportes/Factura.jasper", parametro);
     }
     public boolean guardar() {
