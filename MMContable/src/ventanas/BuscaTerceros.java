@@ -87,11 +87,11 @@ public class BuscaTerceros extends javax.swing.JDialog {
             fila[0] = l.get(i).getId() + "";
             fila[1] = l.get(i).getNit() + "";
             fila[2] = l.get(i).getNombre();
-            if(!terceroDefecto && l.get(i).getNit().longValue() != Constantes.TERCERO_POR_DEFECTO){
+            if(terceroDefecto && l.get(i).getNit().longValue() == Constantes.TERCERO_POR_DEFECTO){
+              terceroDefecto = false;
+            }else
                 dtm.addRow(fila);
-              
-            }
-             terceroDefecto = false;
+             
         }
 
         tabla.setModel(dtm);
