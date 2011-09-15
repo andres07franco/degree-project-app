@@ -276,13 +276,14 @@ public class ListaVentas extends javax.swing.JPanel implements Buscadores {
     }//GEN-LAST:event_busquedaKeyReleased
     public void buscar() {
         try {
-             boolean cedit[] = {false, false,false,false};
+             boolean cedit[] = {false, false,false,false,false};
 
             dtm = new ModeloTabla(cedit);
             dtm.addColumn("Fecha");
             dtm.addColumn("Numero");            
             dtm.addColumn("Tipo");
             dtm.addColumn("Tercero");
+            dtm.addColumn("Estado");
             dtm.addColumn("Total");
             Map<String, Object> mapa = new HashMap<String, Object>();
             mapa.put("tipo", new Integer(Constantes.DOCUMENTO_FACTURA_VENTA));
@@ -292,12 +293,13 @@ public class ListaVentas extends javax.swing.JPanel implements Buscadores {
             if (l != null) {
                 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
                 for (int i = 0; i < l.size(); i++) {                    
-                    Object[] fila = new Object[5];
+                    Object[] fila = new Object[6];
                     fila[0] =   formato.format(l.get(i).getFecha());
                     fila[1] = l.get(i).getNumero() + "";
                     fila[2] = l.get(i).getTipo().getId() == Constantes.DOCUMENTO_COTIZACION?"Cotizacion":"Factura";
                     fila[3] = l.get(i).getTercero().getNombre();
-                    fila[4] = utilidades.FormatoNumeros.formatear(l.get(i).getTotal() + "");
+                    fila[4] = l.get(i).getEstado();
+                    fila[5] = utilidades.FormatoNumeros.formatear(l.get(i).getTotal() + "");
                     dtm.addRow(fila);
                 }
             }
