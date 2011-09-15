@@ -396,19 +396,23 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 }//GEN-LAST:event_buscaproveedorActionPerformed
 
   public void adicionarTercero(){
-        t = (new BuscaTerceros(parent, true, true).getTercero());
-        if (t != null) {
+      Tercero ter = (new BuscaTerceros(parent, true, true).getTercero());
+        
+        if (ter != null) {
+            t = ter;
             tercero.setText(t.getNit() + "");
             ntercero.setText(t.getNombre());
         }
     }
 
     public void adicionarDocumento(){
+        Documento doc = null;
         if(tipo.getSelectedIndex() == 0)
-            d = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_VENTA).getDocumento());
+            doc = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_VENTA).getDocumento());
         else
-            d = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_COMPRA).getDocumento());
-        if (d != null) {
+            doc = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_COMPRA).getDocumento());
+        if (doc != null) {
+            d = doc;
             concepto.setText(d.getNumero() + "");
             t=d.getTercero();
             tercero.setText(t.getNit() + "");
