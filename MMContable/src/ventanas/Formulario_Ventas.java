@@ -45,6 +45,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         this.parent = parent;
         this.b = b;
         this.d = d;
+        
         estado = interfaces.Constantes.ADICIONANDO_ITEMS;
         initComponents();
         init();
@@ -57,6 +58,9 @@ public class Formulario_Ventas extends javax.swing.JDialog {
     @SuppressWarnings("SillyAssignment")
     public void init() {
 
+                obtenerTerceroDefecto();
+        /*validamos que se hallan configurado las propiedades de la factura*/
+        obtentenerConsecutivo();
         tab.remove(panelabonos);
         setTitle(" Punto de Ventas ");
         this.setResizable(false);
@@ -135,9 +139,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         int dia = Calendar.getInstance().get(Calendar.DATE);
         fecha.setText(ano + "-" + mes + "-" + dia);
 
-        obtenerTerceroDefecto();
-        /*validamos que se hallan configurado las propiedades de la factura*/
-        obtentenerConsecutivo();
+
     }
 
 
@@ -1593,7 +1595,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             return;
         }
 
-        if (labonos != null) {
+        if (labonos == null) {
             JOptionPane.showMessageDialog(null, "No se puede anular la factura debido a que se han hecho varios movimientos con ella", "No se puede Anular", JOptionPane.ERROR_MESSAGE);
             return;
         }
