@@ -770,7 +770,9 @@ public class Principal extends JFrame implements Buscadores {
             //fa.setVisible(true);
         } else if (sele.equals("Kardex")) {
               new VentanaKardex(this, true).setVisible(true);
-        } else if (sele.equals("Ingresos/Egresos")) {//||Lista_Ingresos_Egresos
+        } else if (sele.equals("Imprimir Documento")) {
+              new VentanaImprimeFactura(this, true).setVisible(true);
+        }else if (sele.equals("Ingresos/Egresos")) {//||Lista_Ingresos_Egresos
             if (esta("Ingresos/Egresos") == -1) {
                 JDesktopPane dp = new JDesktopPane();
                 dp.setBackground(Color.WHITE);
@@ -1071,7 +1073,7 @@ public class Principal extends JFrame implements Buscadores {
         seleccionar(informes);
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
 
-        treeNode1.add(new DefaultMutableTreeNode("Imprimir Factura"));
+        treeNode1.add(new DefaultMutableTreeNode("Imprimir Documento"));
         treeNode1.add(new DefaultMutableTreeNode("Inventario"));
         treeNode1.add(new DefaultMutableTreeNode("Artículo en Mínimo"));
         treeNode1.add(new DefaultMutableTreeNode("Diario de Ventas (Arqueos)"));
