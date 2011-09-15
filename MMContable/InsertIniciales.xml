@@ -1,4 +1,4 @@
-
+﻿
         INSERT INTO tipo_usuario VALUES (1,'Administrador');
         INSERT INTO `tipo_tercero` VALUES (1,'Tercero');
         INSERT INTO `tipo_tercero` VALUES (2,'Cliente');
@@ -22,7 +22,7 @@
         INSERT INTO `tipo_articulo` VALUES (1,'Servicio');
         INSERT INTO `tipo_articulo` VALUES (1,'Combo');
 
-        INSERT INTO `tercero` VALUES (1,0,1,'Tercero Por Defecto','Tercero Por Defecto',1,1,'0','0',NULL,NULL,1);
+        INSERT INTO `tercero` VALUES (1,1,1,'Tercero Por Defecto','Tercero Por Defecto',1,1,'0','0',NULL,NULL,1);
 
         INSERT INTO `estado` VALUES (0,'Inactivo');
         INSERT INTO `estado` VALUES (1,'Activo');
