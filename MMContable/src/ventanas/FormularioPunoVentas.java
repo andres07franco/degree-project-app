@@ -109,6 +109,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
         /*Verificanmos si se esta editando o creando*/
         if(d != null){          
             funcion = Constantes.ESTADO_SOLO_LECTURA;
+            this.imprimir.setEnabled(true);
             if(d.getTipo().getId() == Constantes.DOCUMENTO_COTIZACION){                
                 buscafecha.setVisible(true);  
                 this.tipod.setSelectedIndex(1);
@@ -837,12 +838,12 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             tercero.requestFocus();
             return false;
         }else if(t.getId()!=Constantes.TERCERO_POR_DEFECTO && (!(t.getNit()+"").equals(tercero.getText()))){
-                JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE valido por favor");
+                JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE válido por favor");
                 tercero.requestFocus();
                  return false;
 
         }if(t.getId()==Constantes.TERCERO_POR_DEFECTO && (!(t.getNombre()+"").equals(tercero.getText()))){
-                JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE valido por favor");
+                JOptionPane.showMessageDialog(null, "Seleccione un CLIENTE válido por favor");
                 tercero.requestFocus();
                  return false;
         
@@ -1018,6 +1019,8 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
    public void imprimir(String numero){
        Map parametro = new HashMap();
        parametro.put("numero", numero);
+       parametro.put("titulo", "FACTURA DE VENTA");
+       parametro.put("tipo", Constantes.DOCUMENTO_FACTURA_VENTA);
        new utilidades.Reporte().runReporte("reportes/Factura.jasper", parametro);
    }
 
