@@ -27,6 +27,8 @@ public class Caja {
     private int estado;
     private BigDecimal comprasefectivo;
     private BigDecimal comprascredito;
+    private BigDecimal abonocompras;
+    private BigDecimal abonoventas;
 
     public Caja() {
     }
@@ -240,5 +242,33 @@ public class Caja {
      */
     public void setComprascredito(BigDecimal comprascredito) {
         this.comprascredito = comprascredito;
+    }
+
+    /**
+     * @return the abonocompras
+     */
+    public BigDecimal getAbonocompras() {
+        return abonocompras;
+    }
+
+    /**
+     * @param abonocompras the abonocompras to set
+     */
+    public void setAbonocompras(BigDecimal abonocompras) {
+        this.abonocompras = abonocompras;
+    }
+
+    /**
+     * @return the abonoventas
+     */
+    public BigDecimal getAbonoventas() {
+        return abonoventas;
+    }
+
+    /**
+     * @param abonoventas the abonoventas to set
+     */
+    public void setAbonoventas(BigDecimal abonoventas) {
+        this.abonoventas = abonoventas;
     }
 }

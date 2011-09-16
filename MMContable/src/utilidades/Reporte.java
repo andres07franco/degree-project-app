@@ -7,8 +7,10 @@ package utilidades;
 import db.Model;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -63,7 +65,81 @@ public class Reporte {
         return null;
     }
 
-    public void executeSqlScript(Connection conn, File inputFile) {
+    public String leerArchivo( File archivo){
+   
+      FileReader fr = null;
+      BufferedReader br = null;
+      String linea = "";
+      String txtsql = "";
+      try {
+         // Apertura del fichero y creacion de BufferedReader para poder
+         // hacer una lectura comoda (disponer del metodo readLine()).
+
+         fr = new FileReader (archivo);
+         br = new BufferedReader(fr);
+
+         // Lectura del fichero
+         
+         while((linea=br.readLine())!=null)
+           txtsql+=(linea);
+      }
+      catch(Exception e){
+         e.printStackTrace();
+      }finally{
+         // En el finally cerramos el fichero, para asegurarnos
+         // que se cierra tanto si todo va bien como si salta 
+         // una excepcion.
+         try{                    
+            if( null != fr ){   
+               fr.close();     
+            }                  
+         }catch (Exception e2){ 
+            e2.printStackTrace();
+         }
+      }
+      return txtsql;
+    }
+     public void executeSqlScript(Connection conn, File inputFile) {
+        String delimiter = ";";
+        StringTokenizer scanner=new StringTokenizer(leerArchivo(inputFile), delimiter);
+
+        // Loop through the SQL file statements
+        Statement currentStatement = null;
+        int cont = 0;
+        while (scanner.hasMoreTokens()) {
+            // Get statement
+
+            String rawStatement = scanner.nextToken() + delimiter;
+            try {
+                System.out.println(cont + " " + rawStatement);
+                if (rawStatement.charAt(0) == '﻿') {
+                    rawStatement = rawStatement.substring(1, rawStatement.length());
+                }
+                currentStatement = conn.createStatement();
+                currentStatement.execute(rawStatement);
+                cont++;
+            } catch (SQLException e) {
+                if (e.getErrorCode() != 1062 && e.getErrorCode() != 1065) {
+                    e.printStackTrace();
+                    System.out.println(cont + " error " + rawStatement);
+                }
+
+                // System.exit(0);
+            } finally {
+                // Release resources
+                if (currentStatement != null) {
+                    try {
+                        currentStatement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                         System.out.println(cont + " " + rawStatement);
+                    }
+                }
+                currentStatement = null;
+            }
+        }
+    }
+    public void executeSqlScript2(Connection conn, File inputFile) {
         String delimiter = ";";
         Scanner scanner;
         try {
@@ -76,20 +152,23 @@ public class Reporte {
 
         // Loop through the SQL file statements
         Statement currentStatement = null;
+        int cont = 0;
         while (scanner.hasNext()) {
             // Get statement
+
             String rawStatement = scanner.next() + delimiter;
             try {
-
+                System.out.println(cont + " " + rawStatement);
                 if (rawStatement.charAt(0) == '﻿') {
                     rawStatement = rawStatement.substring(1, rawStatement.length());
                 }
                 currentStatement = conn.createStatement();
-                currentStatement.execute(rawStatement);
-
+              /*  currentStatement.execute(rawStatement);*/
+                cont++;
             } catch (SQLException e) {
                 if (e.getErrorCode() != 1062 && e.getErrorCode() != 1065) {
                     e.printStackTrace();
+                    System.out.println(cont + " - " + rawStatement);
                 }
 
                 // System.exit(0);
@@ -100,6 +179,7 @@ public class Reporte {
                         currentStatement.close();
                     } catch (SQLException e) {
                         e.printStackTrace();
+                         System.out.println(cont + " " + rawStatement);
                     }
                 }
                 currentStatement = null;

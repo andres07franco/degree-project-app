@@ -26,6 +26,8 @@
         <result property="estado"           column="ESTADO" />
         <result property="comprasefectivo"   column="COMPRAS_EFECTIVO" />
         <result property="comprascredito"    column="COMPRAS_CREDITO" />
+        <result property="abonocompras"     column="ABONO_COMPRAS" />
+        <result property="abonoventas"      column="ABONO_VENTAS" />
     </resultMap>
 
     <select id="obtenerCajaDia" resultMap="resMapCaja">
@@ -52,7 +54,9 @@
                 horacierre HORA_CIERRE,
                 estado ESTADO,
                 comprasefectivo COMPRAS_EFECTIVO,
-                comprascredito COMPRAS_CREDITO
+                comprascredito COMPRAS_CREDITO,
+                abonocompras ABONO_COMPRAS,
+                abonoventas ABONO_VENTAS
             FROM
                 caja
             WHERE
@@ -68,7 +72,7 @@
                 caja
                     (saldoactual,iniciodia,fechaabre,horaabre,estado)
             VALUES
-                    (#{saldoactual,jdbcType=NUMERIC},#{iniciodia,jdbcType=NUMERIC},#{fechaabre,jdbcType=DATE},#{horaabre,jdbcType=TIME},#{estado,jdbcType=INTEGER})
+                    (#{saldoactual,jdbcType=NUMERIC},#{iniciodia,jdbcType=NUMERIC},curdate(),CURTIME(),#{estado,jdbcType=INTEGER})
         ]]>
     </insert>
 
@@ -81,6 +85,8 @@
                 ventascredito = #{ventascredito,jdbcType=NUMERIC},
                 comprasefectivo = #{comprasefectivo,jdbcType=NUMERIC},
                 comprascredito = #{comprascredito,jdbcType=NUMERIC},
+                abonocompras = #{abonocompras,jdbcType=NUMERIC},
+                abonoventas = #{abonoventas,jdbcType=NUMERIC},
                 pagosdecliente = #{pagosdecliente,jdbcType=NUMERIC},
                 anticipos = #{anticipos,jdbcType=NUMERIC},
                 otrosingresos = #{otrosingresos,jdbcType=NUMERIC},

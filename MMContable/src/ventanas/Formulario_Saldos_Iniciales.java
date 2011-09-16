@@ -546,7 +546,8 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
                      a.setSaldocosto(ad.getVlrparcial());
                      a.setVlrpromedio(ad.getVlrunitario());
                      a.setVlrcosto(ad.getVlrunitario());
-                     m.actualizarRegistro("actualizarArticuloExistencia", a);
+                    
+                     m.actualizarRegistro("actualizarArticulo", a);
 
                      Kardex k = new Kardex();
                      k.setDocumento(d);
@@ -570,7 +571,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
 
     public boolean validar() {
         if (tabla.getRowCount() <= 0) {
-            JOptionPane.showMessageDialog(null, "Adicione al menos un Articulo a la Venta");
+            JOptionPane.showMessageDialog(null, "Adicione al menos un Artículo a la Venta");
             articulo.requestFocus();
             return false;
         }

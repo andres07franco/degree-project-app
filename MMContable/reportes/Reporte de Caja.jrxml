@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte de Caja" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="29"/>
 	<parameter name="fecha" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -23,7 +23,7 @@
           order by c1.`fechaabre` asc limit 1
       ) AS caja_iniciodia,
 
-     (select  c1.`iniciodia` from `caja` c1 where
+     (select  c1.`saldoactual` from `caja` c1 where
           (c1.`fechaabre` >= $P{fecha}
           AND  c1.`fechaabre` <= $P{fecha2}  )
           order by c1.`fechaabre` desc  limit 1

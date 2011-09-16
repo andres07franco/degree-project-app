@@ -629,7 +629,7 @@ public class Principal extends JFrame implements Buscadores {
 
             arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         } else {
-            JOptionPane.showMessageDialog(null, "Debe inicializar Saldos Iniciales para poder acceder a este Modulo", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe inicializar Saldos Iníciales para poder acceder a este Módulo", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
 
 

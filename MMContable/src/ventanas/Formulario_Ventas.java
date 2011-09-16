@@ -958,7 +958,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 a.setExistencia(a.getExistencia().subtract(new BigDecimal(tabla.getValueAt(i, 2) + "")));
                 BigDecimal costoRestar = ad.getCantidad().multiply(a.getVlrpromedio());
                 a.setSaldocosto(a.getSaldocosto().subtract(costoRestar));
-                if (a.getExistencia().compareTo(BigDecimal.ZERO) == 0) {
+                if (a.getExistencia().longValue() <= 0) {
                     a.setSaldocosto(BigDecimal.ZERO);
                     a.setVlrpromedio(BigDecimal.ZERO);
                 } else {
@@ -970,11 +970,11 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 Kardex k = new Kardex();
                 k.setDocumento(d);
                 k.setArticulo(a);
-                k.setEntradas(ad.getCantidad());
-                k.setSalidas(BigDecimal.ZERO);
+                k.setEntradas(BigDecimal.ZERO);
+                k.setSalidas(ad.getCantidad());
                 k.setExistencia(a.getExistencia());
                 k.setVlrunitario(a.getVlrpromedio());
-                k.setVlrtotal(a.getVlrpromedio().multiply(ad.getCantidad()));
+                k.setVlrtotal(a.getSaldocosto());
                 k.setHora(new Date());
                 k.setFecha(new Date());
                 m.insertarRegistro("insertarKardex", k);
@@ -1000,8 +1000,6 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 abono.setDescuento(BigDecimal.ZERO);
                 abono.setNota("Abono a Factura " + d.getNumero());
                 abono.setDocumento(d);
-
-
             }
         }
         if (d.getTipo().getId() != Constantes.DOCUMENTO_FACTURA_VENTA) {
@@ -1014,9 +1012,12 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotal()));
                 cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotal()));
             } else {
-                cajaDia.setVentascredito(cajaDia.getVentascredito().add(d.getTotal()));
+                BigDecimal ccto = d.getTotal().subtract(d.getTotalpagado());
+                cajaDia.setVentascredito(cajaDia.getVentascredito().add(ccto));
                 cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotalpagado()));
                 cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotalpagado()));
+                if(d.getTotalpagado().doubleValue()>0)
+                    cajaDia.setAbonoventas(cajaDia.getAbonoventas().add(d.getTotalpagado()));
             }
             m.actualizarRegistro("actualizarCajaDia", cajaDia);
             int confirmado = JOptionPane.showConfirmDialog(this, "¿Desea imprimir la Factura?", "¿Imprimir?", JOptionPane.YES_NO_OPTION);

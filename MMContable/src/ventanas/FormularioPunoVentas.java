@@ -947,25 +947,26 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                      a.setExistencia(a.getExistencia().subtract(new BigDecimal(tabla.getValueAt(i,2)+"")));
                      BigDecimal costoRestar = ad.getCantidad().multiply(a.getVlrpromedio());
                      a.setSaldocosto(a.getSaldocosto().subtract(costoRestar));
-                     if(a.getExistencia().compareTo(BigDecimal.ZERO)==0){
-                         a.setSaldocosto(BigDecimal.ZERO);
-                         a.setVlrpromedio(BigDecimal.ZERO);
-                     }else
-                        a.setVlrpromedio(new BigDecimal(a.getSaldocosto().doubleValue() / a.getExistencia().doubleValue()));
-                     m.actualizarRegistro("actualizarArticulo", a);
+                if (a.getExistencia().longValue() <= 0) {
+                    a.setSaldocosto(BigDecimal.ZERO);
+                    a.setVlrpromedio(BigDecimal.ZERO);
+                } else {
+                    a.setVlrpromedio(new BigDecimal(a.getSaldocosto().doubleValue() / a.getExistencia().doubleValue()));
+                }
+                m.actualizarRegistro("actualizarArticulo", a);
 
-                     /*creando kardex*/
-                     Kardex k = new Kardex();
-                     k.setDocumento(d);
-                     k.setArticulo(a);
-                     k.setEntradas(ad.getCantidad());
-                     k.setSalidas(BigDecimal.ZERO);
-                     k.setExistencia(ad.getCantidad());
-                     k.setVlrunitario(a.getVlrpromedio());
-                     k.setVlrtotal(a.getVlrpromedio().multiply(ad.getCantidad()));
-                     k.setHora(new Date());
-                     k.setFecha(new Date());
-                     m.insertarRegistro("insertarKardex", k);
+                /*creando kardex*/
+                Kardex k = new Kardex();
+                k.setDocumento(d);
+                k.setArticulo(a);
+                k.setEntradas(BigDecimal.ZERO);
+                k.setSalidas(ad.getCantidad());
+                k.setExistencia(a.getExistencia());
+                k.setVlrunitario(a.getVlrpromedio());
+                k.setVlrtotal(a.getSaldocosto());
+                k.setHora(new Date());
+                k.setFecha(new Date());
+                m.insertarRegistro("insertarKardex", k);
 
                 }
                  a = null;
@@ -1001,9 +1002,12 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                  cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotal()));
                  cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotal()));
              }else{
-                cajaDia.setVentascredito(cajaDia.getVentascredito().add(d.getTotal()));
+                BigDecimal ccto = d.getTotal().subtract(d.getTotalpagado());
+                cajaDia.setVentascredito(cajaDia.getVentascredito().add(ccto));
                 cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotalpagado()));
                 cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotalpagado()));
+                if(d.getTotalpagado().doubleValue()>0)
+                    cajaDia.setAbonoventas(cajaDia.getAbonoventas().add(d.getTotalpagado()));
              }
             m.actualizarRegistro("actualizarCajaDia", cajaDia);
          int confirmado = JOptionPane.showConfirmDialog(this,"¿Desea imprimir la Factura?","¿Imprimir?",JOptionPane.YES_NO_OPTION);

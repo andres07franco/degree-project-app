@@ -87,7 +87,7 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
             } catch (ParseException ex) {
                 Logger.getLogger(FormularioCobrarCompra.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if(documento.getTotal().doubleValue()>cajaDia.getSaldoactual().doubleValue()){
+        }else if(documento.getTotal().doubleValue()>cajaDia.getSaldoactual().doubleValue() && !pagada.isSelected()){
             JOptionPane.showMessageDialog(this,"El saldo actual en caja ($"+FormatoNumeros.formatear(cajaDia.getSaldoactual()+"")+") no cubre las cantidad que  desea Pagar","Inconveniente",JOptionPane.ERROR_MESSAGE);
                       
                        return false;
@@ -367,6 +367,7 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
                 if (pagada.isSelected()) {
                     documento.setTipopago(new TipoPago(Constantes.TIPO_PAGO_PAGADO, null));
                     documento.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
+                    documento.setTotalpagado(documento.getTotal());
                 } else if (credito.isSelected()) {
                     documento.setTotalpagado(new BigDecimal(vabonar.getText().replaceAll(",", "")));
                     documento.setTipopago(new TipoPago(Constantes.TIPO_PAGO_CREDITO, null));

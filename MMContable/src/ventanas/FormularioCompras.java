@@ -1026,7 +1026,7 @@ this.buscador = buscador;
                     kardex.setSalidas(BigDecimal.ZERO);
                     kardex.setEntradas(ad.getCantidad());
                     kardex.setVlrunitario(a.getVlrpromedio());
-                    kardex.setVlrtotal(a.getVlrpromedio().multiply(ad.getCantidad()));
+                    kardex.setVlrtotal(a.getSaldocosto());
                     kardex.setFecha(new Date());
                     kardex.setHora(new Date());
                     kardex.setExistencia(a.getExistencia());
@@ -1040,10 +1040,12 @@ this.buscador = buscador;
                     cajaDia.setComprasefectivo(cajaDia.getVentasefectivo().add(documento.getTotal()));
 
                 } else if (documento.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO) {
-                    cajaDia.setComprascredito(documento.getTotal().add(documento.getTotalpagado()));
+                    BigDecimal ccto = documento.getTotal().subtract(documento.getTotalpagado());
+                    cajaDia.setComprascredito(cajaDia.getComprascredito().add(ccto));
                     cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(documento.getTotalpagado()));
                     cajaDia.setComprasefectivo(cajaDia.getVentasefectivo().add(documento.getTotalpagado()));
-
+                    if(documento.getTotalpagado().doubleValue()>0)
+                        cajaDia.setAbonocompras(cajaDia.getAbonocompras().add(documento.getTotalpagado()));
                 }
                 model.actualizarRegistro("actualizarCajaDia", cajaDia);
               int confirmado = JOptionPane.showConfirmDialog(this, "¿Desea imprimir la Factura?", "¿Imprimir?", JOptionPane.YES_NO_OPTION);

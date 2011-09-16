@@ -80,7 +80,7 @@ public class VentanaKardex extends javax.swing.JDialog {
 
         imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/print-16x16.png"))); // NOI18N
         imprimir.setText("Imprimir");
-        imprimir.setToolTipText("Imprimir y Contabilizar");
+        imprimir.setToolTipText("Imprimir");
         imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 imprimirActionPerformed(evt);
@@ -241,11 +241,11 @@ public class VentanaKardex extends javax.swing.JDialog {
                 if (!fecha.getText().equals("")) {
                     if (!fecha1.getText().equals("")) {
 
-                        if(Integer.parseInt(fecha.getText().replaceAll("-", ""))<=Integer.parseInt(fecha.getText().replaceAll("-", ""))){
+                        if(Integer.parseInt(fecha.getText().replaceAll("-", ""))<=Integer.parseInt(fecha1.getText().replaceAll("-", ""))){
                             Map parametro = new HashMap();
                             parametro.put("fecha1", fecha.getText());
                             parametro.put("fecha2", fecha1.getText());
-                            parametro.put("codigo", "" + a.getCodigobarras());
+                            parametro.put("articulo", "" + a.getId());
                             this.dispose();
                             new utilidades.Reporte().runReporte("reportes/Kardex.jasper", parametro);
                         }else {
