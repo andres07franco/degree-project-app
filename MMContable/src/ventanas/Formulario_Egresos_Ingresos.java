@@ -532,19 +532,20 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
                 Caja cajaDia = (Caja) m.obtenerRegistro("obtenerCajaDia");
                 if(tipo.getSelectedIndex()==0){
                    cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(doc.getTotal()));
-                  /* cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(doc.getTotal()));*/
+                
                    if(tipoc.getSelectedIndex() == 0){
                        // abono a ventas por cobrar
                        cajaDia.setPagosdecliente(cajaDia.getPagosdecliente().add(doc.getTotal()));
+                         cajaDia.setAbonoventas(cajaDia.getAbonoventas().add(doc.getTotal()));
                    } else
                        cajaDia.setOtrosingresos(cajaDia.getOtrosingresos().add(doc.getTotal()));
                 }                    
                 else{
-                    cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(doc.getTotal()));
-                   /* cajaDia.setComprasefectivo(cajaDia.getVentasefectivo().add(doc.getTotal()));*/
+                    cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(doc.getTotal()));
                     if(tipoc.getSelectedIndex() == 0){
                         //abono a compras por pagar
                         cajaDia.setPagoaproveedor(cajaDia.getPagoaproveedor().add(doc.getTotal()));
+                         cajaDia.setAbonocompras(cajaDia.getAbonocompras().add(doc.getTotal()));
                         
                     } else
                         cajaDia.setGastosvarios(cajaDia.getGastosvarios().add(doc.getTotal()));

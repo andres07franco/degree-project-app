@@ -161,7 +161,7 @@
               <Image iconType="3" name="/img/print-16x16.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Imprimir"/>
-            <Property name="toolTipText" type="java.lang.String" value="Imprimir y Contabilizar"/>
+            <Property name="toolTipText" type="java.lang.String" value="Imprimir"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="imprimirActionPerformed"/>
