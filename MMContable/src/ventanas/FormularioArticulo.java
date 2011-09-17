@@ -160,7 +160,7 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
             return false;
         } else if (((TipoArticulo) tipo.getSelectedItem()).getDescripcion().equals("Combo-Kit")) {
             if (tabla.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "Agregue por lo menos un ARTICULO al COMBO");
+                JOptionPane.showMessageDialog(null, "Agregue por lo menos un ARTÍCULO al COMBO");
                 cbarras.requestFocus();
                 return false;
             }

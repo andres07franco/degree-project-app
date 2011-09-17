@@ -4,7 +4,6 @@ package ventanas;
 import beans.Articulo;
 import beans.ArticulosDocumento;
 import beans.Documento;
-import beans.Estado;
 import beans.Kardex;
 import beans.Tercero;
 import beans.TipoDescuento;
@@ -13,15 +12,11 @@ import beans.TipoPago;
 import interfaces.Buscadores;
 import java.awt.Frame;
 import javax.swing.*;
-import java.math.BigInteger;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 import db.Model;
 import interfaces.Constantes;
@@ -29,7 +24,6 @@ import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import utilidades.ModeloTabla;
-import utilidades.Validaciones;
 
 public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
 
@@ -93,8 +87,8 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
         boolean cedit[] = {false, false,false,false,false};
         mt = new ModeloTabla(cedit);
         /*Asignamos las columnas*/
-        mt.addColumn("Codigo");
-        mt.addColumn("Descripcion");
+        mt.addColumn("Código");
+        mt.addColumn("Descripción");
         mt.addColumn("Cantidad");
         mt.addColumn("Vlr Unit");
         mt.addColumn("Vlr Par");
@@ -488,7 +482,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
         if (validar()) {
             try {
                 guardar(Constantes.ESTADO_DOCUMENTO_GUARDADO);
-                JOptionPane.showMessageDialog(null,"Saldos Guardados Con Éxito");
+                JOptionPane.showMessageDialog(null,"Saldos guardados con éxito");
                 this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(Formulario_Saldos_Iniciales.class.getName()).log(Level.SEVERE, null, ex);
@@ -560,12 +554,9 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
                      k.setFecha(new Date());
                      k.setHora(new Date());
                      m.insertarRegistro("insertarKardex", k);
-
                 }
                  a = null;
             }
-            
-
     }
 
 
@@ -674,7 +665,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
         }else if(estado == interfaces.Constantes.EDITANDO_ITEMS){
                 this.buscara.setEnabled(false);;
                 this.articulo.setEnabled(false);
-                this.adicionar.setText("Acepetar");
+                this.adicionar.setText("Aceptar");
         }        
     }
 
@@ -693,16 +684,16 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
        BigDecimal cant = new BigDecimal( this.cantidad.getText().replaceAll(",", ""));
 
        if(this.a==null){
-           JOptionPane.showMessageDialog(this,"Selecione o escriba un articulo Valido","Inconveniente",JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(this,"Selecione o escriba un Artículo válido","Inconveniente",JOptionPane.ERROR_MESSAGE);
            articulo.requestFocus();
            return false;
        }else
        if(cant.compareTo(new BigDecimal(0))==0){
-           JOptionPane.showMessageDialog(this,"Digete una Cantidad mayor a 0","Inconveniente",JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(this,"Digite una Cantidad mayor a 0","Inconveniente",JOptionPane.ERROR_MESSAGE);
            cantidad.requestFocus();
            return false;
        }else if(vun.compareTo(new BigDecimal(0))==0){
-           JOptionPane.showMessageDialog(this,"Digete un Valor Unitario mayor a 0","Inconveniente",JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(this,"Digite un Valor Unitario mayor a 0","Inconveniente",JOptionPane.ERROR_MESSAGE);
            vunit.requestFocus();
            return false;
        }
@@ -745,7 +736,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
             
             
         } else {
-            JOptionPane.showMessageDialog(null, "No hay Articulo Seleccionado");
+            JOptionPane.showMessageDialog(null, "No hay Artículo seleccionado");
         }
 }//GEN-LAST:event_quitarActionPerformed
 
@@ -786,10 +777,8 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
                 this.cantidad.setText( tabla.getValueAt(tabla.rowAtPoint(me.getPoint()), 2).toString());
                 this.vunit.setText( tabla.getValueAt(tabla.rowAtPoint(me.getPoint()), 3).toString());
                 this.vparcial.setText( tabla.getValueAt(tabla.rowAtPoint(me.getPoint()), 4).toString());
-                setEstado(interfaces.Constantes.EDITANDO_ITEMS);
-                
+                setEstado(interfaces.Constantes.EDITANDO_ITEMS);   
             }
-
         }
     }
 
@@ -798,7 +787,7 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
         if (validar()) {
             try {                
                 guardar(Constantes.ESTADO_DOCUMENTO_INICIADO);
-                 JOptionPane.showMessageDialog(null,"Saldos Iniciados Con Éxito");
+                 JOptionPane.showMessageDialog(null,"Saldos iniciados con éxito");
                  this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(Formulario_Saldos_Iniciales.class.getName()).log(Level.SEVERE, null, ex);
@@ -929,4 +918,3 @@ public class Formulario_Saldos_Iniciales extends javax.swing.JDialog {
     private javax.swing.JTextField vunit;
     // End of variables declaration//GEN-END:variables
 }
-
