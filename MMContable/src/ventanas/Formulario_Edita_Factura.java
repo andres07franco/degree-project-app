@@ -98,7 +98,7 @@ public class Formulario_Edita_Factura extends javax.swing.JInternalFrame {
             pie2.requestFocus();
             return false;
         } else if (numero.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el NÚMERO actual por favor");
+            JOptionPane.showMessageDialog(null, "Digite el ultimo NÚMERO  por favor");
             numero.requestFocus();
             return false;
         }
@@ -217,7 +217,7 @@ public class Formulario_Edita_Factura extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setText("Actual número de factura");
+        jLabel2.setText("Ultimo número de factura");
 
         encabezado5.setText("Tel: 6510405");
         encabezado5.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -261,12 +261,12 @@ public class Formulario_Edita_Factura extends javax.swing.JInternalFrame {
                         .addComponent(guardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
+                .addContainerGap(57, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(encabezado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
