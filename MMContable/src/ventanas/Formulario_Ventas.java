@@ -1646,7 +1646,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                     k.setSalidas(BigDecimal.ZERO);
                     k.setExistencia(ad.getCantidad());
                     k.setVlrunitario(a.getVlrpromedio());
-                    k.setVlrtotal(a.getVlrpromedio().multiply(ad.getCantidad()));
+                    k.setVlrtotal(a.getSaldocosto());
                     k.setHora(new Date());
                     k.setFecha(new Date());
                     m.insertarRegistro("insertarKardex", k);
