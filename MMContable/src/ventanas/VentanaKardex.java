@@ -4,7 +4,6 @@ import beans.Articulo;
 import java.awt.Frame;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import utilidades.Calendario;
@@ -12,7 +11,6 @@ import utilidades.Calendario;
 public class VentanaKardex extends javax.swing.JDialog {
 
     /** Creates new form VentanaKardex */
-    Vector v;
     Articulo a;
     Frame parent;
 
@@ -298,7 +296,7 @@ public class VentanaKardex extends javax.swing.JDialog {
                 a = art;
                 articulo.setText(a.getDescripcioncomercial());
             } else {
-                JOptionPane.showMessageDialog(null, "Seleccione un Articulo");
+                JOptionPane.showMessageDialog(null, "Seleccione un Artículo");
             }
 }//GEN-LAST:event_buscaraActionPerformed
 

@@ -27,7 +27,7 @@ public class InicioSesion extends javax.swing.JFrame {
         
        
         initComponents();
-        setTitle("Iniciar Sesion");
+        setTitle("Iniciar Sesión");
         setSize(Toolkit.getDefaultToolkit().getScreenSize());
 
         //posicionando objetos

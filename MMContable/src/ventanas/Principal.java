@@ -1127,9 +1127,9 @@ public class Principal extends JFrame implements Buscadores {
         // TODO add your handling code here:
 
         arbol.setEnabled(true);
-        sel.setText("Configuracion");
+        sel.setText("Configuración");
         seleccionar(configuracion);
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Configuracion");
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Configuración");
 
         treeNode1.add(new DefaultMutableTreeNode("Datos de la Empresa"));
         treeNode1.add(new DefaultMutableTreeNode("Personalizar Factura"));
