@@ -96,7 +96,7 @@ public class FormularioEmpresa extends javax.swing.JPanel {
             txtemail.requestFocus();
             return false;
         }  else if (!Validaciones.esEmail(txtemail.getText())) {
-            JOptionPane.showMessageDialog(null, "Digite un E-MAIL valido porfavor");
+            JOptionPane.showMessageDialog(null, "Digite un E-MAIL válido por favor");
             txtemail.requestFocus();
             return false;
         }else if (txtpropietario.getText().trim().equals("")) {
@@ -104,11 +104,11 @@ public class FormularioEmpresa extends javax.swing.JPanel {
             txtpropietario.requestFocus();
             return false;
         } else if (txttelefono.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el TELEFONO de la EMPRESA", "Se ha producido un inconveniente", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ingrese el TELÉFONO de la EMPRESA", "Se ha producido un inconveniente", JOptionPane.ERROR_MESSAGE);
             txttelefono.requestFocus();
             return false;
         }else if (txttelefono.getText().length()<7) {
-            JOptionPane.showMessageDialog(null, "El TELEFONO de la EMPRESA debe tener almeos 7 digitos", "Se ha producido un inconveniente", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El TELÉFONO de la EMPRESA debe tener al menos 7 digitos", "Se ha producido un inconveniente", JOptionPane.ERROR_MESSAGE);
             txttelefono.requestFocus();
             return false;
         } else if (txtlicencia.getText().trim().equals("")) {

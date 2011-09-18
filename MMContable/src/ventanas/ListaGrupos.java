@@ -9,7 +9,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.table.DefaultTableModel;
 import utilidades.ModeloTabla;
 
 public class ListaGrupos extends JPanel implements Buscadores {
@@ -261,7 +260,7 @@ public class ListaGrupos extends JPanel implements Buscadores {
         if (tabla.getSelectedRow() > -1) {
             new FormularioGrupo(padre, true, this, listaGrupos.get(tabla.getSelectedRow()));
         } else {
-            JOptionPane.showMessageDialog(null, "Selecciones una Fila Primero");
+            JOptionPane.showMessageDialog(null, "Seleccione una Fila Primero");
         }
 }//GEN-LAST:event_editarActionPerformed
 

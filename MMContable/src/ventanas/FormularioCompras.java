@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -685,7 +684,7 @@ this.buscador = buscador;
     }// </editor-fold>//GEN-END:initComponents
 
     private void restaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarActionPerformed
-        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho esta seguro de REINICIAR?", "¿Reinicar?", JOptionPane.YES_NO_OPTION);
+        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho, está seguro de REINICIAR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
         if (JOptionPane.OK_OPTION == confirmado) {
             init();
         }
@@ -736,7 +735,7 @@ this.buscador = buscador;
 
                 if ((Integer) model.obtenerRegistro("existeDocumento", numero.getText()) == 0) {
                     if(guardar()){
-                    JOptionPane.showMessageDialog(null,  "Compra guardada con Éxito");
+                    JOptionPane.showMessageDialog(null,  "Compra guardada con éxito");
                         this.buscador.buscar();
                         this.dispose();
                     }else{
@@ -808,15 +807,15 @@ this.buscador = buscador;
             a = (Articulo) model.obtenerRegistro("obtenerArticuloPorCodigo", this.articulo.getText());
 
             if (a == null) {
-                JOptionPane.showMessageDialog(this, "Seleccione o escriba un Artículo Válido", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Seleccione o escriba un Artículo válido", "Inconveniente", JOptionPane.ERROR_MESSAGE);
                 articulo.requestFocus();
                 return false;
             } else if (cant.compareTo(new BigDecimal(0)) == 0) {
-                JOptionPane.showMessageDialog(this, "Digete una Cantidad mayor a 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Digite una Cantidad mayor a 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
                 cantidad.requestFocus();
                 return false;
             } else if (vun.compareTo(new BigDecimal(0)) == 0) {
-                JOptionPane.showMessageDialog(this, "Digete un Valor Unitario mayor a 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Digite un Valor Unitario mayor a 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
                 vunit.requestFocus();
                 return false;
             }
@@ -839,7 +838,7 @@ this.buscador = buscador;
             this.buscara.setEnabled(false);
             ;
             this.articulo.setEnabled(false);
-            this.adicionar.setText("Acpetar");
+            this.adicionar.setText("Aceptar");
         }
     }
 
@@ -898,7 +897,7 @@ this.buscador = buscador;
 }//GEN-LAST:event_agregarActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho esta seguro de SALIR?", "¿Reinicar?", JOptionPane.YES_NO_OPTION);
+        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho, está seguro de SALIR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
         if (JOptionPane.OK_OPTION == confirmado) {
             this.dispose();
         }
@@ -1178,7 +1177,7 @@ this.buscador = buscador;
             BigDecimal vparf = new BigDecimal(tabla.getValueAt(index, 4).toString().replaceAll(",", "")); /*calor parcial esta en la tabla*/
             Object option[] = {"Si", "No"};
             if (vunf.compareTo(vun) != 0 && estado == interfaces.Constantes.ADICIONANDO_ITEMS) {
-                int op = JOptionPane.showOptionDialog(this, "Digito un Valor Unitario nuevo, desea cambiarlor?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
+                int op = JOptionPane.showOptionDialog(this, "Digitó un Valor Unitario nuevo, desea cambiarlo?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
                 if (op != JOptionPane.YES_OPTION) {
                     vun = vunf;
                 }

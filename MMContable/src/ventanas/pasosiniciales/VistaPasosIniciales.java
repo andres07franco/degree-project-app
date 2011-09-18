@@ -14,8 +14,6 @@ import beans.Empresa;
 import beans.Usuario;
 import db.Model;
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import ventanas.InicioSesion;
 

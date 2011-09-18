@@ -226,7 +226,7 @@ public class ListaEgresosIngresos extends javax.swing.JPanel implements Buscador
                
                 new Formulario_Egresos_Ingresos(parent, true, this, l.get(tabla.getSelectedRow()));
             } else {
-                JOptionPane.showMessageDialog(null, "Selecciones una fila primero");
+                JOptionPane.showMessageDialog(null, "Seleccione una fila primero");
             }
         }
 }//GEN-LAST:event_tablaMouseClicked
@@ -243,7 +243,7 @@ public class ListaEgresosIngresos extends javax.swing.JPanel implements Buscador
 
             new Formulario_Egresos_Ingresos(parent, true, this,  l.get(tabla.getSelectedRow()));
         } else {
-            JOptionPane.showMessageDialog(null, "Selecciones una fila primero");
+            JOptionPane.showMessageDialog(null, "Seleccione una fila primero");
         }
 }//GEN-LAST:event_editarActionPerformed
 
@@ -280,7 +280,7 @@ public class ListaEgresosIngresos extends javax.swing.JPanel implements Buscador
 
             dtm = new ModeloTabla(cedit);
             dtm.addColumn("Fecha");
-            dtm.addColumn("Numero");            
+            dtm.addColumn("Número");
             dtm.addColumn("Tipo");
             dtm.addColumn("Tercero");
             dtm.addColumn("Total");
@@ -293,7 +293,7 @@ public class ListaEgresosIngresos extends javax.swing.JPanel implements Buscador
                     Object[] fila = new Object[5];
                     fila[0] =   formato.format(l.get(i).getFecha());
                     fila[1] = l.get(i).getNumero() + "";
-                    fila[2] = l.get(i).getTipo().getId() == Constantes.DOCUMENTO_COTIZACION?"Cotizacion":"Factura";
+                    fila[2] = l.get(i).getTipo().getId() == Constantes.DOCUMENTO_COTIZACION?"Cotización":"Factura";
                     fila[3] = l.get(i).getTercero().getNombre();
                     fila[4] = utilidades.FormatoNumeros.formatear(l.get(i).getTotal() + "");
                     dtm.addRow(fila);

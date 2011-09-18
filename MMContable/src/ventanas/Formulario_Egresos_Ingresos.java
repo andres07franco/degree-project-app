@@ -132,9 +132,8 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             }
             numero.setText(consecutivo + "");
         } else {
-            JOptionPane.showMessageDialog(null, "No se han configurado las propiedades de la Factura,  no podrá  vender. \nDiríjase al Modulo de configuración y a continuación haga click en Personalizar Factura");
+            JOptionPane.showMessageDialog(null, "No se han configurado las propiedades de la Factura,  no podrá  vender. \nDiríjase al Módulo de configuración y a continuación haga click en Personalizar Factura");
             this.dispose();
-            
         }
     }
 
@@ -465,16 +464,16 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
                             if(l.size()> 0)
                                   if (l.get(0).getTipo().getId() == Constantes.DOCUMENTO_FACTURA_VENTA){
                                          parametro.put("tipo", "INGRESO" );
-                                         parametro.put("tipotercero", "Recibi de:" );
+                                         parametro.put("tipotercero", "Recibí de:" );
                                 }
                     } catch (Exception ex) {
                         Logger.getLogger(Formulario_Egresos_Ingresos.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                  }else if (d.getTipo().getId() == Constantes.DOCUMENTO_INGRESO){
-                    parametro.put("tiporecibo", "INFRESO" );
+                    parametro.put("tiporecibo", "INGRESO" );
                     parametro.put("concepto", d.getNota());
-                    parametro.put("tipotercero", "Recibi de:" );
+                    parametro.put("tipotercero", "Recibí de:" );
                  } else if (d.getTipo().getId() == Constantes.DOCUMENTO_EGRESO){
                     parametro.put("tiporecibo", "EGRESO" );
                     parametro.put("concepto", d.getNota());
@@ -631,7 +630,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             tipoc.removeAllItems();
             tipoc.addItem("Abono a Factura");
             tipoc.addItem("Otros Egresos");
-            et.setText("Pagado a   ");
+            et.setText("Pagado a  ");
         }
             tercero.setText("");
             ntercero.setText("");

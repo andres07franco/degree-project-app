@@ -2,24 +2,20 @@ package ventanas;
 
 import interfaces.Buscadores;
 import java.awt.Frame;
-import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import db.Model;
 import beans.*;
 import interfaces.Constantes;
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 import utilidades.Calendario;
 import utilidades.FormatoNumeros;
 import utilidades.ModeloTabla;
@@ -66,8 +62,8 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         this.setResizable(false);
         boolean cedit[] = {false, false, false, false, false};
         mt = new ModeloTabla(cedit);
-        mt.addColumn("Codigo");
-        mt.addColumn("Descripcion");
+        mt.addColumn("Código");
+        mt.addColumn("Descripción");
         mt.addColumn("Cantidad");
         mt.addColumn("Vlr Unit");
         mt.addColumn("Vlr Par");
@@ -95,7 +91,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         subtotal.setText("0.00");
         descuento.setText("0.00");
         articulo.requestFocus();
-        articulo.setToolTipText("Ingrese CODIGO DE BARRAS o presione F1 para buscar el ARTICULO");
+        articulo.setToolTipText("Ingrese CÓDIGO DE BARRAS o presione F1 para buscar el ARTÍCULO");
         tercero.setToolTipText("Ingrese NIT/CC o presione F1 para buscar el CLIENTE");
 
         buscafecha.setEnabled(false);
@@ -160,7 +156,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 tercero.setText(t.getNombre());
                 ntercero.setText(t.getNombre());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "no se ha establecido un cliente por mostrador, no puede hacer esta transaccion");
+                JOptionPane.showMessageDialog(null, "No se ha establecido un cliente por mostrador, no puede hacer esta transacción");
                 guardar.setEnabled(false);
                 imprimir.setEnabled(false);
             }
@@ -190,7 +186,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             }
             numero.setText(consecutivo + "");
         } else {
-            JOptionPane.showMessageDialog(null, "no se ha Configuarado las propiedades de la factura,  no puede hacer esta transaccion");
+            JOptionPane.showMessageDialog(null, "No se ha Configurado las propiedades de la factura,  no puede hacer esta transacción");
             guardar.setEnabled(false);
         }
     }
@@ -807,7 +803,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
-        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho esta seguro de SALIR?", "¿Reinicar?", JOptionPane.YES_NO_OPTION);
+        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho, está seguro de SALIR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
         if (JOptionPane.OK_OPTION == confirmado) {
             this.dispose();
         }
@@ -820,7 +816,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             try {
                 if (validar()) {
                     if (guardar()) {
-                        JOptionPane.showMessageDialog(null, (this.tipod.getSelectedIndex() == 0 ? "FACTURA" : "COTIZACION") + " Guardada Con Exito");
+                        JOptionPane.showMessageDialog(null, (this.tipod.getSelectedIndex() == 0 ? "FACTURA" : "COTIZACIÓN") + " Guardada Con éxito");
                         b.buscar();
                         this.dispose();
                     }
@@ -862,7 +858,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             return false;
         } else if (this.tipod.getSelectedIndex() == 0) {
             if (!this.comprovarExitencia()) {
-                JOptionPane.showMessageDialog(null, "Los Artículos en rojo tienen una CANTIDAD  mayor a la EXISTENCIA, Inconveniente");
+                JOptionPane.showMessageDialog(null, "Los Artículos en rojo tienen una CANTIDAD mayor a la EXISTENCIA, Inconveniente");
                 return false;
             }
 
@@ -1151,7 +1147,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 this.descuento.setEditable(false);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No hay Articulo Seleccionado");
+            JOptionPane.showMessageDialog(null, "No hay Artículo Seleccionado");
         }
 }//GEN-LAST:event_quitarActionPerformed
 
@@ -1213,7 +1209,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             BigDecimal vparf = new BigDecimal(tabla.getValueAt(index, 4).toString().replaceAll(",", "")); /*calor parcial esta en la tabla*/
             Object option[] = {"Si", "No"};
             if (vunf.compareTo(vun) != 0 && estado == interfaces.Constantes.ADICIONANDO_ITEMS) {
-                int op = JOptionPane.showOptionDialog(this, "Digito un Valor Unitario nuevo, desea cambiarlor?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
+                int op = JOptionPane.showOptionDialog(this, "Digitó un Valor Unitario nuevo, desea cambiarlo?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
                 if (op != JOptionPane.YES_OPTION) {
                     vun = vunf;
                 }
@@ -1253,7 +1249,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             this.buscara.setEnabled(false);
             ;
             this.articulo.setEnabled(false);
-            this.adicionar.setText("Acpetar");
+            this.adicionar.setText("Aceptar");
         }
     }
 
@@ -1280,15 +1276,15 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             Logger.getLogger(Formulario_Ventas.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (this.a == null) {
-            JOptionPane.showMessageDialog(this, "Selecione o escriba un articulo Valido", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Selecione o escriba un artículo válido", "Inconveniente", JOptionPane.ERROR_MESSAGE);
             articulo.requestFocus();
             return false;
         } else if (cant.compareTo(new BigDecimal(0)) == 0) {
-            JOptionPane.showMessageDialog(this, "Digete una Cantidad mayor a 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Digite una Cantidad mayor a 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
             cantidad.requestFocus();
             return false;
         } else if (vun.compareTo(new BigDecimal(0)) == 0) {
-            JOptionPane.showMessageDialog(this, "Digete un Valor Unitario mayor a 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Digite un Valor Unitario mayor a 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
             vunit.requestFocus();
             return false;
         } else {
@@ -1298,12 +1294,12 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             }
 
             if (cant.compareTo(a.getExistencia()) == 1 && this.tipod.getSelectedIndex() == 0) { /*cantidad ingresada mayor qu ela existencia*/
-                JOptionPane.showMessageDialog(this, "La CANTIDAD (" + cant + ")  ingresada supera la EXISTENCIA (" + a.getExistencia() + ")de el ARTICULO ", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "La CANTIDAD (" + cant + ")  ingresada supera la EXISTENCIA (" + a.getExistencia() + ") de el ARTÍCULO ", "Inconveniente", JOptionPane.ERROR_MESSAGE);
                 cantidad.requestFocus();
                 return false;
             } else if (cant.compareTo(a.getExistencia()) == 0 && this.tipod.getSelectedIndex() == 0) {
 
-                int confirmado = JOptionPane.showConfirmDialog(this, "La CANTIDAD (" + cant + ") ingresada deja la EXISTENCIA (" + a.getExistencia() + ") del ARTICULO en 0, Desea continuar?", "¿Desea Continuar?", JOptionPane.YES_NO_OPTION);
+                int confirmado = JOptionPane.showConfirmDialog(this, "La CANTIDAD (" + cant + ") ingresada deja la EXISTENCIA (" + a.getExistencia() + ") del ARTÍCULO en 0, Desea continuar?", "¿Desea Continuar?", JOptionPane.YES_NO_OPTION);
 
                 if (JOptionPane.OK_OPTION == confirmado) {
                     return true;
@@ -1345,8 +1341,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 this.cantidad.requestFocus();
 
             } else {
-
-                JOptionPane.showMessageDialog(this, "El Articulo " + a.getDescripcioncomercial() + " tiene Existencias en 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El Artículo " + a.getDescripcioncomercial() + " tiene Existencias en 0", "Inconveniente", JOptionPane.ERROR_MESSAGE);
                 a = null;
             }
 
@@ -1401,7 +1396,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
     private void restaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarActionPerformed
         // TODO add your handling code here:
-        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho esta seguro de REINICIAR?", "¿Reinicar?", JOptionPane.YES_NO_OPTION);
+        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho, está seguro de REINICIAR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
         if (JOptionPane.OK_OPTION == confirmado) {
             init();
         }
@@ -1457,7 +1452,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
 
         if (desmin.compareTo(des) == -1) {
-            this.errordescuento.setText("No puede hacer un DESCUENTO menor " + (index == 1 ? "a $" : "al ") + utilidades.FormatoNumeros.formatear(desmin.toString()) + (index == 1 ? "" : "%"));
+            this.errordescuento.setText("No puede hacer un DESCUENTO mayor " + (index == 1 ? "a $" : "al ") + utilidades.FormatoNumeros.formatear(desmin.toString()) + (index == 1 ? "" : "%"));
         } else {
             tot = tot.subtract(des);
             this.errordescuento.setText("El DESCUENTO máximo es " + (index == 1 ? "$" : "") + utilidades.FormatoNumeros.formatear(desmin.toString()) + (index == 1 ? "" : "%"));
@@ -1606,7 +1601,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         }
 
         if(d.getFecha().getMonth() != new Date().getMonth() && d.getFecha().getYear()!= new Date().getYear()){
-            JOptionPane.showMessageDialog(null, "No se puede anular la factura pasado el mes de creación de esta", "No se puede Anular", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se puede anular la factura pasado el mes de creación", "No se puede Anular", JOptionPane.ERROR_MESSAGE);
             return;
         }
 

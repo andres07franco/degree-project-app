@@ -5,7 +5,6 @@ import db.Model;
 import interfaces.Constantes;
 import java.awt.Frame;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -74,7 +73,7 @@ public class Formulario_Cobrar_Ventas extends javax.swing.JDialog {
                     return false;
                 } else if (!this.vabonar.getText().trim().equals("")) {
                     if (Double.parseDouble(vabonar.getText().replaceAll(",", "")) >= d.getTotal().doubleValue()) {
-                        int confirmado = JOptionPane.showConfirmDialog(this, "La cantidad Abonada  cubre  el TOTAL de la Venta, Desea cambiar a DE CONTADO y pagar el valor digitado?", "¿Cambiar a DE CONTADO?", JOptionPane.YES_NO_OPTION);
+                        int confirmado = JOptionPane.showConfirmDialog(this, "La cantidad Abonada cubre el TOTAL de la Venta, Desea cambiar a DE CONTADO y pagar el valor digitado?", "¿Cambiar a DE CONTADO?", JOptionPane.YES_NO_OPTION);
                         if (JOptionPane.OK_OPTION == confirmado) {
                             tab.remove(0);
                             tab.add("De Contado", this.panelca);
@@ -100,7 +99,7 @@ public class Formulario_Cobrar_Ventas extends javax.swing.JDialog {
                 pagacon.requestFocus();
                 return false;
             } else if (Double.parseDouble(pagacon.getText().replaceAll(",", "")) < d.getTotal().doubleValue()) {
-               int confirmado = JOptionPane.showConfirmDialog(this,"La cantidad a pagar es menor que el TOTAL de la Venta, Desea cambiar a CREDITO y abonar el valor digitado?","¿Cambiar a CREDITO?",JOptionPane.YES_NO_OPTION);
+               int confirmado = JOptionPane.showConfirmDialog(this,"La cantidad a pagar es menor que el TOTAL de la Venta, Desea cambiar a CRÉDITO y abonar el valor digitado?","¿Cambiar a CRÉDITO?",JOptionPane.YES_NO_OPTION);
 
                 if (JOptionPane.OK_OPTION == confirmado){
                    tab.remove(0);
@@ -478,7 +477,7 @@ public class Formulario_Cobrar_Ventas extends javax.swing.JDialog {
     private void creditoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_creditoItemStateChanged
         // TODO add your handling code here:
         tab.remove(0);
-        tab.add("Credito", this.panelca);
+        tab.add("Crédito", this.panelca);
         this.vabonar.requestFocus();
         if(vabonar.getText().length()>0){
                     this.vabonar.setSelectionStart(0);
