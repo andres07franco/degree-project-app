@@ -221,11 +221,11 @@ else
      public void adicionarDocumento(){
         Documento doc = null;
         if(tipo.getSelectedIndex() == 0)
-            doc = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_VENTA).getDocumento());
+            doc = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_VENTA,false).getDocumento());
         else if(tipo.getSelectedIndex() == 1)
-            doc = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_COMPRA).getDocumento());
+            doc = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_FACTURA_COMPRA,false).getDocumento());
         else if(tipo.getSelectedIndex() == 2)
-            doc = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_COTIZACION).getDocumento());
+            doc = (new BuscarFactura(parent, true, Constantes.DOCUMENTO_COTIZACION,false).getDocumento());
         if (doc != null) {
             d = doc;
             numero.setText(d.getNumero());
