@@ -268,11 +268,11 @@ public class FormularioMarca extends javax.swing.JDialog {
 
     public boolean validar() {
         if (codigo.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el CÓDIGO porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el CÓDIGO por favor");
             codigo.requestFocus();
             return false;
         } else if (marca.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite la MARCA porfavor");
+            JOptionPane.showMessageDialog(null, "Digite la MARCA por favor");
             marca.requestFocus();
             return false;
         }

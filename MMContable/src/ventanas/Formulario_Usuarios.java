@@ -165,15 +165,15 @@ public class Formulario_Usuarios extends javax.swing.JDialog {
 
     public boolean validar() {
         if (usuario.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el Usuario porfavor");
+            JOptionPane.showMessageDialog(null, "Digite el Usuario por favor");
             usuario.requestFocus();
             return false;
         } else if (clave.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite la Contraseña porfavor");
+            JOptionPane.showMessageDialog(null, "Digite la Contraseña por favor");
             clave.requestFocus();
             return false;
         } else if (clave2.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite la Repetición de la Contraseña porfavor");
+            JOptionPane.showMessageDialog(null, "Digite la Repetición de la Contraseña por favor");
             clave2.requestFocus();
             return false;
         } else if (!clave.getText().equals(clave2.getText())) {
@@ -191,13 +191,10 @@ public class Formulario_Usuarios extends javax.swing.JDialog {
             clave.requestFocus();
             return false;
                         }
-
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
         }
-        
-
 
         return true;
     }
@@ -590,8 +587,7 @@ public class Formulario_Usuarios extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Datos guardados con exito");
         } catch (Exception ex) {
             Logger.getLogger(Formulario_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Hubo un error al guardar los datos, comuniquece con su proveedor para solucionarlo", "Error Grave", JOptionPane.ERROR_MESSAGE);
-
+            JOptionPane.showMessageDialog(null, "Hubo un error al guardar los datos, comuníquese con su proveedor para solucionarlo", "Error Grave", JOptionPane.ERROR_MESSAGE);
         }
 
     }

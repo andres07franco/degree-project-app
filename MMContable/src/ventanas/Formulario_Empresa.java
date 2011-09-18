@@ -102,11 +102,11 @@ public class Formulario_Empresa extends javax.swing.JInternalFrame {
             mail.requestFocus();
             return false;
         } else if (!Validaciones.esEmail(mail.getText())) {
-            JOptionPane.showMessageDialog(null, "Digite un E-MAIL valido por favor");
+            JOptionPane.showMessageDialog(null, "Digite un E-MAIL válido por favor");
             mail.requestFocus();
             return false;
         } else if (licencia.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite  la LICENCIA por favor");
+            JOptionPane.showMessageDialog(null, "Digite la LICENCIA por favor");
             licencia.requestFocus();
             return false;
         } else if (propietario.getText().trim().equals("")) {

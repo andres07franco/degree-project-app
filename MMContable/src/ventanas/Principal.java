@@ -678,13 +678,13 @@ public class Principal extends JFrame implements Buscadores {
             } else {
                 tab.setSelectedIndex(esta(sele));
             }
-        } else if (sele.equals("Usuarios del Sistemas")) {
+        } else if (sele.equals("Usuarios del Sistema")) {
             if (esta(sele) == -1) {
                 JDesktopPane dp = new JDesktopPane();
                 dp.setBackground(Color.WHITE);
                 ListaUsuarios lu = new ListaUsuarios(tab, dp, this);
                 dp.add(lu);
-                tab.addTab("Usuarios del Sistemas", lu);
+                tab.addTab("Usuarios del Sistema", lu);
                 tab.setSelectedComponent(lu);
             } else {
                 tab.setSelectedIndex(esta(sele));

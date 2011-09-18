@@ -53,7 +53,7 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
             Logger.getLogger(FormularioCobrarCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
         if(cajaDia==null){
-            JOptionPane.showMessageDialog(null, "No se ha inicado la Caja del Dia");
+            JOptionPane.showMessageDialog(null, "No se ha iniciado la Caja del Día");
              return false;
         }
 
@@ -70,7 +70,7 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
                     return false;
                 } else if (!this.vabonar.getText().trim().equals("")) {
                     if (Double.parseDouble(vabonar.getText().replaceAll(",", "")) >= documento.getTotal().doubleValue()) {
-                        int confirmado = JOptionPane.showConfirmDialog(this, "La cantidad Abonada es cubre  el TOTAL de la COMPRA, Desea cambiar a EFECTIVO y pagar el valor digitado?", "¿Cambiar a EFECTIVO?", JOptionPane.YES_NO_OPTION);
+                        int confirmado = JOptionPane.showConfirmDialog(this, "La cantidad Abonada cubre  el TOTAL de la COMPRA, Desea cambiar a EFECTIVO y pagar el valor digitado?", "¿Cambiar a EFECTIVO?", JOptionPane.YES_NO_OPTION);
                         if (JOptionPane.OK_OPTION == confirmado) {
                             this.efectivo.setSelected(true);
                             return true;
@@ -79,7 +79,7 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
                             return false;
                         }
                     } else if (Double.parseDouble(vabonar.getText().replaceAll(",", "")) > cajaDia.getSaldoactual().doubleValue()) {
-                        JOptionPane.showMessageDialog(this, "El saldo actual en caja ($" + FormatoNumeros.formatear(cajaDia.getSaldoactual() + "") + ") no cubre las cantidad que  desea abonar", "Inconveniente", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "El saldo actual en caja ($" + FormatoNumeros.formatear(cajaDia.getSaldoactual() + "") + ") no cubre la cantidad que desea abonar", "Inconveniente", JOptionPane.ERROR_MESSAGE);
                         vabonar.requestFocus();
                         return false;
                     }
@@ -88,7 +88,7 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
                 Logger.getLogger(FormularioCobrarCompra.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else if(documento.getTotal().doubleValue()>cajaDia.getSaldoactual().doubleValue() && !pagada.isSelected()){
-            JOptionPane.showMessageDialog(this,"El saldo actual en caja ($"+FormatoNumeros.formatear(cajaDia.getSaldoactual()+"")+") no cubre las cantidad que  desea Pagar","Inconveniente",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,"El saldo actual en caja ($"+FormatoNumeros.formatear(cajaDia.getSaldoactual()+"")+") no cubre la cantidad que desea Pagar","Inconveniente",JOptionPane.ERROR_MESSAGE);
                       
                        return false;
         }

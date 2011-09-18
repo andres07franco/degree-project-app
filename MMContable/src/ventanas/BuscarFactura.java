@@ -1,11 +1,9 @@
 package ventanas;
 
-import beans.Articulo;
 import beans.Documento;
 import db.Model;
 import interfaces.Constantes;
 import java.awt.Frame;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +17,6 @@ public class BuscarFactura extends javax.swing.JDialog {
     private ModeloTabla modeloTabla;
     private List<Documento> listaDocumento;
     private Model modelo;
-    private Documento documentoPadre;
     int tipoFactua = Constantes.DOCUMENTO_FACTURA_VENTA ;
     boolean estado = true;
 
@@ -56,7 +53,7 @@ public class BuscarFactura extends javax.swing.JDialog {
     public void buscar() {
         try {
             modeloTabla = new ModeloTabla(new boolean[]{false, false, false});
-            modeloTabla.addColumn("Numero");
+            modeloTabla.addColumn("Número");
             modeloTabla.addColumn("Fecha");
             modeloTabla.addColumn("Saldo");
 

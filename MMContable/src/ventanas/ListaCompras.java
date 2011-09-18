@@ -237,7 +237,7 @@ public class ListaCompras extends javax.swing.JPanel implements Buscadores {
 
             dtm = new ModeloTabla(cedit);
             dtm.addColumn("Fecha");
-            dtm.addColumn("Numero");
+            dtm.addColumn("Número");
             dtm.addColumn("Tipo");
             dtm.addColumn("Tercero");
             dtm.addColumn("Total");
@@ -252,7 +252,7 @@ public class ListaCompras extends javax.swing.JPanel implements Buscadores {
                     Object[] fila = new Object[5];
                     fila[0] =   formato.format(l.get(i).getFecha());
                     fila[1] = l.get(i).getNumero() + "";
-                    fila[2] = l.get(i).getTipo().getId() == Constantes.DOCUMENTO_COTIZACION?"Cotizacion":"Factura";
+                    fila[2] = l.get(i).getTipo().getId() == Constantes.DOCUMENTO_COTIZACION?"Cotización":"Factura";
                     fila[3] = l.get(i).getTercero().getNombre();
                     fila[4] = utilidades.FormatoNumeros.formatear(l.get(i).getTotal() + "");
                     dtm.addRow(fila);

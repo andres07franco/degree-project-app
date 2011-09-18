@@ -222,7 +222,7 @@ public class ListaMarcas extends javax.swing.JPanel implements Buscadores {
     public void buscar() {
         try {
             modeloTabla = new ModeloTabla(new boolean[]{false, false});
-            modeloTabla.addColumn("Codigo");
+            modeloTabla.addColumn("Código");
             modeloTabla.addColumn("Marca");
             modeloTabla.addColumn("Estado");
             listaMarcas = (List<Marca>) modelo.obtenerListado("obtenerMarcas", setObjeto(por.getSelectedItem().toString(), busqueda.getText()));
@@ -259,7 +259,7 @@ public class ListaMarcas extends javax.swing.JPanel implements Buscadores {
         if (tabla.getSelectedRow() > -1) {
             new FormularioMarca(padre, true, this, listaMarcas.get(tabla.getSelectedRow()));
         } else {
-            JOptionPane.showMessageDialog(null, "Selecciones una fila primero");
+            JOptionPane.showMessageDialog(null, "Seleccione una fila primero");
         }
 }//GEN-LAST:event_editarActionPerformed
 

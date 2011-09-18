@@ -107,11 +107,11 @@ public class FormularioTercero extends JDialog {
             telefono.requestFocus();
             return false;
         }else if (!Validaciones.esEmail(email.getText())) {
-            JOptionPane.showMessageDialog(null, "Digite un E-MAIL valido por favor");
+            JOptionPane.showMessageDialog(null, "Digite un E-MAIL válido por favor");
             email.requestFocus();
             return false;
         }else if(contacto.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite un CONTACTO valido por favor");
+            JOptionPane.showMessageDialog(null, "Digite un CONTACTO válido por favor");
             email.requestFocus();
             return false;
         }

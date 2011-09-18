@@ -90,7 +90,7 @@ public class Formulario_Edita_Factura extends javax.swing.JInternalFrame {
             encabezado5.requestFocus();
             return false;
         } else if (pie1.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el Pie de Pie de página 1 por favor");
+            JOptionPane.showMessageDialog(null, "Digite el Pie de página 1 por favor");
             pie1.requestFocus();
             return false;
         } else if (pie2.getText().trim().equals("")) {
@@ -98,7 +98,7 @@ public class Formulario_Edita_Factura extends javax.swing.JInternalFrame {
             pie2.requestFocus();
             return false;
         } else if (numero.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite el ultimo NÚMERO  por favor");
+            JOptionPane.showMessageDialog(null, "Digite el ultimo NÚMERO por favor");
             numero.requestFocus();
             return false;
         }

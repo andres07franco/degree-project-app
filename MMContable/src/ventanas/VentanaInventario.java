@@ -173,7 +173,7 @@ public class VentanaInventario extends javax.swing.JDialog {
                 a = art;
                 articulo.setText(a.getDescripcioncomercial());
             } else {
-                JOptionPane.showMessageDialog(null, "Seleccione un Articulo");
+                JOptionPane.showMessageDialog(null, "Seleccione un Artículo");
             }
 }//GEN-LAST:event_buscaraActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
