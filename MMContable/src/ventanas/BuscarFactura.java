@@ -6,6 +6,7 @@ import db.Model;
 import interfaces.Constantes;
 import java.awt.Frame;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +21,24 @@ public class BuscarFactura extends javax.swing.JDialog {
     private Model modelo;
     private Documento documentoPadre;
     int tipoFactua = Constantes.DOCUMENTO_FACTURA_VENTA ;
+    boolean estado = true;
+
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public BuscarFactura(Frame padre, boolean modal,int tipoFactua) {
         super(padre, modal);
         this.tipoFactua =  tipoFactua;
         this.modelo = Model.getInstance();
+        initComponents();
+        setTitle("Buscar Factura");
+        buscar();
+    }
+
+        @SuppressWarnings("OverridableMethodCallInConstructor")
+    public BuscarFactura(Frame padre, boolean modal,int tipoFactua, boolean estado) {
+        super(padre, modal);
+        this.tipoFactua =  tipoFactua;
+        this.modelo = Model.getInstance();
+        this.estado =  estado;
         initComponents();
         setTitle("Buscar Factura");
         buscar();
@@ -48,19 +62,20 @@ public class BuscarFactura extends javax.swing.JDialog {
 
             Map<String, Object> mapa = new HashMap<String, Object>();
             mapa.put("tipo", new Integer(this.tipoFactua));
-            mapa.put("estado", Constantes.ESTADO_DOCUMENTO_DEBE);
+            if(estado)
+                mapa.put("estado", Constantes.ESTADO_DOCUMENTO_DEBE);
             mapa.put("busqueda", "%" + busqueda.getText() + "%");
             try {
                 listaDocumento = (List<Documento>) modelo.obtenerListado("obtenerDocumentosCyV",mapa);
             } catch (Exception ex) {
                 Logger.getLogger(BuscarFactura.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             for (Documento doc: listaDocumento) {
                 Object[] fila = new Object[3];
                 
-                fila[0] = doc.getFecha();
-                fila[1] = doc.getNumero();
+                fila[0] = doc.getNumero();
+                fila[1] = formato.format(doc.getFecha());
                 fila[2] = utilidades.FormatoNumeros.formatear(doc.getTotal().subtract(doc.getTotalpagado()).toString());
                 modeloTabla.addRow(fila);
             }
