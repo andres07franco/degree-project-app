@@ -77,7 +77,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
  
          if (d.getTipo().getId() == Constantes.DOCUMENTO_ABONO_A_FACTURA ){
-
+            
             this.tipoc.setSelectedIndex(0);
             this.tipo.setSelectedIndex(1);
             
@@ -85,9 +85,11 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
                 
                  List<Documento> l = (List<Documento>) Model.getInstance().obtenerListado("obtenerUnDocumento",d.getDocumento().getId());
              
-                    if(l.size()> 0)
+                    if(l.size()> 0){
                           if (l.get(0).getTipo().getId() == Constantes.DOCUMENTO_FACTURA_VENTA)
                                  this.tipo.setSelectedIndex(0);
+                     concepto.setText(l.get(0).getNumero() + "");
+                }
             } catch (Exception ex) {
                 Logger.getLogger(Formulario_Egresos_Ingresos.class.getName()).log(Level.SEVERE, null, ex);
             }

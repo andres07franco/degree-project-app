@@ -7,8 +7,12 @@ package utilidades;
 
 import java.awt.Color;
 import java.awt.Component;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JViewport;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -24,7 +28,22 @@ import javax.swing.table.DefaultTableCellRenderer;
          this.toteados=toteados;
      }     
     
+    public static void setAnchoColumnas(JScrollPane scroll,JTable tbLista,int ... arg){
 
+       // JViewport scroll =  (JViewport) tbLista.getParent();
+        int ancho = 1000;//0 (int) scroll.getViewport().getSize().getWidth();
+
+        int anchoColumna;
+        TableColumnModel modeloColumna = tbLista.getColumnModel();
+        TableColumn columnaTabla;
+            System.out.println(ancho);
+        for (int i = 0; i < tbLista.getColumnCount(); i++) {
+            columnaTabla = modeloColumna.getColumn(i);
+            anchoColumna = (arg[i]*ancho)/100;
+            columnaTabla.setMaxWidth(anchoColumna);
+        }
+
+    }
      public boolean esta(int index){
        //  if(toteados!=null)
          for(int i=0;i<toteados.length;i++){
@@ -50,7 +69,10 @@ public Component getTableCellRendererComponent(JTable table, Object value, boole
     super.getTableCellRendererComponent(table, value, selected, focused, row, column);
 
     return this;
-} 
+}
+
+
+
 }
 
 

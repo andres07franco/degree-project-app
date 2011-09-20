@@ -157,12 +157,12 @@ WHERE
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{tercero_nombre}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="79" y="52" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.util.Date"><![CDATA[$F{documento_fecha}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="500" y="8" width="62" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.util.Date"><![CDATA[$F{documento_fechavencimiento}]]></textFieldExpression>

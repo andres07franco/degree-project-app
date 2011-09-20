@@ -362,8 +362,8 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
             if (validar()) {
 
                 if (!efectivo.isSelected() && !pagada.isSelected()) {
-                    documento.setFechavencimiento(formatoFecha.parse(fechavencimiento.getText().replaceAll("-", "/")));
-                }
+                    documento.setFechavencimiento(new java.util.Date(fechavencimiento.getText().replaceAll("-", "/")));
+                                    }
                 if (pagada.isSelected()) {
                     documento.setTipopago(new TipoPago(Constantes.TIPO_PAGO_PAGADO, null));
                     documento.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
@@ -372,6 +372,9 @@ public class FormularioCobrarCompra extends javax.swing.JDialog {
                     documento.setTotalpagado(new BigDecimal(vabonar.getText().replaceAll(",", "")));
                     documento.setTipopago(new TipoPago(Constantes.TIPO_PAGO_CREDITO, null));
                     documento.setEstado(Constantes.ESTADO_DOCUMENTO_DEBE);
+                    documento.setFechavencimiento(new java.util.Date(fechavencimiento.getText().replaceAll("-", "/")));
+
+
                 } else if (efectivo.isSelected()) {
 
                     documento.setTotalpagado(documento.getTotal());

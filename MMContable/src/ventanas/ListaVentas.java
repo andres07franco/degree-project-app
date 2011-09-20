@@ -304,6 +304,9 @@ public class ListaVentas extends javax.swing.JPanel implements Buscadores {
                 }
             }
             tabla.setModel(dtm);
+
+            utilidades.TablaRender.setAnchoColumnas(jScrollPane1,tabla,15,15,10,40,5,15);
+
         } catch (Exception ex) {
             Logger.getLogger(ListaVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
