@@ -542,14 +542,16 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
                        cajaDia.setOtrosingresos(cajaDia.getOtrosingresos().add(doc.getTotal()));
                 }                    
                 else{
-                    cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(doc.getTotal()));
+                    cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(doc.getTotal()));
                     if(tipoc.getSelectedIndex() == 0){
                         //abono a compras por pagar
                         cajaDia.setPagoaproveedor(cajaDia.getPagoaproveedor().add(doc.getTotal()));
                          cajaDia.setAbonocompras(cajaDia.getAbonocompras().add(doc.getTotal()));
                         
-                    } else
+                    } else{
                         cajaDia.setGastosvarios(cajaDia.getGastosvarios().add(doc.getTotal()));
+                        
+                         }
                 }
                     
               

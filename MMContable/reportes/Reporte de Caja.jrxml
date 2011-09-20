@@ -74,7 +74,7 @@ AND  caja.`fechaabre` <= $P{fecha2}]]>
 				</textElement>
 				<text><![CDATA[Fecha Inicial:]]></text>
 			</staticText>
-			<textField pattern="EEEEE dd MMMMM yyyy">
+			<textField pattern="dd/MM/yy">
 				<reportElement x="95" y="12" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{fecha}]]></textFieldExpression>
@@ -86,7 +86,7 @@ AND  caja.`fechaabre` <= $P{fecha2}]]>
 				</textElement>
 				<text><![CDATA[Fecha Final:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="dd/MM/yy">
 				<reportElement x="333" y="12" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{fecha2}]]></textFieldExpression>
