@@ -126,8 +126,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 this.quitar.setEnabled(false);
                 this.tercero.setEditable(false);
                 this.nota.setEditable(false);
-                this.tipodescuento.setSelectedIndex(1);
-                this.tipodescuento.setEnabled(false);
+
             }
             llenar();
         }
@@ -230,7 +229,6 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         descuento = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        tipodescuento = new javax.swing.JComboBox();
         errordescuento = new javax.swing.JLabel();
         estadofactura = new javax.swing.JLabel();
         panelabonos = new javax.swing.JPanel();
@@ -417,13 +415,6 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
         jLabel14.setText("Descuento");
 
-        tipodescuento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "%", "$" }));
-        tipodescuento.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                tipodescuentoItemStateChanged(evt);
-            }
-        });
-
         errordescuento.setForeground(java.awt.Color.red);
         errordescuento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
@@ -485,9 +476,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                                 .addComponent(jLabel13))
                             .addGroup(panelLayout.createSequentialGroup()
                                 .addComponent(errordescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tipodescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(44, 44, 44)
                                 .addComponent(jLabel14)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -535,7 +524,6 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(descuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
-                    .addComponent(tipodescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(errordescuento))
                 .addContainerGap())
         );
@@ -777,7 +765,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                     .addComponent(salir)
                     .addComponent(imprimir)
                     .addComponent(anular, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -803,7 +791,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
-        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho, está seguro de SALIR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
+        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrará todo lo que ha hecho, está seguro de SALIR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
         if (JOptionPane.OK_OPTION == confirmado) {
             this.dispose();
         }
@@ -1038,7 +1026,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             descuento.setText(FormatoNumeros.formatear(d.getDescuento() + ""));
             total.setText(FormatoNumeros.formatear(d.getTotal() + ""));
             subtotal.setText(FormatoNumeros.formatear(d.getSubtotal() + ""));
-            this.tipodescuento.setSelectedIndex(1);
+
             nota.setText(d.getNota());
 
             if (d.getTipo().getId() == Constantes.DOCUMENTO_FACTURA_VENTA) {
@@ -1396,7 +1384,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
     private void restaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarActionPerformed
         // TODO add your handling code here:
-        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho, está seguro de REINICIAR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
+        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrará todo lo que ha hecho, está seguro de REINICIAR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
         if (JOptionPane.OK_OPTION == confirmado) {
             init();
         }
@@ -1433,7 +1421,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
     public void calcularDescuento() {
         /*obtenemos que tipodescuanto hace, porcetaje o valor*/
-        int index = this.tipodescuento.getSelectedIndex();
+        int index = 1;
         BigDecimal des = BigDecimal.ZERO;
         if (!this.descuento.getText().trim().equals("")) { /*validamos que halla clocad algo*/
             des = new BigDecimal(this.descuento.getText().replaceAll(",", ""));
@@ -1461,11 +1449,6 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
 
     }
-
-    private void tipodescuentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipodescuentoItemStateChanged
-        // TODO add your handling code here:
-        calcularDescuento();
-    }//GEN-LAST:event_tipodescuentoItemStateChanged
 
     private void tipodInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tipodInputMethodTextChanged
         // TODO add your handling code here:
@@ -1725,7 +1708,6 @@ public class Formulario_Ventas extends javax.swing.JDialog {
     private javax.swing.JTable tablaabonos;
     private javax.swing.JTextField tercero;
     private javax.swing.JComboBox tipod;
-    private javax.swing.JComboBox tipodescuento;
     private javax.swing.JLabel total;
     private javax.swing.JLabel totalpagado;
     private javax.swing.JTextField vparcial;

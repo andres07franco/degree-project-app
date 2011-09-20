@@ -247,14 +247,14 @@ public class VentanaKardex extends javax.swing.JDialog {
                             this.dispose();
                             new utilidades.Reporte().runReporte("reportes/Kardex.jasper", parametro);
                         }else {
-                        JOptionPane.showMessageDialog(null, "La Fecha Inicial debe ser mayor que la Fecha Final");
+                        JOptionPane.showMessageDialog(null, "La Fecha Inicial debe ser menor que la Fecha Final");
                     }
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "Seleccione una Fecha 2");
+                        JOptionPane.showMessageDialog(null, "Seleccione una Fecha Final");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Seleccione una Fecha 1");
+                    JOptionPane.showMessageDialog(null, "Seleccione una Fecha Inicial");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Seleccione un Artículo");

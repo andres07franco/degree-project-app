@@ -945,10 +945,11 @@ public class FormularioArticulo extends javax.swing.JDialog implements Buscadore
     @SuppressWarnings("CallToThreadDumpStack")
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         try {
-            int existeArticulo = (Integer) modelo.obtenerRegistro("existeArticulo", descripcionComercial.getText());
-            int existeCodigo = (Integer) modelo.obtenerRegistro("existeArticuloPorCodigo", Long.parseLong(codigoBarras.getText()));
-
+           
             if (validar()) {
+                 int existeArticulo = (Integer) modelo.obtenerRegistro("existeArticulo", descripcionComercial.getText());
+                 int existeCodigo = (Integer) modelo.obtenerRegistro("existeArticuloPorCodigo", Long.parseLong(codigoBarras.getText()));
+
                 if (new BigDecimal(porcentajeMinimo.getText().replaceAll(",", "")).compareTo(new BigDecimal(porcentajeSugerido.getText().replaceAll(",", ""))) <= 0) {
                     if (funcion == Constantes.ESTADO_EDICION) {
                         if (articuloSeleccionado.getCodigobarras().equals(codigoBarras.getText())) {

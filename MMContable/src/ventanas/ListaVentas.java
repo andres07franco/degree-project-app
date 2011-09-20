@@ -298,7 +298,12 @@ public class ListaVentas extends javax.swing.JPanel implements Buscadores {
                     fila[1] = l.get(i).getNumero() + "";
                     fila[2] = l.get(i).getTipo().getId() == Constantes.DOCUMENTO_COTIZACION?"Cotización":"Factura";
                     fila[3] = l.get(i).getTercero().getNombre();
-                    fila[4] = l.get(i).getEstado();
+                    if(l.get(i).getEstado().equals("P") )
+                        fila[4] = "Pagada";
+                    if(l.get(i).getEstado().equals("D") )
+                        fila[4] = "Debe";
+                    if(l.get(i).getEstado().equals("A") )
+                        fila[4] = "Anulada";
                     fila[5] = utilidades.FormatoNumeros.formatear(l.get(i).getTotal() + "");
                     dtm.addRow(fila);
                 }
@@ -311,6 +316,8 @@ public class ListaVentas extends javax.swing.JPanel implements Buscadores {
             Logger.getLogger(ListaVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField busqueda;
     private javax.swing.JButton editar;

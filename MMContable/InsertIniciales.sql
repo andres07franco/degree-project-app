@@ -29,7 +29,7 @@ INSERT INTO `tipo_usuario` VALUES (1,'Administrador');
         INSERT INTO `departamento` VALUES (5,'Antioquia',57);
         INSERT INTO `departamento` VALUES (8,'Atlantico',57);
         INSERT INTO `departamento` VALUES (11,'DISTRITO CAPITAL Bogota D. C.',57);
-        INSERT INTO `departamento` VALUES (13,'Bolivar',57);
+        INSERT INTO `departamento` VALUES (13,'Bolívar',57);
         INSERT INTO `departamento` VALUES (15,'Boyaca',57);
         INSERT INTO `departamento` VALUES (17,'Caldas',57);
         INSERT INTO `departamento` VALUES (18,'Caqueta',57);

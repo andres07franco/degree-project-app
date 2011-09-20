@@ -1133,7 +1133,7 @@ public class Principal extends JFrame implements Buscadores {
 
         treeNode1.add(new DefaultMutableTreeNode("Datos de la Empresa"));
         treeNode1.add(new DefaultMutableTreeNode("Personalizar Factura"));
-        treeNode1.add(new DefaultMutableTreeNode("Usuarios del Sistemas"));
+        treeNode1.add(new DefaultMutableTreeNode("Usuarios del Sistema"));
         treeNode1.add(new DefaultMutableTreeNode("Saldos Iniciales"));
 
         arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
