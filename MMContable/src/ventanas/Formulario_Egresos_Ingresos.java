@@ -76,7 +76,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
         funcion = interfaces.Constantes.ESTADO_EDICION;
 
- 
+        concepto.setText(d.getNota() + "");
          if (d.getTipo().getId() == Constantes.DOCUMENTO_ABONO_A_FACTURA ){
             
             this.tipoc.setSelectedIndex(0);
@@ -498,22 +498,30 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
             Documento doc = new Documento();
             doc.setNumero(numero.getText());
             doc.setNota(concepto.getText());
-
+                fe = (FacturaEmpresa) m.obtenerRegistro("obtenerFacturaEmpresaActual");
             /*SELECCIONAMOS EL SITIO*/
             if (tipoc.getSelectedIndex() == 0) {
-                fe.setIngresos(fe.getIngresos() + 1);
-                 m.insertarRegistro("actualizarFacturaEmpresa", fe);
+              // 
+                 
                 doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_ABONO_A_FACTURA));
-                doc.setDocumento(d);
-            } else if (tipoc.getSelectedIndex() == 1) {
-                fe.setEgresos(fe.getEgresos() + 1);
-                 m.insertarRegistro("actualizarFacturaEmpresa", fe);
-                 if (tipo.getSelectedIndex() == 1)
-                        doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_INGRESO));
-                 else
-                   doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_EGRESO));
-            }
 
+                doc.setDocumento(d);
+                if(doc.getTipo().getId()==Constantes.DOCUMENTO_FACTURA_VENTA)
+                     fe.setIngresos(fe.getIngresos() + 1);
+                else
+                     fe.setEgresos(fe.getEgresos() + 1);
+            } else if (tipoc.getSelectedIndex() == 1) {
+       
+                 
+                 if (tipo.getSelectedIndex() == 0){
+                        doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_INGRESO));
+                          fe.setIngresos(fe.getIngresos() + 1);
+                } else{
+                   doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_EGRESO));
+                   fe.setEgresos(fe.getEgresos() + 1);
+                 }
+            }
+            m.insertarRegistro("actualizarFacturaEmpresa", fe);
             doc.setTotal(new BigDecimal(valor.getText()));
             doc.setTotalpagado(new BigDecimal(valor.getText()));
             doc.setFecha(new Date());
