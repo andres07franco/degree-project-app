@@ -684,7 +684,7 @@ this.buscador = buscador;
     }// </editor-fold>//GEN-END:initComponents
 
     private void restaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarActionPerformed
-        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho, está seguro de REINICIAR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
+        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrará todo lo que ha hecho, está seguro de REINICIAR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
         if (JOptionPane.OK_OPTION == confirmado) {
             init();
         }
@@ -897,7 +897,7 @@ this.buscador = buscador;
 }//GEN-LAST:event_agregarActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrara todo lo que ha hecho, está seguro de SALIR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
+        int confirmado = JOptionPane.showConfirmDialog(this, "Se borrará todo lo que ha hecho, está seguro de SALIR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
         if (JOptionPane.OK_OPTION == confirmado) {
             this.dispose();
         }
@@ -982,7 +982,7 @@ this.buscador = buscador;
             documento.setNumero(numero.getText());
             documento.setFecha(new Date(fecha.getText().replaceAll("-", "/")));
             documento.setTotal(new BigDecimal(total.getText().replaceAll(",", "")));
-            documento.setSubtotal(new BigDecimal(total.getText().replaceAll(",", "")).subtract(new BigDecimal(descuento.getText().replaceAll(",", ""))));
+            documento.setSubtotal(new BigDecimal(total.getText().replaceAll(",", "")).add(new BigDecimal(descuento.getText().replaceAll(",", ""))));
             documento.setNota(nota.getText());
             documento.setTipo(new TipoDocumento(Constantes.DOCUMENTO_FACTURA_COMPRA, null));
             documento.setTercero(t);
@@ -1117,15 +1117,15 @@ this.buscador = buscador;
             }
 
             total.setText(utilidades.FormatoNumeros.formatear(documento.getTotal() + ""));
-
+            subtotal.setText(utilidades.FormatoNumeros.formatear(documento.getSubtotal() + ""));
             guardar.setEnabled(false);
             restaurar.setEnabled(false);
-
+            
             if (listaArticulos != null) {
                 for (int i = 0; i < listaArticulos.size(); i++) {
                     Articulo articulo1 = listaArticulos.get(i).getArticulo();
                     int cantidades = listaArticulos.get(i).getCantidad().intValue();
-                    modeloTabla.addRow(new Object[]{listaArticulos.get(i), articulo1.getDescripcioncomercial(), utilidades.FormatoNumeros.formatearCantidades(cantidades + ""), utilidades.FormatoNumeros.formatear(listaArticulos.get(i).getVlrunitario() + ""), utilidades.FormatoNumeros.formatear(listaArticulos.get(i).getVlrparcial() + "")});
+                    modeloTabla.addRow(new Object[]{articulo1, articulo1.getDescripcioncomercial(), utilidades.FormatoNumeros.formatearCantidades(cantidades + ""), utilidades.FormatoNumeros.formatear(listaArticulos.get(i).getVlrunitario() + ""), utilidades.FormatoNumeros.formatear(listaArticulos.get(i).getVlrparcial() + "")});
                 }
             }
 
@@ -1140,13 +1140,15 @@ this.buscador = buscador;
                     agregar.setEnabled(false);
                 }
 
-                // TODO aqui va lo de los abonos.
-//                if (documento.getAbonosList() != null) {
-//                    for (int i = 0; i < documento.getAbonosList().size(); i++) {
-//                        Abonos abo = documento.getAbonosList().get(i);
-//                        modeloTablaAbonos.addRow(new Object[]{abo.getFecha(), utilidades.FormatoNumeros.formatear(abo + "")});
-//                    }
-//                }
+                List<Documento> labonos = (List<Documento>) model.obtenerListado("obtenerAbonos", documento.getId());
+
+                if (labonos != null) {
+                    for (int i = 0; i < labonos.size(); i++) {
+                        Documento abo = labonos.get(i);
+                        modeloTablaAbonos.addRow(new Object[]{abo.getFecha(), utilidades.FormatoNumeros.formatear(abo.getTotal() + "")});
+                    }
+                }
+
                 tab.add("Abonos", panelabonos);
                 tablaabonos.setModel(modeloTablaAbonos);
             }

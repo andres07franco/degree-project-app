@@ -127,8 +127,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                 this.quitar.setEnabled(false);
                 this.tercero.setEditable(false);
                 this.nota.setEditable(false);
-                this.tipodescuento.setSelectedIndex(1);
-                this.tipodescuento.setEnabled(false);
+               
             }
             llenar();
         }
@@ -232,7 +231,6 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
         descuento = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        tipodescuento = new javax.swing.JComboBox();
         errordescuento = new javax.swing.JLabel();
         estadofactura = new javax.swing.JLabel();
         panelabonos = new javax.swing.JPanel();
@@ -418,13 +416,6 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
 
         jLabel14.setText("Descuento");
 
-        tipodescuento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "%", "$" }));
-        tipodescuento.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                tipodescuentoItemStateChanged(evt);
-            }
-        });
-
         errordescuento.setForeground(java.awt.Color.red);
         errordescuento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
@@ -486,9 +477,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                                 .addComponent(jLabel13))
                             .addGroup(panelLayout.createSequentialGroup()
                                 .addComponent(errordescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tipodescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(44, 44, 44)
                                 .addComponent(jLabel14)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -536,7 +525,6 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(descuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
-                    .addComponent(tipodescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(errordescuento))
                 .addContainerGap())
         );
@@ -607,7 +595,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
         tab.addTab("Abonos", panelabonos);
 
         guardar.setBackground(new java.awt.Color(0, 153, 255));
-        guardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        guardar.setFont(new java.awt.Font("Tahoma", 1, 11));
         guardar.setForeground(new java.awt.Color(0, 51, 153));
         guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
         guardar.setText("Vender");
@@ -763,7 +751,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                     .addComponent(restaurar)
                     .addComponent(salir)
                     .addComponent(imprimir))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -789,7 +777,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
-         int confirmado = JOptionPane.showConfirmDialog(this,"¿Se borrara todo lo que ha hecho, está seguro de salir?","¿Salir?",JOptionPane.YES_NO_OPTION);
+         int confirmado = JOptionPane.showConfirmDialog(this,"¿Se borrará todo lo que ha hecho, está seguro de salir?","¿Salir?",JOptionPane.YES_NO_OPTION);
          if (JOptionPane.OK_OPTION == confirmado){
                 this.dispose();
                  pestana.remove(desktopPane);
@@ -1031,7 +1019,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             descuento.setText(FormatoNumeros.formatear(d.getDescuento() + ""));
             total.setText(FormatoNumeros.formatear(d.getTotal() + ""));
             subtotal.setText(FormatoNumeros.formatear(d.getSubtotal() + ""));
-            this.tipodescuento.setSelectedIndex(1);
+            
             nota.setText(d.getNota());
             
              if ( d.getTipo().getId() == Constantes.DOCUMENTO_FACTURA_VENTA) {
@@ -1376,7 +1364,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
 
     private void restaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurarActionPerformed
         // TODO add your handling code here:
-         int confirmado = JOptionPane.showConfirmDialog(this,"Se borrara todo lo que ha hecho, esta seguro de REINICIAR?","¿Reiniciar?",JOptionPane.YES_NO_OPTION);
+         int confirmado = JOptionPane.showConfirmDialog(this,"Se borrará todo lo que ha hecho, esta seguro de REINICIAR?","¿Reiniciar?",JOptionPane.YES_NO_OPTION);
          if (JOptionPane.OK_OPTION == confirmado){
              d = null;
                 init();
@@ -1417,7 +1405,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
     public void calcularDescuento()
     {
         /*obtenemos que tipodescuanto hace, porcetaje o valor*/
-        int index = this.tipodescuento.getSelectedIndex();
+        int index = 1;
         BigDecimal des = BigDecimal.ZERO;
         if(!this.descuento.getText().trim().equals("")){ /*validamos que halla clocad algo*/
              des = new BigDecimal(this.descuento.getText().replaceAll(",", ""));
@@ -1444,11 +1432,6 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
         
 
     }
-
-    private void tipodescuentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipodescuentoItemStateChanged
-        // TODO add your handling code here:
-        calcularDescuento();
-    }//GEN-LAST:event_tipodescuentoItemStateChanged
 
     private void tipodInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tipodInputMethodTextChanged
         // TODO add your handling code here:
@@ -1613,7 +1596,6 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
     private javax.swing.JTable tablaabonos;
     private javax.swing.JTextField tercero;
     private javax.swing.JComboBox tipod;
-    private javax.swing.JComboBox tipodescuento;
     private javax.swing.JLabel total;
     private javax.swing.JLabel totalpagado;
     private javax.swing.JTextField vparcial;
