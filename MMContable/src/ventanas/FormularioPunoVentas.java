@@ -982,10 +982,10 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                  cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotal()));
                  cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotal()));
              }else{
-                BigDecimal ccto = d.getTotal().subtract(d.getTotalpagado());
-                cajaDia.setVentascredito(cajaDia.getVentascredito().add(ccto));
+             //   BigDecimal ccto = d.getTotal().subtract(d.getTotalpagado());
+                cajaDia.setVentascredito(cajaDia.getVentascredito().add(d.getTotal()));
                 cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotalpagado()));
-                cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotalpagado()));
+             //   cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotalpagado()));
                 if(d.getTotalpagado().doubleValue()>0)
                     cajaDia.setAbonoventas(cajaDia.getAbonoventas().add(d.getTotalpagado()));
              }

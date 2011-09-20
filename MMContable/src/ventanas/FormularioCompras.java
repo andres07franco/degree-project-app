@@ -1039,10 +1039,10 @@ this.buscador = buscador;
                     cajaDia.setComprasefectivo(cajaDia.getVentasefectivo().add(documento.getTotal()));
 
                 } else if (documento.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO) {
-                    BigDecimal ccto = documento.getTotal().subtract(documento.getTotalpagado());
-                    cajaDia.setComprascredito(cajaDia.getComprascredito().add(ccto));
+                  //  BigDecimal ccto = documento.getTotal().subtract(documento.getTotalpagado());
+                    cajaDia.setComprascredito(cajaDia.getComprascredito().add(documento.getTotal()));
                     cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(documento.getTotalpagado()));
-                    cajaDia.setComprasefectivo(cajaDia.getVentasefectivo().add(documento.getTotalpagado()));
+                  //  cajaDia.setComprasefectivo(cajaDia.getVentasefectivo().add(documento.getTotalpagado()));
                     if(documento.getTotalpagado().doubleValue()>0)
                         cajaDia.setAbonocompras(cajaDia.getAbonocompras().add(documento.getTotalpagado()));
                 }
