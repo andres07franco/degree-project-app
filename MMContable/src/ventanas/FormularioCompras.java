@@ -7,6 +7,7 @@ import beans.Documento;
 import beans.Kardex;
 import beans.Tercero;
 import beans.TipoDocumento;
+import beans.TipoPago;
 import db.Model;
 import interfaces.Buscadores;
 import interfaces.Constantes;
@@ -1032,7 +1033,27 @@ this.buscador = buscador;
                     model.insertarRegistro("insertarKardex", kardex);
 
                 }
+         /*Creao abono si lo hizo*/
+            if(documento.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO){
+                if(documento.getTotalpagado().compareTo(BigDecimal.ONE)==1){
+                    Documento abono = new Documento();
+                    abono.setNumero(documento.getNumero());
+                    abono.setTercero(documento.getTercero());
+                    abono.setTipo((TipoDocumento) model.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_ABONO_A_FACTURA));
+                    abono.setTipopago((TipoPago) Model.getInstance().obtenerRegistro("obtenerTipoPago", Constantes.TIPO_PAGO_DEBITO));
+                    abono.setFecha(documento.getFecha());
+                    abono.setFechavencimiento(new Date());
+                    abono.setTotalpagado(documento.getTotalpagado());
+                    abono.setSubtotal(documento.getTotalpagado());
+                    abono.setTotal(documento.getTotalpagado());
+                    abono.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
+                    abono.setDescuento(BigDecimal.ZERO);
+                    abono.setNota("Abono a Factura " + documento.getNumero() );
+                    abono.setDocumento(documento);
 
+
+                }
+            }
                 Caja cajaDia = (Caja) model.obtenerRegistro("obtenerCajaDia");
                 if (documento.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO) {
                     cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(documento.getTotal()));

@@ -293,7 +293,20 @@ public class ListaEgresosIngresos extends javax.swing.JPanel implements Buscador
                     Object[] fila = new Object[5];
                     fila[0] =   formato.format(l.get(i).getFecha());
                     fila[1] = l.get(i).getNumero() + "";
-                    fila[2] = l.get(i).getTipo().getId() == Constantes.DOCUMENTO_COTIZACION?"Cotización":"Factura";
+                    if( l.get(i).getTipo().getId() == Constantes.DOCUMENTO_ABONO_A_FACTURA){
+                        List<Documento> ldoc = (List<Documento>) Model.getInstance().obtenerListado("obtenerUnDocumento",l.get(i).getDocumento().getId());
+                        Documento doc = ldoc.get(0);
+                        if(doc!=null){
+                            if(doc.getTipo().getId() == Constantes.DOCUMENTO_FACTURA_COMPRA)
+                                 fila[2] = "Abono a Factura de Compra " + doc.getNumero();
+                            else
+                                fila[2] = "Abono a Factura de Venta " + doc.getNumero();
+                           }
+                    }
+                    if(l.get(i).getTipo().getId() == Constantes.DOCUMENTO_EGRESO) 
+                        fila[2] = "Egreso ";
+                    if(l.get(i).getTipo().getId() == Constantes.DOCUMENTO_INGRESO)
+                        fila[2] = "Ingreso";
                     fila[3] = l.get(i).getTercero().getNombre();
                     fila[4] = utilidades.FormatoNumeros.formatear(l.get(i).getTotal() + "");
                     dtm.addRow(fila);
