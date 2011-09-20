@@ -30,6 +30,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
     int funcion = 0;
     Documento d,doc;
     Tercero t;
+    FacturaEmpresa fe = null;
 
     public Formulario_Egresos_Ingresos(java.awt.Frame parent, boolean modal, Buscadores bu) {
 
@@ -119,7 +120,7 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
     }
 
     public void obtentenerConsecutivo(){
-                FacturaEmpresa fe = null;
+                
         try {
             fe = (FacturaEmpresa) m.obtenerRegistro("obtenerFacturaEmpresaActual");
         } catch (Exception ex) {
@@ -500,9 +501,13 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
 
             /*SELECCIONAMOS EL SITIO*/
             if (tipoc.getSelectedIndex() == 0) {
+                fe.setIngresos(fe.getIngresos() + 1);
+                 m.insertarRegistro("actualizarFacturaEmpresa", fe);
                 doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_ABONO_A_FACTURA));
                 doc.setDocumento(d);
             } else if (tipoc.getSelectedIndex() == 1) {
+                fe.setEgresos(fe.getEgresos() + 1);
+                 m.insertarRegistro("actualizarFacturaEmpresa", fe);
                  if (tipo.getSelectedIndex() == 1)
                         doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_INGRESO));
                  else
@@ -526,9 +531,9 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
                     if(d.getTotalpagado().compareTo(d.getTotal())==0)
                         d.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
                     m.actualizarRegistro("actualizarDocumento", d);
-                    m.insertarRegistro("insertarDocumento", doc);                 
+                                  
                 }
-
+                m.insertarRegistro("insertarDocumento", doc);
                 /*Actualizamos caja*/
                 Caja cajaDia = (Caja) m.obtenerRegistro("obtenerCajaDia");
                 if(tipo.getSelectedIndex()==0){
