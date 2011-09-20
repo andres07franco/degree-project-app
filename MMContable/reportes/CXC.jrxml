@@ -25,7 +25,7 @@ WHERE
      ( documento.`estado` = 'D')
 AND   documento.`tipo` = 3
 
-order by documento.`fecha` ASC ]]>
+order by documento.`fecha` ASC]]>
 	</queryString>
 	<field name="saldo" class="java.math.BigDecimal"/>
 	<field name="documento_id" class="java.lang.Integer"/>
@@ -154,7 +154,7 @@ order by documento.`fecha` ASC ]]>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{saldo}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="218" y="5" width="60" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.util.Date"><![CDATA[$F{fecha_abono}]]></textFieldExpression>
