@@ -789,6 +789,27 @@ public class Principal extends JFrame implements Buscadores {
 
             new Formulario_Saldos_Iniciales(this, true, this);
 
+            if(verificarSaldosIniciale()){
+                        // TODO add your handling code here:ç
+
+        for (int y = 0; y < tab.getTabCount(); y++) {
+            if (tab.getTitleAt(y).equals("Punto de Ventas")) {
+                tab.remove(tab.getTabComponentAt(me));
+            }
+        }
+        JDesktopPane dp = new JDesktopPane();
+        if (esta("Punto de Ventas") == -1) {
+            dp.setBackground(Color.WHITE);
+            FormularioPunoVentas fpv = new FormularioPunoVentas(tab, dp, this);
+            dp.add(fpv);
+            tab.addTab("Punto de Venta", dp);
+            tab.setSelectedComponent(dp);
+            tab.requestFocus();
+            dp.requestFocus();
+        } else {
+            tab.setSelectedIndex(esta("Punto de Ventas"));
+        }
+            }
 
         } else if (sele.equals("Reintegro")) {
             if (esta("Reintegro") == -1) {
