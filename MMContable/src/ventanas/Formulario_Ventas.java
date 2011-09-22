@@ -1530,9 +1530,15 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
     public void imprimir(String numero) {
         Map parametro = new HashMap();
+        this.obtentenerConsecutivo(1);
         parametro.put("titulo", "FACTURA DE VENTA");
         parametro.put("numero", numero);
         parametro.put("tipo", Constantes.DOCUMENTO_FACTURA_VENTA);
+        parametro.put("empresa",fe.getEncabezado1());
+        parametro.put("nit", fe.getEncabezado2());
+        parametro.put("direccion",fe.getEncabezado4());
+        parametro.put("telefono",fe.getEncabezado5());
+        parametro.put("mensaje",fe.getPie1());
          this.dispose();
         new utilidades.Reporte().runReporte("reportes/Factura.jasper", parametro);
     }
