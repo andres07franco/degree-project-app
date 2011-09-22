@@ -11,7 +11,7 @@ INSERT INTO `tipo_usuario` VALUES (1,'Administrador');
 
         INSERT INTO `tipo_documento` VALUES (1,'Saldos Iniciales');
         INSERT INTO `tipo_documento` VALUES (2,'Factura Compra');
-        INSERT INTO `tipo_documento` VALUES (3,'Factua Venta');
+        INSERT INTO `tipo_documento` VALUES (3,'Factura Venta');
         INSERT INTO `tipo_documento` VALUES (4,'Cotizacion');
         INSERT INTO `tipo_documento` VALUES (5,'Abono a Factura');
         INSERT INTO `tipo_documento` VALUES (6,'Ingreso');
