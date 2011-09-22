@@ -1687,6 +1687,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             doc.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
             doc.setSubtotal(doc.getTotalpagado());
             doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_EGRESO));
+            doc.setDocumento(d);
              m.insertarRegistro("insertarDocumento", doc);
              fe.setEgresos(fe.getEgresos() + 1);
              m.insertarRegistro("actualizarFacturaEmpresa", fe);
