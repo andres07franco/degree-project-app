@@ -13,6 +13,7 @@ import interfaces.Buscadores;
 import interfaces.Constantes;
 import java.awt.Frame;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -1142,11 +1143,11 @@ this.buscador = buscador;
                 }
 
                 List<Documento> labonos = (List<Documento>) model.obtenerListado("obtenerAbonos", documento.getId());
-
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
                 if (labonos != null) {
                     for (int i = 0; i < labonos.size(); i++) {
                         Documento abo = labonos.get(i);
-                        modeloTablaAbonos.addRow(new Object[]{abo.getFecha(), utilidades.FormatoNumeros.formatear(abo.getTotal() + "")});
+                        modeloTablaAbonos.addRow(new Object[]{formato.format(abo.getFecha()), utilidades.FormatoNumeros.formatear(abo.getTotal() + "")});
                     }
                 }
 

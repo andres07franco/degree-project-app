@@ -13,6 +13,7 @@ import db.Model;
 import beans.*;
 import interfaces.Constantes;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -1070,11 +1071,11 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 totalpagado.setText(utilidades.FormatoNumeros.formatear(d.getTotalpagado() + ""));
                 saldo.setText(utilidades.FormatoNumeros.formatear((d.getTotal().subtract(d.getTotalpagado()) + "")));
                 List<Documento> labonos = (List<Documento>) m.obtenerListado("obtenerAbonos", d.getId());
-
+                 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
                 if (labonos != null) {
                     for (int i = 0; i < labonos.size(); i++) {
                         Documento abo = labonos.get(i);
-                        mtabonos.addRow(new Object[]{abo.getFecha(), utilidades.FormatoNumeros.formatear(abo.getTotal() + "")});
+                        mtabonos.addRow(new Object[]{formato.format(abo.getFecha()), utilidades.FormatoNumeros.formatear(abo.getTotal() + "")});
                     }
                 }
                 tab.add("Abonos", panelabonos);
