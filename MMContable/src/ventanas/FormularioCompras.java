@@ -1015,9 +1015,10 @@ this.buscador = buscador;
 
                 }
          /*Creao abono si lo hizo*/
+             Documento abono = new Documento();
             if(documento.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO){
                 if(documento.getTotalpagado().compareTo(BigDecimal.ONE)==1){
-                    Documento abono = new Documento();
+                   
                     abono.setNumero(documento.getNumero());
                     abono.setTercero(documento.getTercero());
                     abono.setTipo((TipoDocumento) model.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_ABONO_A_FACTURA));
@@ -1038,17 +1039,24 @@ this.buscador = buscador;
                 Caja cajaDia = (Caja) model.obtenerRegistro("obtenerCajaDia");
                 if (documento.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO) {
                     cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(documento.getTotal()));
+                    documento.setSaldocaja(cajaDia.getSaldoactual());
                     cajaDia.setComprasefectivo(cajaDia.getVentasefectivo().add(documento.getTotal()));
 
                 } else if (documento.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO) {
                   //  BigDecimal ccto = documento.getTotal().subtract(documento.getTotalpagado());
+                    documento.setSaldocaja(cajaDia.getSaldoactual());
                     cajaDia.setComprascredito(cajaDia.getComprascredito().add(documento.getTotal()));
                     cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(documento.getTotalpagado()));
                   //  cajaDia.setComprasefectivo(cajaDia.getVentasefectivo().add(documento.getTotalpagado()));
-                    if(documento.getTotalpagado().doubleValue()>0)
+                    if(documento.getTotalpagado().doubleValue()>0){
+                         abono.setSaldocaja(cajaDia.getSaldoactual());
+                         model.actualizarRegistro("actualizarDocumento", abono);
                         cajaDia.setAbonocompras(cajaDia.getAbonocompras().add(documento.getTotalpagado()));
+
+                    }
                 }
-                model.actualizarRegistro("actualizarCajaDia", cajaDia);
+                model.actualizarRegistro("actualizarCajaDia", cajaDia);                
+                model.actualizarRegistro("actualizarDocumento", documento);
               int confirmado = JOptionPane.showConfirmDialog(this, "¿Desea imprimir la Factura?", "¿Imprimir?", JOptionPane.YES_NO_OPTION);
             if (JOptionPane.OK_OPTION == confirmado) {
                 imprimir(documento.getNumero());

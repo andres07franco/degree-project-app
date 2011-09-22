@@ -21,6 +21,7 @@ public class Documento {
     private Documento documento;
     private String estado;
     private int id_documento;
+    private BigDecimal saldocaja;
 
     @Override
     public String toString() {
@@ -181,6 +182,20 @@ public class Documento {
      */
     public void setId_documento(int id_documento) {
         this.id_documento = id_documento;
+    }
+
+    /**
+     * @return the saldocaja
+     */
+    public BigDecimal getSaldocaja() {
+        return saldocaja;
+    }
+
+    /**
+     * @param saldocaja the saldocaja to set
+     */
+    public void setSaldocaja(BigDecimal saldocaja) {
+        this.saldocaja = saldocaja;
     }
 
 

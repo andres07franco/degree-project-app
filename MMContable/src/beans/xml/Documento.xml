@@ -42,6 +42,7 @@
         <result property="documento.id"                     column="ID_DOCUMENTO" />
         <result property="documento.numero"                 column="NUMERO_DOCUMENTO" />
         <result property="estado"                     column="ESTADO" />
+        <result property="saldocaja"                     column="SALDO_CAJA" />
     </resultMap>
 
 
@@ -63,7 +64,8 @@
             d.tipodescuento    ID_TIPO_DESCUENTO,
             d.subtotal         SUBTOTAL,
             d.descuento        DESCUENTO,
-            d.estado            ESTADO
+            d.estado            ESTADO,
+            d.saldocaja        SALDO_CAJA
         FROM
             documento d, tercero t
         WHERE
@@ -94,7 +96,8 @@
             d.subtotal         SUBTOTAL,
             d.descuento        DESCUENTO,
             d.estado           ESTADO,
-            d.documento_id     ID_DOCUMENTO
+            d.documento_id     ID_DOCUMENTO,
+            d.saldocaja        SALDO_CAJA
         FROM
             documento d, tercero t
         WHERE
@@ -133,7 +136,8 @@
             d.tipodescuento    ID_TIPO_DESCUENTO,
             d.subtotal         SUBTOTAL,
             d.descuento        DESCUENTO,
-            d.estado           ESTADO
+            d.estado           ESTADO,
+            d.saldocaja        SALDO_CAJA
         FROM
             documento d, tercero t
         WHERE
@@ -166,7 +170,8 @@
             d.tipodescuento    ID_TIPO_DESCUENTO,
             d.subtotal         SUBTOTAL,
             d.descuento        DESCUENTO,
-            d.estado           ESTADO
+            d.estado           ESTADO,
+            d.saldocaja        SALDO_CAJA
         FROM
             documento d, tercero t
         WHERE
@@ -210,7 +215,8 @@
             d.subtotal         SUBTOTAL,
             d.descuento        DESCUENTO,
             d.estado           ESTADO,
-            d.documento_id     ID_DOCUMENTO
+            d.documento_id     ID_DOCUMENTO,
+            d.saldocaja        SALDO_CAJA
         FROM
             documento d, tercero t
         WHERE
@@ -250,7 +256,8 @@
             d.tipodescuento    ID_TIPO_DESCUENTO,
             d.subtotal         SUBTOTAL,
             d.descuento        DESCUENTO,
-            d.estado           ESTADO
+            d.estado           ESTADO,
+            d.saldocaja        SALDO_CAJA
         FROM
             documento d
         WHERE
@@ -278,7 +285,8 @@
                        subtotal,                      
                        descuento,
                        documento_id,
-                       estado)
+                       estado,
+                       saldocaja)
                 VALUES
                         (
              <if test="id != null">
@@ -297,7 +305,8 @@
                         #{subtotal         ,jdbcType=NUMERIC},
                         #{descuento       ,jdbcType=NUMERIC},
                         #{documento.id    ,jdbcType=INTEGER},
-                        #{estado    ,jdbcType=VARCHAR}
+                        #{estado    ,jdbcType=VARCHAR},
+                        #{saldocaja   ,jdbcType=INTEGER}
                         )
 
  </insert>
@@ -319,7 +328,8 @@
               tipodescuento =     #{tipodescuento.id ,jdbcType=INTEGER},
               subtotal =          #{subtotal         ,jdbcType=NUMERIC},
               descuento =         #{descuento       ,jdbcType=NUMERIC},
-              estado =            #{estado    ,jdbcType=VARCHAR}
+              estado =            #{estado    ,jdbcType=VARCHAR},
+              saldocaja =         #{saldocaja       ,jdbcType=NUMERIC}
            WHERE
                 id = #{id,jdbcType=INTEGER}
         ]]>
