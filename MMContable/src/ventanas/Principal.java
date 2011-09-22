@@ -831,7 +831,10 @@ public class Principal extends JFrame implements Buscadores {
             new utilidades.Reporte().runReporte("reportes/Articulos en Minimo.jasper", parametro);
         } else if (sele.equals("Diario de Ventas (Arqueos)")) {
             new VentanaReporteCaja(this, true).setVisible(true);
-        } else if (sele.equals("Resumen de Caja")) {
+        } else if (sele.equals("Detallado de Movimientos")) {
+            new VentanaMovimientos(this, true).setVisible(true);
+
+        }  else if (sele.equals("Resumen de Caja")) {
             new VentanaReporteCaja(this, true).setVisible(true);
 
         } else if (sele.equals("Informe de Caja Actual")) {
@@ -1093,7 +1096,7 @@ public class Principal extends JFrame implements Buscadores {
         sel.setText("Informes");
         seleccionar(informes);
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
-
+        treeNode1.add(new DefaultMutableTreeNode("Detallado de Movimientos"));
         treeNode1.add(new DefaultMutableTreeNode("Imprimir Documento"));
         treeNode1.add(new DefaultMutableTreeNode("Inventario"));
         treeNode1.add(new DefaultMutableTreeNode("Artículo en Mínimo"));

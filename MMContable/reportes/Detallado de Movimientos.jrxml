@@ -7,50 +7,101 @@
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="Table Dataset 1"/>
 	<subDataset name="dataset1"/>
-	<parameter name="articulo" class="java.lang.String"/>
 	<parameter name="fecha1" class="java.lang.String"/>
 	<parameter name="fecha2" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT
-     documento.`id` AS documento_id,
-     documento.`fecha` AS documento_fecha,
-     documento.`tercero` AS documento_tercero,
-     documento.`numero` AS documento_numero,
-     documento.`total` AS documento_total,
-     documento.`tipopago` AS documento_tipopago,
-     documento.`totalpagado` AS documento_totalpagado,
-     documento.`tipodescuento` AS documento_tipodescuento,
-     documento.`tipo` AS documento_tipo,
-     documento.`nota` AS documento_nota,
-     documento.`estado` AS documento_estado,
-     tipo_pago.`descripcion` AS tipo_pago_descripcion,
-     tipo_documento.`descripcion` AS tipo_documento_descripcion,
-     tercero.`nit` AS tercero_nit,
-     documento.`saldocaja` AS documento_saldocaja
+		<![CDATA[(SELECT
+    id as id,
+    fecha as fecha,
+    numero as documento_numero,
+    if(tipo = 3,"Factura de Venta Numero",nota) as concepto,
+    numero as numero,
+    0 as  egreso,
+    if(tipopago = 2  or tipopago = 3 and tipo = 3,0,totalpagado) as ingreso,
+    saldocaja as saldocaja
 FROM
-     `tipo_pago` tipo_pago INNER JOIN `documento` documento ON tipo_pago.`id` = documento.`tipopago`
-     INNER JOIN `tipo_documento` tipo_documento ON documento.`tipo` = tipo_documento.`id`
-     INNER JOIN `tercero` tercero ON documento.`tercero` = tercero.`id`
+    documento
 WHERE
-     (documento.`fecha` >= $P{fecha1}
- AND documento.`fecha` <= $P{fecha2})
- AND documento.`id` <> 1]]>
+    tipo
+IN
+    (3,6)
+AND (fecha >= $P{fecha1} AND fecha <= $P{fecha2})
+)
+UNION
+(SELECT
+    id as id,
+    fecha as fecha,
+    numero as documento_numero,
+    if(tipo = 2,"Factura de Compra Numero",nota) as concepto,
+    numero as numero,
+    if(tipopago = 2  or tipopago = 3 and tipo = 2,0,totalpagado) as egreso,
+    0 as ingreso,
+    saldocaja as saldocaja
+FROM
+    documento menn
+WHERE
+    tipo
+IN
+    (2,7)
+AND (fecha >= $P{fecha1} AND fecha <= $P{fecha2})
+)
+UNION
+(SELECT
+    d.id as  id,
+    d.fecha as fecha,
+    d.numero as documento_numero,
+    "Abono a Factura de Venta"   as  concepto,
+    doc.numero as numero,
+    0 as egreso,
+    d.totalpagado as ingreso,
+    d.saldocaja as saldocaja
+FROM
+    documento d, documento doc
+WHERE
+    d.tipo = 5
+AND
+   doc.id = d.documento_id
+AND
+    doc.tipo IN (3,6)
+AND (d.fecha >= $P{fecha1} AND d.fecha <= $P{fecha2})
+)
+UNION
+(SELECT
+    d.id as id,
+    d.fecha as fecha,
+    d.numero as documento_numero,
+    "Abono a Factura de Compra" as concepto,
+    doc.numero as numero,
+    d.totalpagado as  egreso,
+    0 as ingreso,
+    d.saldocaja as saldocaja
+FROM
+    documento d, documento doc
+WHERE
+    d.tipo = 5
+AND
+   doc.id = d.documento_id
+AND
+    doc.tipo IN (2,7)
+AND (d.fecha >= $P{fecha1} AND d.fecha <= $P{fecha2})
+)
+
+ORDER BY (id) asc;]]>
 	</queryString>
-	<field name="documento_id" class="java.lang.Integer"/>
-	<field name="documento_fecha" class="java.sql.Date"/>
-	<field name="documento_tercero" class="java.lang.Integer"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="fecha" class="java.sql.Date"/>
 	<field name="documento_numero" class="java.lang.String"/>
-	<field name="documento_total" class="java.math.BigDecimal"/>
-	<field name="documento_tipopago" class="java.lang.Integer"/>
-	<field name="documento_totalpagado" class="java.math.BigDecimal"/>
-	<field name="documento_tipodescuento" class="java.lang.Integer"/>
-	<field name="documento_tipo" class="java.lang.Integer"/>
-	<field name="documento_nota" class="java.lang.String"/>
-	<field name="documento_estado" class="java.lang.String"/>
-	<field name="tipo_pago_descripcion" class="java.lang.String"/>
-	<field name="tipo_documento_descripcion" class="java.lang.String"/>
-	<field name="tercero_nit" class="java.lang.Long"/>
-	<field name="documento_saldocaja" class="java.math.BigDecimal"/>
+	<field name="concepto" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="egreso" class="java.math.BigDecimal"/>
+	<field name="ingreso" class="java.math.BigDecimal"/>
+	<field name="saldocaja" class="java.math.BigDecimal"/>
+	<variable name="saldocaja_1" class="java.math.BigDecimal" resetType="Page" calculation="First">
+		<variableExpression><![CDATA[$F{saldocaja}]]></variableExpression>
+	</variable>
+	<variable name="saldocaja_2" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{ingreso}.subtract( $F{egreso} )]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -68,26 +119,26 @@ WHERE
 	<pageHeader>
 		<band height="63" splitType="Stretch">
 			<staticText>
-				<reportElement x="24" y="13" width="100" height="20"/>
+				<reportElement x="24" y="11" width="100" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha Inicial:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="323" y="13" width="100" height="20"/>
+				<reportElement x="323" y="11" width="100" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha Final:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="166" y="13" width="126" height="20"/>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="166" y="11" width="126" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{fecha1}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="448" y="13" width="118" height="20"/>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="448" y="11" width="118" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{fecha2}]]></textFieldExpression>
 			</textField>
@@ -98,13 +149,11 @@ WHERE
 				</textElement>
 				<text><![CDATA[Saldo Inicio de Período:]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="323" y="36" width="125" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Saldo Fin de Período:]]></text>
-			</staticText>
+			<textField evaluationTime="Page" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="166" y="36" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{saldocaja_1}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -123,14 +172,14 @@ WHERE
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="177" y="10" width="191" height="20"/>
+				<reportElement x="81" y="10" width="191" height="20"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concepto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="368" y="10" width="57" height="20"/>
+				<reportElement x="342" y="10" width="57" height="20"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -150,31 +199,39 @@ WHERE
 				</textElement>
 				<text><![CDATA[Saldo]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="79" y="10" width="90" height="20"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Tercero]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="34" splitType="Stretch">
-			<textField>
-				<reportElement x="5" y="6" width="70" height="20"/>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="9" width="75" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.util.Date"><![CDATA[$F{documento_fecha}]]></textFieldExpression>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="79" y="6" width="90" height="20"/>
+				<reportElement x="81" y="9" width="169" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.Long"><![CDATA[$F{tercero_nit}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{concepto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="411" y="9" width="78" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{egreso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="326" y="9" width="73" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ingreso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="503" y="9" width="63" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{saldocaja}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="503" y="6" width="63" height="20"/>
+				<reportElement x="252" y="9" width="73" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{documento_saldocaja}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numero}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

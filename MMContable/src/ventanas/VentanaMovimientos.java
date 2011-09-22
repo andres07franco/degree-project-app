@@ -10,23 +10,23 @@ import javax.swing.JOptionPane;
 import db.Model;
 import utilidades.Calendario;
 
-public class VentanaReporteCaja extends javax.swing.JDialog {
+public class VentanaMovimientos extends javax.swing.JDialog {
 
 
     Model m;
     Vector v;
     Frame parent;
 
-    public VentanaReporteCaja(java.awt.Frame parent, boolean modal) {
+    public VentanaMovimientos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.parent = parent;
 
         initComponents();
-        setTitle("Reporte de Caja");
+        setTitle("Detallado de Movimientos");
         this.setLocationRelativeTo(null);
     }
 
-    private VentanaReporteCaja(JFrame jFrame, boolean b) {
+    private VentanaMovimientos(JFrame jFrame, boolean b) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -51,6 +51,7 @@ public class VentanaReporteCaja extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("");
 
         jPanel1.setBackground(new java.awt.Color(212, 233, 255));
 
@@ -212,10 +213,10 @@ private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     if (!fecha1.getText().equals("")) {
 
                         Map parametro = new HashMap();
-                        parametro.put("fecha", fecha.getText());
+                        parametro.put("fecha1", fecha.getText());
                         parametro.put("fecha2", fecha1.getText());
                         this.dispose();
-                         new utilidades.Reporte().runReporte("reportes/Reporte de Caja.jasper", parametro);
+                         new utilidades.Reporte().runReporte("reportes/Detallado de Movimientos.jasper", parametro);
                     } else {
                         JOptionPane.showMessageDialog(null, "Seleccione una Fecha Final");
                     }
