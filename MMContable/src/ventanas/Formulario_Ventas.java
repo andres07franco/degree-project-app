@@ -986,6 +986,8 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 abono.setDescuento(BigDecimal.ZERO);
                 abono.setNota("Abono a Factura " + d.getNumero());
                 abono.setDocumento(d);
+                 fe.setEgresos(fe.getEgresos() + 1);
+                 m.insertarRegistro("actualizarFacturaEmpresa", fe);
                 m.insertarRegistro("insertarDocumento", abono);
             }
         }
@@ -1022,8 +1024,9 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         }
         return true;
     }
+    FacturaEmpresa fe=null;
     public long obtentenerConsecutivo(int tipo){
-        FacturaEmpresa fe=null;
+        
         try {
             fe = (FacturaEmpresa) m.obtenerRegistro("obtenerFacturaEmpresaActual");
         } catch (Exception ex) {
@@ -1612,6 +1615,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             cajaDia = (Caja) m.obtenerRegistro("obtenerCajaDia");
         } catch (Exception ex) {
             Logger.getLogger(Formulario_Ventas.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
 
         if(d.getFecha().getMonth() != new Date().getMonth() && d.getFecha().getYear()!= new Date().getYear()){
@@ -1631,7 +1635,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
         List<ArticulosDocumento> la = null;
         try {
-             d.setEstado(interfaces.Constantes.ESTADO_DOCUMENTO_ANULADO);
+            d.setEstado(interfaces.Constantes.ESTADO_DOCUMENTO_ANULADO);
             m.actualizarRegistro("actualizarDocumento", d);
             la = (List<ArticulosDocumento>) m.obtenerListado("obtenerArticulosDocumento", d.getId());
 
@@ -1642,36 +1646,61 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                     Object[] fila = new Object[5];
                     Articulo a = (Articulo) m.obtenerRegistro("obtenerArticuloPorId", ad.getArticulo().getId());
 
-                    a.setFechauventa(d.getFecha());
-                    a.setExistencia(a.getExistencia().add(a.getExistencia()));
-                    BigDecimal costoRestar = ad.getCantidad().multiply(a.getVlrpromedio());
-                    a.setSaldocosto(a.getSaldocosto().add(costoRestar));
-                    m.actualizarRegistro("actualizarArticulo", a);
+                    /*claculando promedio ponderado y actualizando existencias*/
+
+                    a.setExistencia(a.getExistencia().add(ad.getCantidad()));
+                    BigDecimal costoSumar = ad.getCantidad().multiply(a.getVlrpromedio());
+                    a.setSaldocosto(a.getSaldocosto().add(costoSumar));
+                    a.setVlrpromedio(new BigDecimal(a.getSaldocosto().doubleValue() / a.getExistencia().doubleValue()));
+
                     /*creando kardex*/
-                    Kardex k = new Kardex();
-                    k.setDocumento(d);
-                    k.setArticulo(a);
-                    k.setEntradas(ad.getCantidad());
-                    k.setSalidas(BigDecimal.ZERO);
-                    k.setExistencia(ad.getCantidad());
-                    k.setVlrunitario(a.getVlrpromedio());
-                    k.setVlrtotal(a.getSaldocosto());
-                    k.setHora(new Date());
-                    k.setFecha(new Date());
-                    m.insertarRegistro("insertarKardex", k);
+                    /*movemos el kardex*/
+                    Kardex kardex = new Kardex();
+                    kardex.setArticulo(ad.getArticulo());
+                    kardex.setDocumento(d);
+                    kardex.setSalidas(BigDecimal.ZERO);
+                    kardex.setEntradas(ad.getCantidad());
+                    kardex.setVlrunitario(a.getVlrpromedio());
+                    kardex.setVlrtotal(a.getSaldocosto());
+                    kardex.setFecha(new Date());
+                    kardex.setHora(new Date());
+                    kardex.setExistencia(a.getExistencia());
+                    m.insertarRegistro("insertarKardex", kardex);
 
                 }
             }
 
-            if (d.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO) {
-                cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(d.getTotal()));
-                cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().subtract(d.getTotal()));
-            } else {
+            /*crenado egreso*/
+
+            /*actualizando caja*/
+            Documento doc = new Documento();
+
+            doc.setNumero(obtentenerConsecutivo(Constantes.DOCUMENTO_EGRESO)+"");
+            doc.setNota("Anulación de Factura de Venta Número " + d.getNumero());
+            doc.setTotal(d.getTotalpagado());
+            doc.setTotalpagado(d.getTotalpagado());
+            doc.setFecha(new Date());
+            doc.setTercero(d.getTercero());
+            doc.setDescuento(BigDecimal.ZERO);
+            doc.setFechavencimiento(new Date());
+            doc.setTipopago((TipoPago) m.obtenerRegistro("obtenerTipoPago", Constantes.TIPO_PAGO_PAGADO));
+            doc.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
+            doc.setSubtotal(doc.getTotalpagado());
+            doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_EGRESO));
+             m.insertarRegistro("insertarDocumento", doc);
+             fe.setEgresos(fe.getEgresos() + 1);
+             m.insertarRegistro("actualizarFacturaEmpresa", fe);
+          /*  if (d.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO) {*/
+                cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(d.getTotalpagado()));
+                cajaDia.setGastosvarios(cajaDia.getGastosvarios().add(d.getTotal()));
+           /* } else {
                 cajaDia.setVentascredito(cajaDia.getVentascredito().subtract(d.getTotal()));
                 cajaDia.setSaldoactual(cajaDia.getSaldoactual().subtract(d.getTotalpagado()));
                 cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().subtract(d.getTotalpagado()));
-            }
+            }*/
             m.actualizarRegistro("actualizarCajaDia", cajaDia);
+            doc.setSaldocaja(cajaDia.getSaldoactual());
+            m.actualizarRegistro("actualizarDocumento", doc);
             JOptionPane.showMessageDialog(parent, "Factura anulada con éxito");
             b.buscar();
             this.dispose();
