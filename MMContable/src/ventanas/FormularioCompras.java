@@ -1036,7 +1036,8 @@ this.buscador = buscador;
                     abono.setNota("Abono a Factura " + documento.getNumero() );
                     abono.setDocumento(documento);
                     model.insertarRegistro("insertarDocumento", abono);
-
+                     fe.setEgresos(fe.getEgresos() + 1);
+                     model.insertarRegistro("actualizarFacturaEmpresa", fe);
                 }
             }
                 Caja cajaDia = (Caja) model.obtenerRegistro("obtenerCajaDia");
@@ -1073,8 +1074,9 @@ this.buscador = buscador;
         }
         return true;
     }
+    FacturaEmpresa fe=null;
     public long obtentenerConsecutivo(int tipo){
-        FacturaEmpresa fe=null;
+        
         try {
             fe = (FacturaEmpresa) model.obtenerRegistro("obtenerFacturaEmpresaActual");
         } catch (Exception ex) {

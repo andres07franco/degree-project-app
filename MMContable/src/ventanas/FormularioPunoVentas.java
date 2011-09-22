@@ -958,7 +958,7 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             if(d.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO){
                 if(d.getTotalpagado().compareTo(BigDecimal.ONE)==1){
                     
-                    abono.setNumero(obtentenerConsecutivo(Constantes.DOCUMENTO_INGRESO)+"");
+                    abono.setNumero(obtentenerConsecutivo(Constantes.DOCUMENTO_INGRESO )+"");
                     abono.setTercero(d.getTercero());
                     abono.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_ABONO_A_FACTURA));
                     abono.setTipopago((TipoPago) Model.getInstance().obtenerRegistro("obtenerTipoPago", Constantes.TIPO_PAGO_DEBITO));
@@ -971,7 +971,8 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                     abono.setDescuento(BigDecimal.ZERO);
                     abono.setNota("Abono a Factura " + d.getNumero() );
                     abono.setDocumento(d);
-                    
+                    fe.setIngresos(fe.getIngresos() + 1);
+                    m.insertarRegistro("actualizarFacturaEmpresa", fe);
                     m.insertarRegistro("insertarDocumento", abono);
                 }
             }
@@ -1008,8 +1009,9 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
     }
 
      /**/
+      FacturaEmpresa fe=null;
     public long obtentenerConsecutivo(int tipo){
-        FacturaEmpresa fe=null;
+        
         try {
             fe = (FacturaEmpresa) m.obtenerRegistro("obtenerFacturaEmpresaActual");
         } catch (Exception ex) {
