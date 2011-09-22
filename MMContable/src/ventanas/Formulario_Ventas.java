@@ -973,7 +973,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         if (d.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO) {
             if (d.getTotalpagado().compareTo(BigDecimal.ONE) == 1) {
                 
-                abono.setNumero(d.getNumero());
+                abono.setNumero(obtentenerConsecutivo(Constantes.DOCUMENTO_INGRESO)+"");
                 abono.setTercero(d.getTercero());
                 abono.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento", Constantes.DOCUMENTO_ABONO_A_FACTURA));
                 abono.setTipopago((TipoPago) Model.getInstance().obtenerRegistro("obtenerTipoPago", Constantes.TIPO_PAGO_DEBITO));
@@ -986,6 +986,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
                 abono.setDescuento(BigDecimal.ZERO);
                 abono.setNota("Abono a Factura " + d.getNumero());
                 abono.setDocumento(d);
+                m.insertarRegistro("insertarDocumento", abono);
             }
         }
         if (d.getTipo().getId() != Constantes.DOCUMENTO_FACTURA_VENTA) {
@@ -1021,7 +1022,26 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         }
         return true;
     }
-
+    public long obtentenerConsecutivo(int tipo){
+        FacturaEmpresa fe=null;
+        try {
+            fe = (FacturaEmpresa) m.obtenerRegistro("obtenerFacturaEmpresaActual");
+        } catch (Exception ex) {
+            Logger.getLogger(FormularioPunoVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (fe != null) {
+            long consecutivo = 0;
+            if(tipo==Constantes.DOCUMENTO_INGRESO)
+                consecutivo = fe.getIngresos() + 1;
+            else{
+                 consecutivo = fe.getEgresos() + 1;
+            }
+            return consecutivo ;
+        } else {
+           // JOptionPane.showMessageDialog(null, "No se han configurado las propiedades de la Factura,  no podrá  vender. \nDiríjase al Módulo de configuración y a continuación haga click en Personalizar Factura");
+           return 1;
+        }
+    }
     public void llenar() {
         try {
             this.anular.setEnabled(true);
@@ -1599,10 +1619,10 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             return;
         }
 
-        if (labonos == null) {
+       /* if (labonos == null) {
             JOptionPane.showMessageDialog(null, "No se puede anular la factura debido a que se han hecho varios movimientos con ella", "No se puede Anular", JOptionPane.ERROR_MESSAGE);
             return;
-        }
+        }*/
 
         if(cajaDia.getSaldoactual().compareTo(d.getTotalpagado())==-1){
             JOptionPane.showMessageDialog(null, "No hay suficiente dinero en caja para anular la factura", "No se puede Anular", JOptionPane.ERROR_MESSAGE);
