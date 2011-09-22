@@ -140,7 +140,6 @@ this.buscador = buscador;
         panelabonos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaabonos = new javax.swing.JTable();
-        agregar = new javax.swing.JButton();
         totalpagado = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -443,15 +442,6 @@ this.buscador = buscador;
         ));
         jScrollPane2.setViewportView(tablaabonos);
 
-        agregar.setForeground(new java.awt.Color(0, 51, 153));
-        agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar.png"))); // NOI18N
-        agregar.setText("Agregar");
-        agregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarActionPerformed(evt);
-            }
-        });
-
         totalpagado.setFont(new java.awt.Font("Tahoma", 1, 14));
         totalpagado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         totalpagado.setText("0.00");
@@ -471,22 +461,20 @@ this.buscador = buscador;
         panelabonosLayout.setHorizontalGroup(
             panelabonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelabonosLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelabonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelabonosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelabonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelabonosLayout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(saldo, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelabonosLayout.createSequentialGroup()
-                                .addComponent(agregar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 563, Short.MAX_VALUE)
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(totalpagado, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 853, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saldo, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelabonosLayout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(totalpagado, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(panelabonosLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelabonosLayout.setVerticalGroup(
@@ -497,16 +485,11 @@ this.buscador = buscador;
                     .addComponent(jLabel15)
                     .addComponent(saldo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                .addGroup(panelabonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelabonosLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(agregar))
-                    .addGroup(panelabonosLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelabonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(totalpagado)
-                            .addComponent(jLabel16))))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelabonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(totalpagado)
+                    .addComponent(jLabel16))
                 .addContainerGap())
         );
 
@@ -542,7 +525,7 @@ this.buscador = buscador;
         ntercero.setEditable(false);
 
         imprimir.setBackground(new java.awt.Color(0, 152, 255));
-        imprimir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        imprimir.setFont(new java.awt.Font("Tahoma", 1, 11));
         imprimir.setForeground(new java.awt.Color(0, 51, 153));
         imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/print-16x16.png"))); // NOI18N
         imprimir.setText("Imprimir");
@@ -894,9 +877,6 @@ this.buscador = buscador;
     private void articuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_articuloActionPerformed
 }//GEN-LAST:event_articuloActionPerformed
 
-    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-}//GEN-LAST:event_agregarActionPerformed
-
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         int confirmado = JOptionPane.showConfirmDialog(this, "Se borrará todo lo que ha hecho, está seguro de SALIR?", "¿Reiniciar?", JOptionPane.YES_NO_OPTION);
         if (JOptionPane.OK_OPTION == confirmado) {
@@ -1158,7 +1138,7 @@ this.buscador = buscador;
                 saldo.setText(utilidades.FormatoNumeros.formatear((documento.getTotal().subtract(documento.getTotalpagado())) + ""));
 
                 if (documento.getEstado().equals(Constantes.ESTADO_DOCUMENTO_PAGADO)) {
-                    agregar.setEnabled(false);
+                   
                 }
 
                 List<Documento> labonos = (List<Documento>) model.obtenerListado("obtenerAbonos", documento.getId());
@@ -1246,7 +1226,6 @@ this.buscador = buscador;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar;
-    private javax.swing.JButton agregar;
     private javax.swing.JTextField articulo;
     private javax.swing.JButton buscafecha;
     private javax.swing.JButton buscaproveedor;
