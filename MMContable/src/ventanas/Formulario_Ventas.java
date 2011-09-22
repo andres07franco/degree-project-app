@@ -1037,7 +1037,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
 
                 }else if (d.getEstado().equals(Constantes.ESTADO_DOCUMENTO_ANULADO)){
                     this.estadofactura.setText("Anulada");
-
+                     anular.setEnabled(false);
                 }
 
 
@@ -1574,7 +1574,11 @@ public class Formulario_Ventas extends javax.swing.JDialog {
     private void anularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anularActionPerformed
 
         // TODO add your handling code here:
-       
+
+        int confirmado = JOptionPane.showConfirmDialog(this, "Está seguro de anular la Factura?", "¿Anular?", JOptionPane.YES_NO_OPTION);
+        if (JOptionPane.OK_OPTION != confirmado) {
+            return;
+        }
         List<Documento> labonos = null;
         try {
             labonos = (List<Documento>) m.obtenerListado("obtenerAbonos", d.getId());
