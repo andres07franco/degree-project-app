@@ -569,6 +569,8 @@ public class Formulario_Egresos_Ingresos extends javax.swing.JDialog {
                     
               
                 m.actualizarRegistro("actualizarCajaDia", cajaDia);
+            d.setSaldocaja(cajaDia.getSaldoactual());
+            m.actualizarRegistro("actualizarDocumento", d);
                 /* int confirmado = JOptionPane.showConfirmDialog(this,"¿Desea imprimir la Factura?","¿Imprimir?",JOptionPane.YES_NO_OPTION);
                 if (JOptionPane.OK_OPTION == confirmado)
                 imprimir(d.getNumero());*/
