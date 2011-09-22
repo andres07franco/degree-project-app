@@ -2,6 +2,8 @@ package ventanas;
 
 import beans.Articulo;
 import beans.Documento;
+import beans.FacturaEmpresa;
+import db.Model;
 import interfaces.Constantes;
 import java.awt.Frame;
 import java.util.HashMap;
@@ -104,39 +106,39 @@ public class VentanaImprimeFactura extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
+                .addComponent(buscara, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel4))
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tipo, 0, 168, Short.MAX_VALUE)
+                            .addComponent(tipo, 0, 191, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(16, 16, 16)
                                 .addComponent(buscaFactrura, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(12, 12, 12))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buscara, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76))
+                        .addGap(72, 72, 72))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(37, 37, 37)
                         .addComponent(buscara))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -180,20 +182,54 @@ public class VentanaImprimeFactura extends javax.swing.JDialog {
 
 public void imprimir(String numero){
        Map parametro = new HashMap();
+        this.obtentenerConsecutivo(1);
        parametro.put("numero", numero);
        if(tipo.getSelectedIndex() == 0){
            parametro.put("titulo", "FACTURA DE VENTA");
            parametro.put("tipo", Constantes.DOCUMENTO_FACTURA_VENTA);
+         parametro.put("empresa",fe.getEncabezado1());
+        parametro.put("nit", fe.getEncabezado2());
+        parametro.put("direccion",fe.getEncabezado4());
+        parametro.put("telefono",fe.getEncabezado5());
+        parametro.put("mensaje",fe.getPie1());
       }else  if(tipo.getSelectedIndex() == 1){
            parametro.put("titulo", "FACTURA DE COMPRA");
            parametro.put("tipo", Constantes.DOCUMENTO_FACTURA_COMPRA);
+
       }else  if(tipo.getSelectedIndex() == 2){
            parametro.put("titulo", "COTIZACIÓN");
-           parametro.put("tipo", Constantes.DOCUMENTO_COTIZACION);         
+           parametro.put("tipo", Constantes.DOCUMENTO_COTIZACION);
+        parametro.put("empresa",fe.getEncabezado1());
+        parametro.put("nit", fe.getEncabezado2());
+        parametro.put("direccion",fe.getEncabezado4());
+        parametro.put("telefono",fe.getEncabezado5());
+        parametro.put("mensaje",fe.getPie1());
       }
        this.dispose();
        new utilidades.Reporte().runReporte("reportes/Factura.jasper", parametro);
    }
+
+    FacturaEmpresa fe=null;
+    public long obtentenerConsecutivo(int tipo){
+
+        try {
+            fe = (FacturaEmpresa) Model.getInstance().obtenerRegistro("obtenerFacturaEmpresaActual");
+        } catch (Exception ex) {
+           return 1;
+        }
+        if (fe != null) {
+            long consecutivo = 0;
+            if(tipo==Constantes.DOCUMENTO_INGRESO)
+                consecutivo = fe.getIngresos() + 1;
+            else{
+                 consecutivo = fe.getEgresos() + 1;
+            }
+            return consecutivo ;
+        } else {
+           // JOptionPane.showMessageDialog(null, "No se han configurado las propiedades de la Factura,  no podrá  vender. \nDiríjase al Módulo de configuración y a continuación haga click en Personalizar Factura");
+           return 1;
+        }
+    }
     private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
         // TODO add your handling code here:
 if(d != null )
