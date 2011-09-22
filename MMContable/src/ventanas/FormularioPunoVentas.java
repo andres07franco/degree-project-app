@@ -954,10 +954,11 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
 
          /*Creao abono si lo hizo*/
             Documento abono = new Documento();
+           
             if(d.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO){
                 if(d.getTotalpagado().compareTo(BigDecimal.ONE)==1){
                     
-                    abono.setNumero(d.getNumero());
+                    abono.setNumero(obtentenerConsecutivo(Constantes.DOCUMENTO_INGRESO)+"");
                     abono.setTercero(d.getTercero());
                     abono.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_ABONO_A_FACTURA));
                     abono.setTipopago((TipoPago) Model.getInstance().obtenerRegistro("obtenerTipoPago", Constantes.TIPO_PAGO_DEBITO));
@@ -970,16 +971,15 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
                     abono.setDescuento(BigDecimal.ZERO);
                     abono.setNota("Abono a Factura " + d.getNumero() );
                     abono.setDocumento(d);
-                                abono.setSaldocaja(cajaDia.getSaldoactual());
-                         m.actualizarRegistro("actualizarDocumento", d);
-
+                    
+                    m.insertarRegistro("insertarDocumento", abono);
                 }
             }
           if(d.getTipo().getId() != Constantes.DOCUMENTO_FACTURA_VENTA)
               return true;
          /*Actualizamos caja*/
          try {
-             cajaDia = (Caja) m.obtenerRegistro("obtenerCajaDia");
+              cajaDia = (Caja) m.obtenerRegistro("obtenerCajaDia");
              if(d.getTipopago().getId() == Constantes.TIPO_PAGO_DEBITO){
                  cajaDia.setSaldoactual(cajaDia.getSaldoactual().add(d.getTotal()));
                  cajaDia.setVentasefectivo(cajaDia.getVentasefectivo().add(d.getTotal()));
@@ -1005,6 +1005,28 @@ public class FormularioPunoVentas extends javax.swing.JInternalFrame  {
             ex.printStackTrace();
         }
             return true;
+    }
+
+     /**/
+    public long obtentenerConsecutivo(int tipo){
+        FacturaEmpresa fe=null;
+        try {
+            fe = (FacturaEmpresa) m.obtenerRegistro("obtenerFacturaEmpresaActual");
+        } catch (Exception ex) {
+            Logger.getLogger(FormularioPunoVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (fe != null) {
+            long consecutivo = 0;
+            if(tipo==Constantes.DOCUMENTO_INGRESO)
+                consecutivo = fe.getIngresos() + 1;
+            else{
+                 consecutivo = fe.getEgresos() + 1;
+            }
+            return consecutivo ;
+        } else {
+           // JOptionPane.showMessageDialog(null, "No se han configurado las propiedades de la Factura,  no podrá  vender. \nDiríjase al Módulo de configuración y a continuación haga click en Personalizar Factura");
+           return 1;
+        }
     }
 
    public void imprimir(String numero){

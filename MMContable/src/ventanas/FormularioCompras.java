@@ -4,6 +4,7 @@ import beans.Articulo;
 import beans.ArticulosDocumento;
 import beans.Caja;
 import beans.Documento;
+import beans.FacturaEmpresa;
 import beans.Kardex;
 import beans.Tercero;
 import beans.TipoDocumento;
@@ -19,6 +20,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utilidades.Calendario;
@@ -1019,7 +1022,7 @@ this.buscador = buscador;
             if(documento.getTipopago().getId() == Constantes.TIPO_PAGO_CREDITO){
                 if(documento.getTotalpagado().compareTo(BigDecimal.ONE)==1){
                    
-                    abono.setNumero(documento.getNumero());
+                    abono.setNumero(obtentenerConsecutivo(Constantes.DOCUMENTO_EGRESO)+"");
                     abono.setTercero(documento.getTercero());
                     abono.setTipo((TipoDocumento) model.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_ABONO_A_FACTURA));
                     abono.setTipopago((TipoPago) Model.getInstance().obtenerRegistro("obtenerTipoPago", Constantes.TIPO_PAGO_DEBITO));
@@ -1032,7 +1035,7 @@ this.buscador = buscador;
                     abono.setDescuento(BigDecimal.ZERO);
                     abono.setNota("Abono a Factura " + documento.getNumero() );
                     abono.setDocumento(documento);
-
+                    model.insertarRegistro("insertarDocumento", abono);
 
                 }
             }
@@ -1070,7 +1073,26 @@ this.buscador = buscador;
         }
         return true;
     }
-
+    public long obtentenerConsecutivo(int tipo){
+        FacturaEmpresa fe=null;
+        try {
+            fe = (FacturaEmpresa) model.obtenerRegistro("obtenerFacturaEmpresaActual");
+        } catch (Exception ex) {
+            Logger.getLogger(FormularioPunoVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (fe != null) {
+            long consecutivo = 0;
+            if(tipo==Constantes.DOCUMENTO_INGRESO)
+                consecutivo = fe.getIngresos() + 1;
+            else{
+                 consecutivo = fe.getEgresos() + 1;
+            }
+            return consecutivo ;
+        } else {
+           // JOptionPane.showMessageDialog(null, "No se han configurado las propiedades de la Factura,  no podrá  vender. \nDiríjase al Módulo de configuración y a continuación haga click en Personalizar Factura");
+           return 1;
+        }
+    }
     public boolean validar() {
         if (numero.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite el NÚMERO por favor");
