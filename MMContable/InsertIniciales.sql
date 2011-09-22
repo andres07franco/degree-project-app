@@ -18,7 +18,7 @@ INSERT INTO `tipo_usuario` VALUES (1,'Administrador');
         INSERT INTO `tipo_documento` VALUES (7,'Egreso');
         INSERT INTO `tipo_documento` VALUES (8,'Devolucion');
 
-        INSERT INTO `tipo_articulo` VALUES (1,'Articulo');
+        INSERT INTO `tipo_articulo` VALUES (1,'Artículo');
         INSERT INTO `tipo_articulo` VALUES (2,'Servicio');
         INSERT INTO `tipo_articulo` VALUES (3,'Combo-Kit');
 
