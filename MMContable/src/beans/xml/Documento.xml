@@ -262,6 +262,8 @@
             documento d
         WHERE
           d.documento_id =  #{id ,jdbcType=INTEGER}
+        AND
+           d.tipo = 5
 
     </select>
 
