@@ -1615,9 +1615,11 @@ public class Formulario_Ventas extends javax.swing.JDialog {
         if (JOptionPane.OK_OPTION != confirmado) {
             return;
         }
-        List<Documento> labonos = null;
+
+        
         try {
-            labonos = (List<Documento>) m.obtenerListado("obtenerAbonos", d.getId());
+
+
             cajaDia = (Caja) m.obtenerRegistro("obtenerCajaDia");
         } catch (Exception ex) {
             Logger.getLogger(Formulario_Ventas.class.getName()).log(Level.SEVERE, null, ex);
@@ -1691,7 +1693,7 @@ public class Formulario_Ventas extends javax.swing.JDialog {
             doc.setFechavencimiento(new Date());
             doc.setTipopago((TipoPago) m.obtenerRegistro("obtenerTipoPago", Constantes.TIPO_PAGO_PAGADO));
             doc.setEstado(Constantes.ESTADO_DOCUMENTO_PAGADO);
-            doc.setSubtotal(doc.getTotalpagado());
+            doc.setSubtotal(d.getTotalpagado());
             doc.setTipo((TipoDocumento) m.obtenerRegistro("obtenerTipoDocumento",Constantes.DOCUMENTO_EGRESO));
             doc.setDocumento(d);
              m.insertarRegistro("insertarDocumento", doc);
