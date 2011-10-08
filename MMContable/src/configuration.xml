@@ -68,7 +68,7 @@
         <mapper resource="beans/xml/FacturaEmpresa.xml"/>
         <mapper resource="beans/xml/Ciudad.xml"/>
         <mapper resource="beans/xml/Articulo.xml"/>
-        <mapper resource="beans/xml/funcion.xml"/>
+        <mapper resource="beans/xml/Funcion.xml"/>
         <mapper resource="beans/xml/TipoUsuario.xml"/>
         <mapper resource="beans/xml/Estado.xml"/>
         <mapper resource="beans/xml/PapelImpresion.xml"/>
