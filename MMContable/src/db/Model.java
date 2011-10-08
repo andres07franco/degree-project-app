@@ -48,7 +48,7 @@ public class Model {
             ex.printStackTrace();
             System.exit(0);
         }catch(org.apache.ibatis.exceptions.PersistenceException ex){
-            javax.swing.JOptionPane.showMessageDialog(null,"Debe iniciar el servidro MYSQL para poder empezar","Inconveniente",javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(null,"Debe iniciar el servidor MYSQL para poder empezar","Inconveniente",javax.swing.JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
             System.exit(0);
         }
