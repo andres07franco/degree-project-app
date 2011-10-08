@@ -20,7 +20,6 @@ INSERT INTO `tipo_usuario` VALUES (1,'Administrador');
 
         INSERT INTO `tipo_articulo` VALUES (1,'Artículo');
         INSERT INTO `tipo_articulo` VALUES (2,'Servicio');
-        INSERT INTO `tipo_articulo` VALUES (3,'Combo-Kit');
 
         INSERT INTO `estado` VALUES (1,'Inactivo');
         INSERT INTO `estado` VALUES (2,'Activo');
